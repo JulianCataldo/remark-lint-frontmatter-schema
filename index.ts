@@ -9,9 +9,10 @@ import { VFileMessage } from 'vfile-message';
 import { lintRule } from 'unified-lint-rule';
 import type { Node } from 'unist';
 /* —————————————————————————————————————————————————————————————————————————— */
-
 // FIXME: find correct source type instead of overloading this one
 type NodeWithChildren = Node & { children?: { value: string }[] };
+type Frontmatter = { $schema?: string; [key: string]: any };
+/* ·········································································· */
 
 const remarkFrontmatterSchema = lintRule(
   {
@@ -20,7 +21,7 @@ const remarkFrontmatterSchema = lintRule(
   },
   (ast: NodeWithChildren, file) => {
     const raw = ast?.children[0].value;
-    const data: { $schema?: string; [key: string]: any } = yaml.load(raw);
+    const data: Frontmatter = yaml.load(raw);
     const ajv = new Ajv({ allErrors: true });
     addFormats(ajv);
 
