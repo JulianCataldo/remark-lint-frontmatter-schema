@@ -51,7 +51,8 @@ const remarkFrontmatterSchema = lintRule(
         // TODO: find a way to map code range to validation errors
         // position,
         null,
-        'Here',
+        // NOTE: `origin` doesn't seems to be leveraged by anything
+        // 'origin',
       );
 
       msg.note = yaml
