@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.2.0...v2.3.0) (2022-08-05)
+
+
+### Features
+
+* docs for known limitations + keywords ([a12fdb4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/a12fdb4da2eaacfc73df4b3a41d2f48951510436))
+
 # [2.2.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.1.0...v2.2.0) (2022-08-05)
 
 
