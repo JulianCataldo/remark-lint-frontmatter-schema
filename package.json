@@ -13,13 +13,16 @@
     "frontmatter",
     "remarkjs",
     "rule",
-    "ajv"
+    "ajv",
+    "markdown",
+    "vscode",
+    "tooling"
   ],
   "type": "module",
   "source": "./index.ts",
   "main": "./dist/lib.js",
   "types": "./dist/lib.d.ts",
-  "version": "2.2.0",
+  "version": "2.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema.git"
