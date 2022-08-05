@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.3.0...v2.4.0) (2022-08-05)
+
+
+### Features
+
+* add code examples in docs ([c449814](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/c4498145efb6e5bfc93be49238c04aeb4e5de418))
+
 # [2.3.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.2.0...v2.3.0) (2022-08-05)
 
 
