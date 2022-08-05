@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.0...v2.4.1) (2022-08-05)
+
+
+### Bug Fixes
+
+* remove dead code + refactor ([e167e11](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/e167e11945480219318375c8b541c2e749c71bad))
+
 # [2.4.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.3.0...v2.4.0) (2022-08-05)
 
 
