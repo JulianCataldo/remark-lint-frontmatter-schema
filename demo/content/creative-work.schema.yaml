@@ -1,0 +1,14 @@
+type: object
+properties:
+  title:
+    type: string
+  category:
+    type: string
+    enum:
+      - Book
+      - Movie
+      - Painting
+      - Photo
+required:
+  - title
+  - category
