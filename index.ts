@@ -61,6 +61,8 @@ const remarkFrontmatterSchema = lintRule(
         })
         .trim();
 
+      // FIXME: beware that this is not working correctly with `auto-fix`,
+      // can be dangerous (wrong code range)!
       msg.expected = error?.params?.allowedValues;
 
       file.messages.push(msg);
