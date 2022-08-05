@@ -53,6 +53,7 @@ Use it as usual like any remark plugin inside your framework or your custom `uni
 #### Custom
 
 ```ts
+// ...
 import remarkFrontmatter from 'remark-frontmatter';
 import rlFmSchema from '@julian_cataldo/remark-lint-frontmatter-schema';
 
@@ -71,7 +72,7 @@ unified()
 
 ##### Astro
 
-In `astro.config.mjs`.
+In `astro.config.mjs`
 
 ```ts
 // ...
