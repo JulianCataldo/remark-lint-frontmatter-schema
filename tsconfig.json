@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // Enable top-level await, and other modern ESM features.
+    "target": "ESNext",
+    "module": "ESNext",
+    // Enable node-style module resolution, for things like npm package imports.
+    "moduleResolution": "node",
+    // Enable JSON imports.
+    "resolveJsonModule": true,
+    // Enable stricter transpilation for better output.
+    "isolatedModules": true,
+    "types": ["node", "unist", "unified"],
+
+    "allowJs": true,
+    "noEmit": true, // When `tsc` is for typechecking only, not for compilation
+
+    "noImplicitAny": true,
+
+    "baseUrl": ".",
+    "paths": {},
+
+    "allowSyntheticDefaultImports": true
+
+    // "composite": true
+    // "declaration": true,
+    // "declarationMap": true
+  }
+}

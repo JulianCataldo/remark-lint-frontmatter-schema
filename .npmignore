@@ -1,0 +1,5 @@
+.github
+.parcel-cache
+.releaserc*
+index.ts
+tsconfig.json
