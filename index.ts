@@ -40,7 +40,7 @@ const remarkFrontmatterSchema = lintRule(
     validate?.errors?.forEach((error) => {
       const l = location(raw);
 
-      const thePath = error.instancePath.substring(1).replace("/", ".");
+      // const thePath = error.instancePath.substring(1).replace("/", ".");
 
       const msg = new VFileMessage(
         `Schema${error.instancePath ? ` ${error.instancePath}:` : ":"} ${
