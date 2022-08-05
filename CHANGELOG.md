@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v1.2.0...v1.3.0) (2022-08-05)
+
+
+### Features
+
+* vscode extensions recommendation for demo ([8d4cb7b](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/8d4cb7b9e9b31648b702b109d62d39e4d5c3f50a))
+
 # [1.2.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v1.1.0...v1.2.0) (2022-08-05)
 
 
