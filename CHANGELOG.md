@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.0.0...v2.1.0) (2022-08-05)
+
+
+### Features
+
+* demo file package ([216acfd](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/216acfdd6a401b2d7ec7b3f4fdfd94ff44649319))
+
 # [2.0.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v1.3.0...v2.0.0) (2022-08-05)
 
 
