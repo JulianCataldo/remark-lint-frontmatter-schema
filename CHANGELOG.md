@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v1.1.0...v1.2.0) (2022-08-05)
+
+
+### Features
+
+* remark lint base demo config ([ae67bc3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/ae67bc3b8190949928cb6bb838db97d73f1b1eb1))
+
 # [1.1.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v1.0.0...v1.1.0) (2022-08-05)
 
 
