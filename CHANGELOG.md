@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v1.3.0...v2.0.0) (2022-08-05)
+
+
+### Features
+
+* force bump major version (deleted npm) ([7d439b2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/7d439b28046d6a1624b0baa0ffa11d4f2b48f853))
+
+
+### BREAKING CHANGES
+
+*
+
 # [1.3.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v1.2.0...v1.3.0) (2022-08-05)
 
 
