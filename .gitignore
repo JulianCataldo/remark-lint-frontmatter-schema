@@ -3,3 +3,4 @@ node_modules
 .DS_Store
 .dev
 dist
+demo/pnpm-lock.yaml
