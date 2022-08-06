@@ -22,7 +22,7 @@
   "source": "./index.ts",
   "main": "./dist/lib.js",
   "types": "./dist/lib.d.ts",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema.git"

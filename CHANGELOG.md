@@ -1,3 +1,10 @@
+## [2.4.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.1...v2.4.2) (2022-08-06)
+
+
+### Bug Fixes
+
+* typo for url in docs ([8d70a9b](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/8d70a9b074f63ca89927d3fabef111133fdc3d96))
+
 ## [2.4.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.0...v2.4.1) (2022-08-05)
 
 
