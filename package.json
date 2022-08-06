@@ -1,36 +1,24 @@
 {
   "name": "@julian_cataldo/remark-lint-frontmatter-schema",
+  "version": "2.4.6",
   "description": "Validate Markdown frontmatter YAML against an associated JSON schema — remark-lint rule plugin",
-  "keywords": [
-    "lint",
-    "yaml",
-    "remark",
-    "validation",
-    "linting",
-    "json-schema",
-    "linter",
-    "unified",
-    "frontmatter",
-    "remarkjs",
-    "rule",
-    "ajv",
-    "markdown",
-    "vscode",
-    "tooling"
-  ],
   "type": "module",
   "source": "./index.ts",
   "main": "./dist/lib.js",
   "types": "./dist/lib.d.ts",
-  "version": "2.4.6",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema.git"
-  },
   "scripts": {
     "watch": "pnpm parcel watch",
     "build": "pnpm parcel build",
     "semantic-release": "semantic-release"
+  },
+  "dependencies": {
+    "ajv": "^8.11.0",
+    "ajv-formats": "^2.1.1",
+    "js-yaml": "^4.1.0",
+    "lodash-es": "^4.17.21",
+    "unified-lint-rule": "^2.1.1",
+    "vfile-location": "^4.0.1",
+    "vfile-message": "^3.1.2"
   },
   "devDependencies": {
     "@parcel/core": "^2.7.0",
@@ -49,16 +37,35 @@
     "typescript": "^4.7.4",
     "unified": "^10.1.2"
   },
+  "homepage": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues",
+    "email": "contact@juliancataldo.com"
+  },
+  "author": "Julian Cataldo",
+  "license": "ISC",
+  "keywords": [
+    "lint",
+    "yaml",
+    "remark",
+    "validation",
+    "linting",
+    "json-schema",
+    "linter",
+    "unified",
+    "frontmatter",
+    "remarkjs",
+    "rule",
+    "ajv",
+    "markdown",
+    "vscode",
+    "tooling"
+  ],
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "ajv": "^8.11.0",
-    "ajv-formats": "^2.1.1",
-    "js-yaml": "^4.1.0",
-    "lodash-es": "^4.17.21",
-    "unified-lint-rule": "^2.1.1",
-    "vfile-location": "^4.0.1",
-    "vfile-message": "^3.1.2"
   }
 }
