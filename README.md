@@ -29,13 +29,13 @@ Validate your Markdown frontmatter data against a JSON schema with this **remark
 # Usage
 
 ```shell
-pnpm i -D  @julian_cataldo/remark-lint-frontmatter-schema
+pnpm i -D @julian_cataldo/remark-lint-frontmatter-schema
 ```
 
 ## Installation
 
-> **Remove** `-D` flag if you're using this plugin within a runtime `unified` MD / MDX pipeline (Astro, Gatsby, etc.), for production.  
-> **Keep** it if you just want to lint with CLI or your IDE locally, without any production / CI needs.
+> **Remove** `-D` flag if you're using this plugin within a runtime **`unified`** MD / MDX **pipeline** (Custom, Astro, Gatsby, etc.), for production.  
+> **Keep it** if you just want to lint with **CLI** or your **IDE** locally, without any production / CI needs.
 
 ## Setting up
 
