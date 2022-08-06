@@ -12,7 +12,8 @@ Validate your Markdown frontmatter data against a JSON schema with this **remark
 - [Usage](#usage)
   - [Installation](#installation)
   - [Setting up](#setting-up)
-    - [CLI / IDE](#cli--ide)
+    - [Markdown content](#markdown-content)
+    - [CLI / IDE (VS Code)](#cli--ide-vs-code)
     - [MD / MDX pipeline](#md--mdx-pipeline)
       - [Custom](#custom)
       - [Framework](#framework)
@@ -39,12 +40,47 @@ pnpm i -D @julian_cataldo/remark-lint-frontmatter-schema
 
 ## Setting up
 
-### CLI / IDE
+### Markdown content
 
-See [./demo](./demo/) folder to get a working, pre-configured, bare project workspace.  
+See **[./demo/content](./demo/content)** files for examples.
+
+All you have to do is to point to a schema path, relative to project root, thanks to `'$schema'` key:
+
+```markdown
+---
+'$schema': /content/creative-work.schema.yaml
+
+title: Hello there
+category: Book
+---
+
+# You're welcome!
+
+…
+```
+
+`creative-work.schema.yaml`
+
+```yaml
+type: object
+properties:
+  title:
+    type: string
+# ...
+```
+
+### CLI / IDE (VS Code)
+
+```sh
+pnpm remark .
+```
+
+Supporting `remark-cli` or `unifiedjs.vscode-remark` extension.
+
+👉  **See [./demo](./demo/)** folder to get a working, pre-configured, bare project workspace.  
 You also get example markdown files and associated schema to play with.
 
-📌  Checkout the **[demo/README.md](demo/README.md) for step-by-step instructions**.
+📌  Checkout the **[demo/README.md](./demo) for step-by-step instructions**.
 
 ### MD / MDX pipeline
 
@@ -68,7 +104,7 @@ unified()
 #### Framework
 
 > **Warning**  
-> Untested!
+> NOT tested yet!
 
 ##### Astro
 
@@ -115,10 +151,15 @@ In `gatsby-config.js`
 
 # Known limitations
 
-Actually, you will not have code range detection for schemas errors.  
-Finding a way of doing this would allow hot-fix replacement for `enum` suggestions, for example.  
+Actually, you will not have **code range detection** for schemas errors.  
+Finding a way of doing this would easily allow hot-fix replacement for `enum` suggestions, for example.  
 The great folks who made [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)
-have tackled this.
+have tackled this, and much more.  
+In fact, this remark plugin is **very far** from `yaml-language-server` capabilities, which are astonishing.  
+Still, this `remark` plugin is, I think, the only way to validate YAML
+frontmatter inside Markdown.  
+My current knowledge is that YAML in Markdown, by not being part of any official specs, is hindering development in this direction.  
+So it's better than nothing I guess, and could be a first step for something more robust.
 
 ---
 
