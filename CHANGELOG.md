@@ -1,3 +1,11 @@
+## [2.4.6](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.5...v2.4.6) (2022-08-06)
+
+
+### Bug Fixes
+
+* add npm package badge link ([14a2ef4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/14a2ef439ce560bfadb5484ef41704a3f67d2dc5))
+* docs, add npm badge + better description ([7e7d614](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/7e7d614560f18b973bbd48c9d8f6aa5f186199ef))
+
 ## [2.4.5](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.4...v2.4.5) (2022-08-06)
 
 
