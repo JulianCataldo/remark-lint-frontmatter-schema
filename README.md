@@ -1,6 +1,6 @@
 # remark-lint-frontmatter-schema
 
-![NPM](https://img.shields.io/npm/v/@julian_cataldo/remark-lint-frontmatter-schema)
+[![NPM](https://img.shields.io/npm/v/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
 
 Validate **Markdown** frontmatter **YAML** against an associated **JSON schema** with this **remark-lint** rule plugin.
 
