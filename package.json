@@ -1,6 +1,6 @@
 {
   "name": "@julian_cataldo/remark-lint-frontmatter-schema",
-  "description": "Validate your Markdown frontmatter data against a JSON schema — remark-lint rule plugin",
+  "description": "Validate Markdown frontmatter YAML against an associated JSON schema — remark-lint rule plugin",
   "keywords": [
     "lint",
     "yaml",

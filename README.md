@@ -1,6 +1,8 @@
 # remark-lint-frontmatter-schema
 
-Validate your Markdown frontmatter data against a JSON schema with this **remark-lint** rule plugin.
+![NPM](https://img.shields.io/npm/v/@julian_cataldo/remark-lint-frontmatter-schema)
+
+Validate **Markdown** frontmatter **YAML** against an associated **JSON schema** with this **remark-lint** rule plugin.
 
 > **Warning**  
 > Work in progress
@@ -29,11 +31,11 @@ Validate your Markdown frontmatter data against a JSON schema with this **remark
 
 # Usage
 
+## Installation
+
 ```shell
 pnpm i -D @julian_cataldo/remark-lint-frontmatter-schema
 ```
-
-## Installation
 
 > **Remove** `-D` flag if you're using this plugin within a runtime **`unified`** MD / MDX **pipeline** (Custom, Astro, Gatsby, etc.), for production.  
 > **Keep it** if you just want to lint with **CLI** or your **IDE** locally, without any production / CI needs.
