@@ -1,3 +1,10 @@
+## [2.4.7](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.6...v2.4.7) (2022-08-06)
+
+
+### Bug Fixes
+
+* re-order package.json fields + add details ([3e4298e](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/3e4298ef9b15e2ce0413146f1192dd3214a1b635))
+
 ## [2.4.6](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.5...v2.4.6) (2022-08-06)
 
 
