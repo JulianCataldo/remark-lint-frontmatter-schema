@@ -41,4 +41,4 @@ Play with schema and markdown frontmatter and see what happens in VS Code proble
 
 ---
 
-🔗  [JulianCataldo.com](https//www.juliancataldo.com)
+🔗  [JulianCataldo.com](https://www.juliancataldo.com)
