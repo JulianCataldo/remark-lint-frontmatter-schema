@@ -11,8 +11,9 @@ Validate **Markdown** frontmatter **YAML** against an associated **JSON schema**
 
 - [remark-lint-frontmatter-schema](#remark-lint-frontmatter-schema)
 - [Demo](#demo)
-- [Usage](#usage)
+- [Quick start](#quick-start)
   - [Installation](#installation)
+    - [VS Code (optional)](#vs-code-optional)
   - [Setting up](#setting-up)
     - [Markdown content](#markdown-content)
     - [CLI / IDE (VS Code)](#cli--ide-vs-code)
@@ -28,16 +29,25 @@ Validate **Markdown** frontmatter **YAML** against an associated **JSON schema**
 
 [![Demo screenshot of frontmatter schema linter](./docs/screenshot.png)](./docs/screenshot.png)
 
-# Usage
+# Quick start
 
 ## Installation
 
 ```shell
-pnpm i -D @julian_cataldo/remark-lint-frontmatter-schema
+pnpm install -D \
+remark remark-cli \
+remark-frontmatter \
+@julian_cataldo/remark-lint-frontmatter-schema
 ```
 
 > **Remove** `-D` flag if you're using this plugin within a runtime **`unified`** MD / MDX **pipeline** (Custom, Astro, Gatsby, etc.), for production.  
 > **Keep it** if you just want to lint with **CLI** or your **IDE** locally, without any production / CI needs.
+
+### VS Code (optional)
+
+```
+code --install-extension unifiedjs.vscode-remark
+```
 
 ## Setting up
 
@@ -45,7 +55,7 @@ pnpm i -D @julian_cataldo/remark-lint-frontmatter-schema
 
 See **[./demo/content](./demo/content)** files for examples.
 
-All you have to do is to point to a schema path, relative to project root, thanks to `'$schema'` key:
+Schema association is done relative to project root, thanks to `'$schema'` key:
 
 ```markdown
 ---
@@ -74,6 +84,17 @@ properties:
 
 ```sh
 pnpm remark .
+```
+
+Result
+
+```shell
+# ...
+content/correct-creative-work.md
+  1:1  warning  /category: Must be equal to one of the allowed values  frontmatter-schema  remark-lint
+  1:1  warning  /complex/some: Must be string                          frontmatter-schema  remark-lint
+
+⚠ 6 warnings
 ```
 
 Supporting `remark-cli` or `unifiedjs.vscode-remark` extension.
