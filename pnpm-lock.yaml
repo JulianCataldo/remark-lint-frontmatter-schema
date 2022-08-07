@@ -24,7 +24,6 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-tsdoc: ^0.2.16
-  js-yaml: ^4.1.0
   lodash-es: ^4.17.21
   parcel: ^2.7.0
   semantic-release: ^19.0.3
@@ -38,7 +37,6 @@ specifiers:
 dependencies:
   ajv: 8.11.0
   ajv-formats: 2.1.1
-  js-yaml: 4.1.0
   lodash-es: 4.17.21
   unified-lint-rule: 2.1.1
   vfile-location: 4.0.1
@@ -1662,6 +1660,7 @@ packages:
 
   /argparse/2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
+    dev: true
 
   /argv-formatter/1.0.0:
     resolution: {integrity: sha512-F2+Hkm9xFaRg+GkaNnbwXNDV5O6pnCFEmqyhvfC/Ic5LbgOWjJh3L+mN/s91rxVL3znE7DYVpW0GJFT+4YBgWw==}
@@ -3229,6 +3228,7 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
+    dev: true
 
   /json-parse-better-errors/1.0.2:
     resolution: {integrity: sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==}
