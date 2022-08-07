@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.0...v2.5.1) (2022-08-07)
+
+
+### Bug Fixes
+
+* check yaml presence + extract function ([d08f5ae](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/d08f5aea005245579321d99af77fa324e9ad3d86))
+
 # [2.5.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.7...v2.5.0) (2022-08-07)
 
 
