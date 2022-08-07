@@ -15,6 +15,7 @@ Validate **Markdown** frontmatter **YAML** against an associated **JSON schema**
   - [Installation](#installation)
     - [VS Code (optional)](#vs-code-optional)
   - [Setting up](#setting-up)
+    - [Workspace](#workspace)
     - [Markdown content](#markdown-content)
     - [CLI / IDE (VS Code)](#cli--ide-vs-code)
     - [MD / MDX pipeline](#md--mdx-pipeline)
@@ -50,6 +51,20 @@ code --install-extension unifiedjs.vscode-remark
 ```
 
 ## Setting up
+
+### Workspace
+
+`touch ./.remarkrc.mjs`
+
+```mjs
+import remarkFrontmatter from 'remark-frontmatter';
+import rlFmSchema from '@julian_cataldo/remark-lint-frontmatter-schema';
+
+const remarkConfig = {
+  plugins: [remarkFrontmatter, rlFmSchema],
+};
+export default remarkConfig;
+```
 
 ### Markdown content
 
