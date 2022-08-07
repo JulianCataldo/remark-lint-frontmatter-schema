@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.7...v2.5.0) (2022-08-07)
+
+
+### Features
+
+* use `yaml` instead of `js-yaml` ([95444d3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/95444d3fe1848cd00c646e76ae444d01454cbdd9))
+
 ## [2.4.7](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.4.6...v2.4.7) (2022-08-06)
 
 
