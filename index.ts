@@ -6,7 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 /* ·········································································· */
-import yaml from 'js-yaml';
+import yaml from 'yaml';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 /* ·········································································· */
@@ -31,13 +31,13 @@ const remarkFrontmatterSchema = lintRule(
   (ast: NodeWithChildren, file) => {
     /* Parse the YAML string, previously extracted by `remark-frontmatter` */
     const rawYaml = ast?.children[0].value;
-    const data: Frontmatter = yaml.load(rawYaml);
+    const data: Frontmatter = yaml.parse(rawYaml);
 
     /* Get the user-defined YAML `$schema` for current Markdown file */
     const schemaPath = data.$schema;
     /* Path is combined with process current working directory */
     const schemaFullPath = path.join(process.cwd(), schemaPath);
-    const schema = yaml.load(
+    const schema = yaml.parse(
       // IDEA: make it async?
       fs.readFileSync(schemaFullPath, 'utf-8'),
     );
@@ -67,8 +67,10 @@ const remarkFrontmatterSchema = lintRule(
         // NOTE: `origin` doesn't seems to be leveraged by anything
         // 'origin',
       );
+
+      /* Assemble and format pretty per-error insights for end-user */
       message.note = yaml
-        .dump({
+        .stringify({
           keyword: error.keyword,
           params: error.params,
           $schema: `${schemaPath}/${error.schemaPath}`,
