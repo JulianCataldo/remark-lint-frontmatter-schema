@@ -21,7 +21,6 @@ Validate **Markdown** frontmatter **YAML** against an associated **JSON schema**
       - [Framework](#framework)
         - [Astro](#astro)
         - [Gatsby](#gatsby)
-- [Known limitations](#known-limitations)
 
 ---
 
@@ -151,17 +150,18 @@ In `gatsby-config.js`
 }
 ```
 
-# Known limitations
+<!-- OBSOLETE -->
+<!-- # Known limitations
 
-Actually, you will not have **code range detection** for schemas errors.  
-Finding a way of doing this would easily allow hot-fix replacement for `enum` suggestions, for example.  
+Actually, you will not have **code range detection** for schemas errors.
+Finding a way of doing this would easily allow hot-fix replacement for `enum` suggestions, for example.
 The great folks who made [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)
-have tackled this, and much more.  
-In fact, this remark plugin is **very far** from `yaml-language-server` capabilities, which are astonishing.  
+have tackled this, and much more.
+In fact, this remark plugin is **very far** from `yaml-language-server` capabilities, which are astonishing.
 Still, this `remark` plugin is, I think, the only way to validate YAML
-frontmatter inside Markdown.  
-My current knowledge is that YAML in Markdown, by not being part of any official specs, is hindering development in this direction.  
-So it's better than nothing I guess, and could be a first step for something more robust.
+frontmatter inside Markdown.
+My current knowledge is that YAML in Markdown, by not being part of any official specs, is hindering development in this direction.
+So it's better than nothing I guess, and could be a first step for something more robust. -->
 
 ---
 
@@ -172,6 +172,10 @@ Using:
 - **IDE Extension** (optional)
   > VS Code `unifiedjs.vscode-remark`  
   > https://github.com/remarkjs/vscode-remark
+
+Major dependencies:
+
+`ajv`, `yaml`, `remark`, `remark-frontmatter`, `unified`, `remark-cli`
 
 ---
 
