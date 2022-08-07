@@ -10,21 +10,22 @@ import yaml from 'yaml';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 /* ·········································································· */
-import { VFileMessage } from 'vfile-message';
+import { Position, VFileMessage } from 'vfile-message';
 import { lintRule } from 'unified-lint-rule';
 import type { Node } from 'unist';
 import type { VFile } from 'unified-lint-rule/lib';
+import { location } from 'vfile-location';
 /* —————————————————————————————————————————————————————————————————————————— */
 // FIXME: find correct source type instead of overloading this one
 type NodeWithChildren = Node & { children?: { value: string }[] };
-type Frontmatter = { $schema?: string; [key: string]: any };
+type Frontmatter = { $schema?: string; [key: string]: unknown };
 /* ·········································································· */
 
 /* Setup AJV (Another JSON-Schema Validator) */
 const ajv = new Ajv({ allErrors: true });
 addFormats(ajv);
 
-function validateFrontmatter(rawYaml: string, file: VFile) {
+function validateFrontmatter(rawYaml: string, vFile: VFile) {
   /* Parse the YAML string, previously extracted by `remark-frontmatter` */
   const data: Frontmatter = yaml.parse(rawYaml);
 
@@ -49,19 +50,43 @@ function validateFrontmatter(rawYaml: string, file: VFile) {
     const errMessage =
       `${error.message.charAt(0).toUpperCase()}` +
       `${error.message.substring(1)}`;
-    /* Parent or sub-property error */
+    /* Root -OR- sub-path error? */
     const reason = error.instancePath
       ? `${error.instancePath}: ${errMessage}`
       : errMessage;
 
-    const message = new VFileMessage(
-      reason,
-      // TODO: find a way to map code range to validation errors
-      // position,
-      null,
-      // NOTE: `origin` doesn't seems to be leveraged by anything
-      // 'origin',
-    );
+    /* Get YAML Abstract Syntax Tree */
+    const doc = yaml.parseDocument(rawYaml);
+
+    // FIXME: if possible, find correct source types instead of recreating them
+    type Range = [number, number, number];
+    interface NodeInfos {
+      value: number;
+      range: Range;
+      source: string;
+      type: string;
+    }
+    /* Explode AJV error instance path and get corresponding YAML AST node */
+    const ajvPath = error.instancePath.substring(1).split('/');
+    const obs = doc.getIn(ajvPath, true) as NodeInfos | undefined;
+
+    /* Map YAML characters range to column / line positions */
+    /* Squiggle the opening frontmatter fence for root path errors */
+    let position: Position | null;
+
+    if (obs) {
+      const place = location(vFile);
+
+      const openingFenceLength = 4; /* Take the `---` into account */
+      const startChar = obs.range[0] + openingFenceLength;
+      const endChar = obs.range[1] + openingFenceLength;
+
+      const start = place.toPoint(startChar);
+      const end = place.toPoint(endChar);
+      position = { start, end };
+    }
+
+    const message = new VFileMessage(reason, position);
 
     /* Assemble and format pretty per-error insights for end-user */
     message.note = yaml
@@ -71,11 +96,11 @@ function validateFrontmatter(rawYaml: string, file: VFile) {
         $schema: `${schemaPath}/${error.schemaPath}`,
       })
       .trim();
-    // FIXME: beware that this is not working correctly with `auto-fix`,
-    // can be dangerous (wrong code range)!
+
+    /* Auto-fix replacement suggestions */
     message.expected = error?.params?.allowedValues;
 
-    file.messages.push(message);
+    vFile.messages.push(message);
   });
 }
 
@@ -84,11 +109,11 @@ const remarkFrontmatterSchema = lintRule(
     origin: 'remark-lint:frontmatter-schema',
     url: 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema',
   },
-  (ast: NodeWithChildren, file) => {
+  (ast: NodeWithChildren, vFile) => {
     /* Handle only if the current Markdown file has a frontmatter section */
     if (Array.isArray(ast?.children)) {
-      if (ast.children[0]?.value) {
-        validateFrontmatter(ast.children[0]?.value, file);
+      if (typeof ast.children[0]?.value === 'string') {
+        validateFrontmatter(ast.children[0].value, vFile);
       }
     }
   },
