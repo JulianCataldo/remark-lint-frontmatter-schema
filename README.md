@@ -52,6 +52,13 @@ code --install-extension unifiedjs.vscode-remark
 
 ## Setting up
 
+Supporting `remark-cli` or `unifiedjs.vscode-remark` extension.
+
+👉  **See [./demo](./demo/)** folder to get a working, pre-configured, bare project workspace.  
+You also get example markdown files and associated schema to play with.
+
+📌  Checkout the **[demo/README.md](./demo) for step-by-step instructions**.
+
 ### Workspace
 
 `touch ./.remarkrc.mjs`
@@ -111,13 +118,6 @@ content/correct-creative-work.md
 
 ⚠ 6 warnings
 ```
-
-Supporting `remark-cli` or `unifiedjs.vscode-remark` extension.
-
-👉  **See [./demo](./demo/)** folder to get a working, pre-configured, bare project workspace.  
-You also get example markdown files and associated schema to play with.
-
-📌  Checkout the **[demo/README.md](./demo) for step-by-step instructions**.
 
 ### MD / MDX pipeline
 
