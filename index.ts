@@ -12,12 +12,10 @@ import addFormats from 'ajv-formats';
 /* ·········································································· */
 import { Position, VFileMessage } from 'vfile-message';
 import { lintRule } from 'unified-lint-rule';
-import type { Node } from 'unist';
 import type { VFile } from 'unified-lint-rule/lib';
 import { location } from 'vfile-location';
+import type { Root, YAML } from 'mdast';
 /* —————————————————————————————————————————————————————————————————————————— */
-// FIXME: find correct source type instead of overloading this one
-type NodeWithChildren = Node & { children?: { value: string }[] };
 type Frontmatter = { $schema?: string; [key: string]: unknown };
 /* ·········································································· */
 
@@ -109,10 +107,12 @@ const remarkFrontmatterSchema = lintRule(
     origin: 'remark-lint:frontmatter-schema',
     url: 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema',
   },
-  (ast: NodeWithChildren, vFile) => {
+  (ast: Root, vFile) => {
     /* Handle only if the current Markdown file has a frontmatter section */
-    if (Array.isArray(ast?.children)) {
-      if (typeof ast.children[0]?.value === 'string') {
+    if (ast.children.length) {
+      /** IDEA: is the `0` due to the fact that `remark-frontmatter`
+       * could parse multi-parts frontmatter? Should investigate. */
+      if (ast.children[0].type === 'yaml') {
         validateFrontmatter(ast.children[0].value, vFile);
       }
     }
