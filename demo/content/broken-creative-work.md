@@ -1,11 +1,11 @@
 ---
-"$schema": /content/creative-work.schema.yaml
+'$schema': /content/creative-work.schema.yaml
 
 ##          v—————— Must have a title string
 # title: My Great Title 🤩
 
 ##          v—————— Must be `Book` | `Movie` | …
-category: Cars
+category: 212343453333333333333
 ---
 
 # You're welcome!

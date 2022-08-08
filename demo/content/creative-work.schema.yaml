@@ -9,6 +9,16 @@ properties:
       - Movie
       - Painting
       - Photo
+  complex:
+    type: object
+    required:
+      - time
+    properties:
+      time:
+        type: number
+      some:
+        type: string
 required:
   - title
   - category
+  - complex
