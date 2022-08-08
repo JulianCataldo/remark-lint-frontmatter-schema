@@ -1,3 +1,10 @@
+## [2.5.5](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.4...v2.5.5) (2022-08-08)
+
+
+### Bug Fixes
+
+* clean screenshot unneeded files ([c7026e3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/c7026e3ef29ffefca56661d544945910fe7aa728))
+
 ## [2.5.4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.3...v2.5.4) (2022-08-08)
 
 
