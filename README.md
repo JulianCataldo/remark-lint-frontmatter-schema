@@ -65,7 +65,10 @@ You also get example markdown files and associated schema to play with.
 
 ### Workspace
 
+Create root config file for `remark-cli`:  
 `touch ./.remarkrc.mjs`
+
+Paste this base config:
 
 ```mjs
 import remarkFrontmatter from 'remark-frontmatter';
@@ -108,11 +111,13 @@ properties:
 
 ### CLI / IDE (VS Code)
 
+Linting whole workspace `**/*.md` files with `remark-cli`:
+
 ```sh
 pnpm remark .
 ```
 
-Result
+Yields:
 
 ```shell
 # ...
