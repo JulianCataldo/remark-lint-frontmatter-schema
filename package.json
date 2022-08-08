@@ -14,7 +14,6 @@
   "dependencies": {
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
-    "lodash-es": "^4.17.21",
     "unified-lint-rule": "^2.1.1",
     "vfile-location": "^4.0.1",
     "vfile-message": "^3.1.2",
@@ -32,6 +31,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.6.4",
+    "@types/prettier": "^2.7.0",
     "@types/unist": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
@@ -43,6 +43,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.16",
     "parcel": "^2.7.0",
+    "prettier": "^2.7.1",
     "semantic-release": "^19.0.3",
     "typescript": "^4.7.4",
     "unified": "^10.1.2"
