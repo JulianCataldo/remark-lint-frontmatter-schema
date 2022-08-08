@@ -1,3 +1,37 @@
+# [3.0.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.6...v3.0.0) (2022-08-08)
+
+
+### Bug Fixes
+
+* `unified` and `unist` missing, breaking ci ([6b4dbab](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/6b4dbabaa104023b42e2f7dd1be9e23db58db6b2))
+* change screenshot link to raw github ([9d65364](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/9d65364acec56c5f787fd870e2178537abf5c0ff))
+* correct typings + coercition for ast prop ([69766fd](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/69766fd7849e7f3ff6ab53fac17ad1cb382e68ef))
+
+
+### Features
+
+* major rehaul w. type safety, guards + errors ([4dd0dad](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/4dd0dadca808a1affac2605d061447feb8c6ee86))
+
+
+### BREAKING CHANGES
+
+* - `Root` and `YAML from `types/mdast`
+- `isNode` from `yaml`
+- `vfile.message` instead of pushing to `vfile.messages`
+- parse YAML once and use `toJS()`
+- `vFile` `cwd` instead of `process.cwd()`
+
+Guards / Errors for:
+
+- JSON Schema not found (wrong path)
+- JSON Schema malformed
+- YAML Schema parsing error
+- YAML Frontmatter parsing error (doesn't seems to occur anyway)
+
+Also, splitting functions a bit, adding some explanations and ideas.
+
+Thanks a lot @remcohaszing 👏
+
 ## [2.5.6](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.5...v2.5.6) (2022-08-08)
 
 
