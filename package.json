@@ -28,11 +28,9 @@
     "@semantic-release/github": "^8.0.5",
     "@semantic-release/npm": "^9.0.1",
     "@types/eslint": "^8.4.5",
-    "@types/js-yaml": "^4.0.5",
-    "@types/lodash-es": "^4.17.6",
+    "@types/mdast": "^3.0.10",
     "@types/node": "^18.6.4",
     "@types/prettier": "^2.7.0",
-    "@types/unist": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "eslint": "^8.21.0",
@@ -45,8 +43,7 @@
     "parcel": "^2.7.0",
     "prettier": "^2.7.1",
     "semantic-release": "^19.0.3",
-    "typescript": "^4.7.4",
-    "unified": "^10.1.2"
+    "typescript": "^4.7.4"
   },
   "homepage": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema.git",
   "repository": {

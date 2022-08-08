@@ -20,9 +20,5 @@
     "paths": {},
 
     "allowSyntheticDefaultImports": true
-
-    // "composite": true
-    // "declaration": true,
-    // "declarationMap": true
   }
 }
