@@ -1,3 +1,10 @@
+## [2.5.6](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.5...v2.5.6) (2022-08-08)
+
+
+### Bug Fixes
+
+* add command details ([b4a648a](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/b4a648aaa252efc101871a777145f606b6c0b480))
+
 ## [2.5.5](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.4...v2.5.5) (2022-08-08)
 
 
