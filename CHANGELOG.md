@@ -1,3 +1,11 @@
+## [2.5.4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.3...v2.5.4) (2022-08-08)
+
+
+### Bug Fixes
+
+* update demo content ([5a4c94c](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/5a4c94c55bca3aa7c4c471ff6c6f85b7e89b588b))
+* update docs badge and description ([3a55113](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/3a55113969e12d78f8620c994011e69cb72cf1c8))
+
 ## [2.5.3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.2...v2.5.3) (2022-08-07)
 
 
