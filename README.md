@@ -1,15 +1,19 @@
-# remark-lint-frontmatter-schema
+# `remark-lint-frontmatter-schema`
+
+<!-- [![Build Status](https://img.shields.io/github/workflow/status/JulianCataldo/remark-lint-frontmatter-schema/release/master.svg)](https://github.com/@julian_cataldo/remark-lint-frontmatter-schema/actions/workflows/release.yml?query=branch%3Amain) -->
 
 [![NPM](https://img.shields.io/npm/v/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
+[![ISC License](https://img.shields.io/npm/l/@julian_cataldo/remark-lint-frontmatter-schema)](./LICENSE)
+[![downloads](https://img.shields.io/npm/dw/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
 
 Validate **Markdown** frontmatter **YAML** against an associated **JSON schema** with this **remark-lint** rule plugin.
 
-> **Warning**  
-> Work in progress
+Features types validation, pattern, enumerations with auto-fixable with suggestions, proper code range mapping for IDE underlining squiggles…
 
 ---
 
-- [remark-lint-frontmatter-schema](#remark-lint-frontmatter-schema)
+- [`remark-lint-frontmatter-schema`](#remark-lint-frontmatter-schema)
 - [Demo](#demo)
 - [Quick start](#quick-start)
   - [Installation](#installation)
