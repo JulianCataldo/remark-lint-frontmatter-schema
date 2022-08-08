@@ -32,7 +32,7 @@ Features types validation, pattern, enumerations with auto-fixable with suggesti
 
 # Demo
 
-[![Demo screenshot of frontmatter schema linter](./docs/screenshot.png)](./docs/screenshot.png)
+[![Demo screenshot of frontmatter schema linter](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot.png)
 
 # Quick start
 
@@ -65,7 +65,7 @@ You also get example markdown files and associated schema to play with.
 
 ### Workspace
 
-Create root config file for `remark-cli`:  
+Create root config file for `remark` to source from:  
 `touch ./.remarkrc.mjs`
 
 Paste this base config:
