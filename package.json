@@ -7,9 +7,9 @@
   "main": "./dist/lib.js",
   "types": "./dist/lib.d.ts",
   "scripts": {
-    "watch": "pnpm parcel watch",
+    "dev": "pnpm parcel watch",
     "build": "pnpm parcel build",
-    "semantic-release": "semantic-release"
+    "release": "semantic-release"
   },
   "dependencies": {
     "ajv": "^8.11.0",
