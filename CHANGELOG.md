@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.0.0...v3.1.0) (2022-08-09)
+
+
+### Features
+
+* init plugin settings, with glob' schemas 🤯 ([23c06f7](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/23c06f76fbc578474c832957b184ef3d22439e02))
+
 # [3.0.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v2.5.6...v3.0.0) (2022-08-08)
 
 
