@@ -9,7 +9,19 @@
 
 Validate **Markdown** frontmatter **YAML** against an associated **JSON schema** with this **remark-lint** rule plugin.
 
-Features types validation, pattern, enumerations with auto-fixable with suggestions, proper code range mapping for IDE underlining squiggles…
+Support:
+
+- **Types validation**, pattern, enumerations,… and all you can get with JSON Schema
+- **Code location** problems indicator (for IDE to underline)
+- **Auto-fixes** with suggestions
+- **C**ommand **L**ine **I**nterface reporting
+- **VS Code** integration (see below)
+
+# Demo
+
+[![Demo screenshot of frontmatter schema linter](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot.png)
+
+👉  **See [./demo](./demo/)**
 
 ---
 
@@ -20,7 +32,10 @@ Features types validation, pattern, enumerations with auto-fixable with suggesti
     - [VS Code (optional)](#vs-code-optional)
   - [Setting up](#setting-up)
     - [Workspace](#workspace)
-    - [Markdown content](#markdown-content)
+    - [Schemas associations](#schemas-associations)
+      - [Inside frontmatter](#inside-frontmatter)
+    - [Schema example](#schema-example)
+    - [🆕  Global schemas associations](#global-schemas-associations)
     - [CLI / IDE (VS Code)](#cli--ide-vs-code)
     - [MD / MDX pipeline](#md--mdx-pipeline)
       - [Custom](#custom)
@@ -29,10 +44,6 @@ Features types validation, pattern, enumerations with auto-fixable with suggesti
         - [Gatsby](#gatsby)
 
 ---
-
-# Demo
-
-[![Demo screenshot of frontmatter schema linter](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot.png)
 
 # Quick start
 
@@ -56,12 +67,11 @@ code --install-extension unifiedjs.vscode-remark
 
 ## Setting up
 
-Supporting `remark-cli` or `unifiedjs.vscode-remark` extension.
-
 👉  **See [./demo](./demo/)** folder to get a working, pre-configured, bare project workspace.  
-You also get example markdown files and associated schema to play with.
+You also get example markdown files and associated schema to play with.  
+Supports `remark-cli` and/or `unifiedjs.vscode-remark` extension.
 
-📌  Checkout the **[demo/README.md](./demo) for step-by-step instructions**.
+📌  Check out the **[demo/README.md](./demo) for bootstrapping** it.
 
 ### Workspace
 
@@ -80,11 +90,17 @@ const remarkConfig = {
 export default remarkConfig;
 ```
 
-### Markdown content
+### Schemas associations
+
+Inspired by [VS Code JSON Schema](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
+and [`redhat.vscode-yaml`](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) conventions.
+
+#### Inside frontmatter
 
 See **[./demo/content](./demo/content)** files for examples.
 
-Schema association is done relative to project root, thanks to `'$schema'` key:
+Schema association can be done directly **inside** the **frontmatter** of the **markdown** file,
+relative to project root, thanks to the `'$schema'` key:
 
 ```markdown
 ---
@@ -92,12 +108,16 @@ Schema association is done relative to project root, thanks to `'$schema'` key:
 
 title: Hello there
 category: Book
+# ...
 ---
 
 # You're welcome!
 
+🌝  My **markdown** content…  🌚
 …
 ```
+
+### Schema example
 
 `creative-work.schema.yaml`
 
@@ -108,6 +128,40 @@ properties:
     type: string
 # ...
 ```
+
+### 🆕  Global schemas associations
+
+> **Note**:  
+> Locally defined **`'$schema'` takes precedence** over global settings below.
+
+```js
+const remarkConfig = {
+  plugins: [
+    remarkFrontmatter,
+    [
+      rlFmSchema,
+      {
+        schemas: {
+          /* One schema for many files */
+          './content/creative-work.schema.yaml': [
+            /* Support glob patterns */
+            './content/*-creative-work.md',
+            /* Or direct file association */
+            './content/the-one.md',
+          ],
+          './content/ghost.schema.yaml': [
+            './content/casper.md',
+            './content/ether.md',
+          ],
+        },
+      },
+    ],
+  ],
+};
+```
+
+`'./foo'`, `'/foo'`, `'foo'`, all will work.  
+It's always relative to your `./.remarkrc.mjs` file, in your workspace root.
 
 ### CLI / IDE (VS Code)
 
