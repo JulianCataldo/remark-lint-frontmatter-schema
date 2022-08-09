@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.2.0...v3.2.1) (2022-08-09)
+
+
+### Bug Fixes
+
+* add details to features + re-orders ([dbe44e2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/dbe44e219d051c00796101db57d0253ed78cc1b8))
+
 # [3.2.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.1.0...v3.2.0) (2022-08-09)
 
 
