@@ -14,8 +14,15 @@ import { Position } from 'vfile-message';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import { location } from 'vfile-location';
+import globToRegExp from 'glob-to-regexp';
 import type { Root, YAML } from 'mdast';
 /* —————————————————————————————————————————————————————————————————————————— */
+export interface Settings {
+  schemas?: {
+    [key: string]: string[];
+  };
+}
+/* ·········································································· */
 
 /* Setup AJV (Another JSON-Schema Validator) */
 const ajv = new Ajv({ allErrors: true });
@@ -76,17 +83,29 @@ function pushErrors(
   });
 }
 
-function validateFrontmatter(sourceYaml: YAML, vFile: VFile) {
+function validateFrontmatter(
+  sourceYaml: YAML,
+  vFile: VFile,
+  settings: Settings,
+) {
+  const hasGlobalSettings = typeof settings.schemas === 'object';
   let yamlDoc;
   let yamlJS;
-  let hasSchemaKey = false;
+  let hasLocalAssoc = false;
+  let fromGlobalAssoc = false;
+  let schemaRelPath;
 
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
-     previously extracted by `remark-frontmatter` */
+     previously extracted by `remark-frontmatter`. */
   try {
     yamlDoc = yaml.parseDocument(sourceYaml.value);
     yamlJS = yamlDoc.toJS();
-    hasSchemaKey = typeof yamlJS?.$schema === 'string';
+
+    /* Local `$schema` association takes precedence over global mapping */
+    hasLocalAssoc = typeof yamlJS?.$schema === 'string';
+    if (hasLocalAssoc) {
+      schemaRelPath = yamlJS.$schema;
+    }
   } catch (e) {
     /* NOTE: Never hitting this error.
        Parser seems to handle anything we throw at it. */
@@ -94,23 +113,47 @@ function validateFrontmatter(sourceYaml: YAML, vFile: VFile) {
     vFile.message(msg);
   }
 
-  /* Get the user-defined YAML `$schema` for current Markdown file */
-  if (yamlDoc && yamlJS && hasSchemaKey) {
-    const schemaRelPath = yamlJS.$schema;
+  /* Global schemas associations, only if no local schema is set */
+  if (yamlDoc && yamlJS && hasLocalAssoc === false && hasGlobalSettings) {
+    Object.entries(settings.schemas).forEach(
+      ([globSchemaPath, globSchemaAssocs]) => {
+        if (Array.isArray(globSchemaAssocs)) {
+          globSchemaAssocs.forEach((mdFilePath) => {
+            /* Check if current markdown file is associated with this schema */
+            if (typeof mdFilePath === 'string') {
+              /* Remove appended `./` or `/` */
+              const mdPathCleaned = path.join(mdFilePath);
+
+              const globber = globToRegExp(mdPathCleaned);
+              if (globber.test(vFile.path)) {
+                fromGlobalAssoc = true;
+                schemaRelPath = globSchemaPath;
+              }
+            }
+          });
+        }
+      },
+    );
+  }
+
+  /* We got an associated schema to work with */
+  if (hasLocalAssoc || fromGlobalAssoc) {
     /* Path is combined with the process / workspace root directory,
-         where the `.remarkrc.mjs` should live. */
+       where the `.remarkrc.mjs` should live. */
     const schemaFullPath = path.join(vFile.cwd, schemaRelPath);
     const schemaExists = fs.existsSync(schemaFullPath);
 
     if (schemaExists) {
-      // IDEA: make it async?
       let schema;
       try {
+        // IDEA: make it async?
         const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
         schema = yaml.parse(fileData);
         /* Schema is now extracted,
-           remove `$schema` key, so it will not interfere later */
-        delete yamlJS.$schema;
+           remove local `$schema` key, so it will not interfere later */
+        if (hasLocalAssoc) {
+          delete yamlJS.$schema;
+        }
       } catch (e) {
         const msg = `YAML Schema parse error: ${schemaRelPath}`;
         // TODO: make a meaningful error with `linePos` etc.
@@ -145,13 +188,13 @@ const remarkFrontmatterSchema = lintRule(
     origin: 'remark-lint:frontmatter-schema',
     url: 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema',
   },
-  (ast: Root, vFile: VFile) => {
+  (ast: Root, vFile: VFile, settings: Settings) => {
     /* Handle only if the current Markdown file has a frontmatter section */
     if (ast.children.length) {
       /* IDEA: is the `0` due to the fact that `remark-frontmatter`
          could provide multi-parts frontmatter? Should investigate this. */
       if (ast.children[0].type === 'yaml') {
-        validateFrontmatter(ast.children[0], vFile);
+        validateFrontmatter(ast.children[0], vFile, settings);
       }
     }
   },
