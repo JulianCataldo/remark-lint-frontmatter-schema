@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.2.2...v3.3.0) (2022-08-09)
+
+
+### Features
+
+* better warning message display ([77542a9](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/77542a9d6101aa39668d915367628e42ff047c89))
+
 ## [3.2.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.2.1...v3.2.2) (2022-08-09)
 
 
