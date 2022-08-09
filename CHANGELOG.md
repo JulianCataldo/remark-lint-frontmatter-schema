@@ -1,3 +1,15 @@
+# [3.2.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.1.0...v3.2.0) (2022-08-09)
+
+
+### Bug Fixes
+
+* add example for global associations + details ([9f7d471](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/9f7d471f40d62d4deafe8b9176b4f8cefe2fecbb))
+
+
+### Features
+
+* update demo to reflect global settings ([0916295](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/091629511ce8d2b1354dc0352de1df529eb2c868))
+
 # [3.1.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.0.0...v3.1.0) (2022-08-09)
 
 
