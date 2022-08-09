@@ -9,7 +9,7 @@
 
 Validate **Markdown** frontmatter **YAML** against an associated **JSON schema** with this **remark-lint** rule plugin.
 
-Support:
+Supports:
 
 - **Types validation**, pattern, enumerations,… and all you can get with JSON Schema
 - **Code location** problems indicator (for IDE to underline)
@@ -17,6 +17,7 @@ Support:
 - **C**ommand **L**ine **I**nterface reporting
 - **VS Code** integration (see below)
 - **Global patterns** or **in-file** schemas associations
+- In JS framework **MD / MDX pipelines**
 
 # Demo
 
@@ -31,12 +32,12 @@ Support:
 - [Quick start](#quick-start)
   - [Installation](#installation)
     - [VS Code (optional)](#vs-code-optional)
-  - [Setting up](#setting-up)
+  - [Configuration](#configuration)
     - [Workspace](#workspace)
     - [Schemas associations](#schemas-associations)
-      - [Inside frontmatter](#inside-frontmatter)
-    - [Schema example](#schema-example)
-    - [🆕  Global schemas associations](#global-schemas-associations)
+      - [Schema example](#schema-example)
+    - [Inside frontmatter](#inside-frontmatter)
+    - [🆕  Globally, with patterns](#globally-with-patterns)
     - [CLI / IDE (VS Code)](#cli--ide-vs-code)
     - [MD / MDX pipeline](#md--mdx-pipeline)
       - [Custom](#custom)
@@ -57,7 +58,7 @@ remark-frontmatter \
 @julian_cataldo/remark-lint-frontmatter-schema
 ```
 
-> **Remove** `-D` flag if you're using this plugin within a runtime **`unified`** MD / MDX **pipeline** (Custom, Astro, Gatsby, etc.), for production.  
+> **Remove** `-D` flag for runtime **`unified`** MD / MDX **pipeline** (custom, Astro, Gatsby, etc.), for production.  
 > **Keep it** if you just want to lint with **CLI** or your **IDE** locally, without any production / CI needs.
 
 ### VS Code (optional)
@@ -66,7 +67,7 @@ remark-frontmatter \
 code --install-extension unifiedjs.vscode-remark
 ```
 
-## Setting up
+## Configuration
 
 👉  **See [./demo](./demo/)** folder to get a working, pre-configured, bare project workspace.  
 You also get example markdown files and associated schema to play with.  
@@ -96,7 +97,19 @@ export default remarkConfig;
 Inspired by [VS Code JSON Schema](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
 and [`redhat.vscode-yaml`](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) conventions.
 
-#### Inside frontmatter
+#### Schema example
+
+`creative-work.schema.yaml`
+
+```yaml
+type: object
+properties:
+  title:
+    type: string
+# ...
+```
+
+### Inside frontmatter
 
 See **[./demo/content](./demo/content)** files for examples.
 
@@ -118,19 +131,7 @@ category: Book
 …
 ```
 
-### Schema example
-
-`creative-work.schema.yaml`
-
-```yaml
-type: object
-properties:
-  title:
-    type: string
-# ...
-```
-
-### 🆕  Global schemas associations
+### 🆕  Globally, with patterns
 
 > **Note**:  
 > Locally defined **`'$schema'` takes precedence** over global settings below.
