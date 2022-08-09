@@ -9,15 +9,18 @@ import path from 'node:path';
 import yaml, { Document, isNode } from 'yaml';
 import Ajv, { ErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
+import globToRegExp from 'glob-to-regexp';
 /* ·········································································· */
 import { Position } from 'vfile-message';
+import { location } from 'vfile-location';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
-import { location } from 'vfile-location';
-import globToRegExp from 'glob-to-regexp';
 import type { Root, YAML } from 'mdast';
 /* —————————————————————————————————————————————————————————————————————————— */
 export interface Settings {
+  /**
+   * Example: `'schemas/thing.schema.yaml': ['content/things/*.md']`
+   */
   schemas?: {
     [key: string]: string[];
   };
