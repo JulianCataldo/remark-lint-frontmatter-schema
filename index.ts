@@ -68,15 +68,19 @@ function pushErrors(
 
     const message = vFile.message(reason, position);
 
-    /* Assemble pretty per-error insights for end-user.
-       Using `yaml.stringify` for pure formatting purpose here */
-    message.note = yaml
-      .stringify({
-        keyword: error.keyword,
-        params: error.params,
-        $schema: `${schemaRelPath}/${error.schemaPath}`,
-      })
-      .trim();
+    /* Assemble pretty per-error insights for end-user. */
+    message.note =
+      `Keyword: ${error.keyword}\n` +
+      `${
+        error.params?.allowedValues
+          ? `Allowed values: ${error.params.allowedValues.join(', ')}`
+          : ''
+      }${
+        error.params?.missingProperty
+          ? `Missing property: ${error.params.missingProperty}`
+          : ''
+      }${error.params?.type ? `Type: ${error.params.type}` : ''}\n` +
+      `Schema: ${schemaRelPath}${error.schemaPath}`;
 
     /* Auto-fix replacement suggestions for `enum` */
     message.expected = error?.params?.allowedValues;
