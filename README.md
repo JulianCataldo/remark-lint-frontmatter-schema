@@ -16,6 +16,7 @@ Support:
 - **Auto-fixes** with suggestions
 - **C**ommand **L**ine **I**nterface reporting
 - **VS Code** integration (see below)
+- **Global patterns** or **in-file** schemas associations
 
 # Demo
 
@@ -165,7 +166,7 @@ It's always relative to your `./.remarkrc.mjs` file, in your workspace root.
 
 ### CLI / IDE (VS Code)
 
-Linting whole workspace `**/*.md` files with `remark-cli`:
+Linting whole workspace files (as `./**/*.md`) with `remark-cli`:
 
 ```sh
 pnpm remark .
