@@ -14,6 +14,7 @@
   "dependencies": {
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
+    "glob-to-regexp": "^0.4.1",
     "unified-lint-rule": "^2.1.1",
     "vfile-location": "^4.0.1",
     "vfile-message": "^3.1.2",
@@ -22,12 +23,15 @@
   "devDependencies": {
     "@parcel/core": "^2.7.0",
     "@parcel/packager-ts": "^2.7.0",
+    "@parcel/transformer-js": "^2.7.0",
+    "@parcel/transformer-react-refresh-wrap": "^2.7.0",
     "@parcel/transformer-typescript-types": "^2.7.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^8.0.5",
     "@semantic-release/npm": "^9.0.1",
     "@types/eslint": "^8.4.5",
+    "@types/glob-to-regexp": "^0.4.1",
     "@types/mdast": "^3.0.10",
     "@types/node": "^18.6.4",
     "@types/prettier": "^2.7.0",
@@ -44,7 +48,7 @@
     "parcel": "^2.7.0",
     "prettier": "^2.7.1",
     "semantic-release": "^19.0.3",
-    "typescript": "^4.7.4",
+    "typescript": ">=3.0.0",
     "unified": "^10.1.2"
   },
   "homepage": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema.git",

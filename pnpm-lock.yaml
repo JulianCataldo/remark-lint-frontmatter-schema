@@ -3,12 +3,15 @@ lockfileVersion: 5.4
 specifiers:
   '@parcel/core': ^2.7.0
   '@parcel/packager-ts': ^2.7.0
+  '@parcel/transformer-js': ^2.7.0
+  '@parcel/transformer-react-refresh-wrap': ^2.7.0
   '@parcel/transformer-typescript-types': ^2.7.0
   '@semantic-release/changelog': ^6.0.1
   '@semantic-release/git': ^10.0.1
   '@semantic-release/github': ^8.0.5
   '@semantic-release/npm': ^9.0.1
   '@types/eslint': ^8.4.5
+  '@types/glob-to-regexp': ^0.4.1
   '@types/mdast': ^3.0.10
   '@types/node': ^18.6.4
   '@types/prettier': ^2.7.0
@@ -24,10 +27,11 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-tsdoc: ^0.2.16
+  glob-to-regexp: ^0.4.1
   parcel: ^2.7.0
   prettier: ^2.7.1
   semantic-release: ^19.0.3
-  typescript: ^4.7.4
+  typescript: '>=3.0.0'
   unified: ^10.1.2
   unified-lint-rule: ^2.1.1
   vfile-location: ^4.0.1
@@ -37,6 +41,7 @@ specifiers:
 dependencies:
   ajv: 8.11.0
   ajv-formats: 2.1.1
+  glob-to-regexp: 0.4.1
   unified-lint-rule: 2.1.1
   vfile-location: 4.0.1
   vfile-message: 3.1.2
@@ -45,12 +50,15 @@ dependencies:
 devDependencies:
   '@parcel/core': 2.7.0
   '@parcel/packager-ts': 2.7.0_@parcel+core@2.7.0
+  '@parcel/transformer-js': 2.7.0_@parcel+core@2.7.0
+  '@parcel/transformer-react-refresh-wrap': 2.7.0_@parcel+core@2.7.0
   '@parcel/transformer-typescript-types': 2.7.0_7uecuwfxmxckiccza3belyuzhe
   '@semantic-release/changelog': 6.0.1_semantic-release@19.0.3
   '@semantic-release/git': 10.0.1_semantic-release@19.0.3
   '@semantic-release/github': 8.0.5_semantic-release@19.0.3
   '@semantic-release/npm': 9.0.1_semantic-release@19.0.3
   '@types/eslint': 8.4.5
+  '@types/glob-to-regexp': 0.4.1
   '@types/mdast': 3.0.10
   '@types/node': 18.6.4
   '@types/prettier': 2.7.0
@@ -1385,6 +1393,10 @@ packages:
 
   /@types/estree/1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
+    dev: true
+
+  /@types/glob-to-regexp/0.4.1:
+    resolution: {integrity: sha512-S0mIukll6fbF0tvrKic/jj+jI8SHoSvGU+Cs95b/jzZEnBYCbj+7aJtQ9yeABuK3xP1okwA3jEH9qIRayijnvQ==}
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -2761,6 +2773,10 @@ packages:
     dependencies:
       is-glob: 4.0.3
     dev: true
+
+  /glob-to-regexp/0.4.1:
+    resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
+    dev: false
 
   /glob/7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
