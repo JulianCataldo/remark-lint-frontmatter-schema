@@ -35,7 +35,7 @@ function pushErrors(
   errors: ErrorObject[],
   yamlDoc: Document,
   vFile: VFile,
-  /** The user-defined `$schema` value */
+  /** Local `$schema` key or from global settings */
   schemaRelPath: string,
 ) {
   errors.forEach((error) => {
@@ -113,7 +113,7 @@ function validateFrontmatter(
     if (hasLocalAssoc) {
       schemaRelPath = yamlJS.$schema;
     }
-  } catch (e) {
+  } catch (_) {
     /* NOTE: Never hitting this error.
        Parser seems to handle anything we throw at it. */
     const msg = `YAML frontmatter parse error`;
@@ -161,7 +161,7 @@ function validateFrontmatter(
         if (hasLocalAssoc) {
           delete yamlJS.$schema;
         }
-      } catch (e) {
+      } catch (_) {
         const msg = `YAML Schema parse error: ${schemaRelPath}`;
         // TODO: make a meaningful error with `linePos` etc.
         vFile.message(msg);
@@ -174,10 +174,10 @@ function validateFrontmatter(
           validate(yamlJS);
 
           /* Push JSON Schema validation failures messages */
-          if (validate?.errors.length) {
+          if (validate?.errors?.length) {
             pushErrors(validate.errors, yamlDoc, vFile, schemaRelPath);
           }
-        } catch (e) {
+        } catch (_) {
           const msg = `JSON Schema malformed: ${schemaRelPath}`;
           // TODO: make a meaningful error with `linePos` etc.
           vFile.message(msg);
