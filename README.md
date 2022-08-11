@@ -3,9 +3,10 @@
 <!-- [![Build Status](https://img.shields.io/github/workflow/status/JulianCataldo/remark-lint-frontmatter-schema/release/master.svg)](https://github.com/@julian_cataldo/remark-lint-frontmatter-schema/actions/workflows/release.yml?query=branch%3Amain) -->
 
 [![NPM](https://img.shields.io/npm/v/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
+[![prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
 [![ISC License](https://img.shields.io/npm/l/@julian_cataldo/remark-lint-frontmatter-schema)](./LICENSE)
-[![downloads](https://img.shields.io/npm/dw/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
+[![Downloads](https://img.shields.io/npm/dw/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
 
 Validate **Markdown** frontmatter **YAML** against an associated **JSON schema** with this **remark-lint** rule plugin.
 
@@ -38,9 +39,9 @@ Supports:
       - [Schema example](#schema-example)
     - [Inside frontmatter](#inside-frontmatter)
     - [🆕  Globally, with patterns](#globally-with-patterns)
-    - [CLI / IDE (VS Code)](#cli--ide-vs-code)
+    - [CLI / IDE (VS Code) - linting](#cli--ide-vs-code---linting)
     - [MD / MDX pipeline](#md--mdx-pipeline)
-      - [Custom](#custom)
+      - [🆕  Custom pipeline - runtime](#custom-pipeline---runtime)
       - [Framework](#framework)
         - [Astro](#astro)
         - [Gatsby](#gatsby)
@@ -106,7 +107,7 @@ type: object
 properties:
   title:
     type: string
-# ...
+# …
 ```
 
 ### Inside frontmatter
@@ -122,7 +123,7 @@ relative to project root, thanks to the `'$schema'` key:
 
 title: Hello there
 category: Book
-# ...
+# …
 ---
 
 # You're welcome!
@@ -165,7 +166,7 @@ const remarkConfig = {
 `'./foo'`, `'/foo'`, `'foo'`, all will work.  
 It's always relative to your `./.remarkrc.mjs` file, in your workspace root.
 
-### CLI / IDE (VS Code)
+### CLI / IDE (VS Code) - linting
 
 Linting whole workspace files (as `./**/*.md`) with `remark-cli`:
 
@@ -176,7 +177,7 @@ pnpm remark .
 Yields:
 
 ```shell
-# ...
+# …
 content/correct-creative-work.md
   1:1  warning  /category: Must be equal to one of the allowed values  frontmatter-schema  remark-lint
   1:1  warning  /complex/some: Must be string                          frontmatter-schema  remark-lint
@@ -188,41 +189,79 @@ content/correct-creative-work.md
 
 Use it as usual like any remark plugin inside your framework or your custom `unified` pipeline.
 
-#### Custom
+#### 🆕  Custom pipeline - runtime
+
+When processing markdown as single files inside your JS/TS app.
+
+> This is **different to static linting** as demonstrated above.  
+> It **will not source `.remarkrc`** (still, you can source it by your means if you want).  
+> In fact, is not aware of your file structure,
+> nor it will associated or import any schema files.  
+> That way, it will integrate easier with your own plugin / framework systems.
+
+Schema should be provided programmatically like this:
 
 ```ts
-// ...
+// …
 import remarkFrontmatter from 'remark-frontmatter';
 import rlFmSchema from '@julian_cataldo/remark-lint-frontmatter-schema';
+import type { JSONSchema7 } from 'json-schema';
+import { reporter } from 'vfile-reporter';
 
-// ...
-unified()
-  //...
+const mySchema: JSONSchema7 = {
+  /* … */
+};
+
+const output = await unified()
+  // Your pipeline
+  .use(remarkParse)
+  // …
   .use(remarkFrontmatter)
-  .use(rlFmSchema);
-// ...
+  .use(rlFmSchema, {
+    /* Bring your own schema */
+    embed: mySchema,
+  })
+  // …
+  .use(remarkRehype)
+  .use(rehypeStringify)
+  .use(rehypeFormat)
+  // …
+  .process(theRawMarkdownLiteral);
+
+output.path = './the-current-processed-md-file.md';
+
+console.error(reporter([output]));
+```
+
+Yields:
+
+```
+./the-current-processed-md-file.md
+  1:1  warning  Must have required property 'tag'  frontmatter-schema  remark-lint
+
+⚠ 1 warning
 ```
 
 #### Framework
 
 > **Warning**  
-> NOT tested yet!
+> WIP. **NOT tested yet**!
 
 ##### Astro
 
 In `astro.config.mjs`
 
 ```ts
-// ...
+// …
 export default defineConfig({
-  // ...
+  // …
   remarkPlugins: [
-    // ...
+    // …
     'remark-frontmatter',
     '@julian_cataldo/remark-lint-frontmatter-schema',
-    // ...
+    // …
   ];
-  // ...
+  // …
 });
 ```
 
@@ -232,21 +271,21 @@ In `gatsby-config.js`
 
 ```ts
 {
-  // ...
+  // …
   plugins: [
-    // ...
+    // …
     {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          // ...
+          // …
           'remark-frontmatter',
           '@julian_cataldo/remark-lint-frontmatter-schema',
-          // ...
+          // …
         ],
       },
     },
-    // ...
+    // …
   ];
 }
 ```
@@ -277,6 +316,10 @@ Using:
 Major dependencies:
 
 `ajv`, `yaml`, `remark`, `remark-frontmatter`, `unified`, `remark-cli`
+
+---
+
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ---
 
