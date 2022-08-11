@@ -228,6 +228,7 @@ const output = await unified()
   // …
   .process(theRawMarkdownLiteral);
 
+/* `path` is for debugging purpose here, MD literal can come from anywhere. */
 output.path = './the-current-processed-md-file.md';
 
 console.error(reporter([output]));
