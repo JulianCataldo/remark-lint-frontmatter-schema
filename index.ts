@@ -16,14 +16,23 @@ import { location } from 'vfile-location';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
+import type { JSONSchema7 } from 'json-schema';
 /* —————————————————————————————————————————————————————————————————————————— */
 export interface Settings {
   /**
+   * Global workspace file associations mapping (for linter extension).
+   *
    * Example: `'schemas/thing.schema.yaml': ['content/things/*.md']`
    */
   schemas?: {
     [key: string]: string[];
   };
+  /**
+   * Direct schema embedding (for using inside an unified transform pipeline).
+   *
+   * Format: JSON Schema - draft-2019-09
+   */
+  embed?: JSONSchema7;
 }
 /* ·········································································· */
 
@@ -96,6 +105,7 @@ function validateFrontmatter(
   settings: Settings,
 ) {
   const hasGlobalSettings = typeof settings?.schemas === 'object';
+  const hasPropSchema = typeof settings?.embed === 'object';
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
@@ -108,7 +118,7 @@ function validateFrontmatter(
     yamlDoc = yaml.parseDocument(sourceYaml.value);
     yamlJS = yamlDoc.toJS();
 
-    /* Local `$schema` association takes precedence over global mapping */
+    /* Local `$schema` association takes precedence over global / prop. */
     hasLocalAssoc = typeof yamlJS?.$schema === 'string';
     if (hasLocalAssoc) {
       schemaRelPath = yamlJS.$schema;
@@ -143,48 +153,50 @@ function validateFrontmatter(
     );
   }
 
-  /* We got an associated schema to work with */
+  /* From file only */
+  let fileSchemaExists;
+  let schemaFullPath;
   if (hasLocalAssoc || fromGlobalAssoc) {
     /* Path is combined with the process / workspace root directory,
        where the `.remarkrc.mjs` should live. */
-    const schemaFullPath = path.join(vFile.cwd, schemaRelPath);
-    const schemaExists = fs.existsSync(schemaFullPath);
+    schemaFullPath = path.join(vFile.cwd, schemaRelPath);
+    fileSchemaExists = fs.existsSync(schemaFullPath);
+  }
 
-    if (schemaExists) {
-      let schema;
-      try {
-        // IDEA: make it async?
-        const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
-        schema = yaml.parse(fileData);
-        /* Schema is now extracted,
-           remove local `$schema` key, so it will not interfere later */
-        if (hasLocalAssoc) {
-          delete yamlJS.$schema;
-        }
-      } catch (_) {
-        const msg = `YAML Schema parse error: ${schemaRelPath}`;
-        // TODO: make a meaningful error with `linePos` etc.
-        vFile.message(msg);
+  let schema;
+  if (hasPropSchema) {
+    schema = settings.embed;
+  } else if (fileSchemaExists) {
+    try {
+      // IDEA: make it async?
+      const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
+      schema = yaml.parse(fileData);
+      /* Schema is now extracted,
+      remove local `$schema` key, so it will not interfere later */
+      if (hasLocalAssoc) {
+        delete yamlJS.$schema;
       }
+    } catch (_) {
+      const msg = `YAML Schema parse error: ${schemaRelPath}`;
+      // TODO: make a meaningful error with `linePos` etc.
+      vFile.message(msg);
+    }
+  }
 
-      /* JSON Schema compilation + validation with AJV */
-      if (schema) {
-        try {
-          const validate = ajv.compile(schema);
-          validate(yamlJS);
+  /* We got an extracted schema to work with */
+  if (schema) {
+    /* JSON Schema compilation + validation with AJV */
+    try {
+      const validate = ajv.compile(schema);
+      validate(yamlJS);
 
-          /* Push JSON Schema validation failures messages */
-          if (validate?.errors?.length) {
-            pushErrors(validate.errors, yamlDoc, vFile, schemaRelPath);
-          }
-        } catch (_) {
-          const msg = `JSON Schema malformed: ${schemaRelPath}`;
-          // TODO: make a meaningful error with `linePos` etc.
-          vFile.message(msg);
-        }
+      /* Push JSON Schema validation failures messages */
+      if (validate?.errors?.length) {
+        pushErrors(validate.errors, yamlDoc, vFile, schemaRelPath);
       }
-    } else {
-      const msg = `Schema not found: ${schemaFullPath}`;
+    } catch (_) {
+      const msg = `JSON Schema malformed: ${schemaRelPath}`;
+      // TODO: make a meaningful error with `linePos` etc.
       vFile.message(msg);
     }
   }
