@@ -95,7 +95,7 @@ function validateFrontmatter(
   vFile: VFile,
   settings: Settings,
 ) {
-  const hasGlobalSettings = typeof settings.schemas === 'object';
+  const hasGlobalSettings = typeof settings?.schemas === 'object';
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
