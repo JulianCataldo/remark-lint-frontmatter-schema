@@ -42,6 +42,7 @@ Supports:
     - [CLI / IDE (VS Code) - linting](#cli--ide-vs-code---linting)
     - [MD / MDX pipeline](#md--mdx-pipeline)
       - [🆕  Custom pipeline - runtime](#custom-pipeline---runtime)
+        - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
       - [Framework](#framework)
         - [Astro](#astro)
         - [Gatsby](#gatsby)
@@ -193,12 +194,6 @@ Use it as usual like any remark plugin inside your framework or your custom `uni
 
 When processing markdown as single files inside your JS/TS app.
 
-> This is **different to static linting** as demonstrated above.  
-> It **will not source `.remarkrc`** (still, you can source it by your means if you want).  
-> In fact, is not aware of your file structure,
-> nor it will associated or import any schema files.  
-> That way, it will integrate easier with your own plugin / framework systems.
-
 Schema should be provided programmatically like this:
 
 ```ts
@@ -213,22 +208,23 @@ const mySchema: JSONSchema7 = {
 };
 
 const output = await unified()
-  // Your pipeline
+  // Your pipeline (basic example)
   .use(remarkParse)
   // …
   .use(remarkFrontmatter)
+
   .use(rlFmSchema, {
     /* Bring your own schema */
     embed: mySchema,
   })
+
   // …
   .use(remarkRehype)
   .use(rehypeStringify)
   .use(rehypeFormat)
-  // …
   .process(theRawMarkdownLiteral);
 
-/* `path` is for debugging purpose here, MD literal can come from anywhere. */
+/* `path` is for debugging purpose here, as MD literal comes from your app. */
 output.path = './the-current-processed-md-file.md';
 
 console.error(reporter([output]));
@@ -242,6 +238,16 @@ Yields:
 
 ⚠ 1 warning
 ```
+
+##### Important foot-notes for custom pipeline
+
+This is **different from static linting**, with VS Code extension or CLI.  
+It **will not source `.remarkrc`** (still, you can source it by your means if you want).  
+In fact, it's not aware of your file structure,
+nor it will associated or import any schema / markdown files.  
+That way, it will integrate easier with your own business logic, even if that means more work.  
+I found that **static linting** (during editing) / and **runtime validation** are two different
+uses cases enough to separate them in their setups, but I might converge them partially.
 
 #### Framework
 
