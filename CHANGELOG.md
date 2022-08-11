@@ -1,3 +1,15 @@
+# [3.4.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.3.1...v3.4.0) (2022-08-11)
+
+
+### Bug Fixes
+
+* crash when no global schemas ([7107487](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/71074876a31d224184a11a234f07c610c3c14380))
+
+
+### Features
+
+* direct schema embedding through settings ([5430797](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/543079764969e78fbe270aa5b5d8d844c7efff16))
+
 ## [3.3.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.3.0...v3.3.1) (2022-08-10)
 
 
