@@ -6,13 +6,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 /* ·········································································· */
-import yaml, { Document, isNode } from 'yaml';
+import yaml, { Document, isNode, LineCounter } from 'yaml';
 import Ajv, { ErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
 import globToRegExp from 'glob-to-regexp';
 /* ·········································································· */
 import { Position } from 'vfile-message';
-import { location } from 'vfile-location';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
@@ -46,6 +45,8 @@ function pushErrors(
   vFile: VFile,
   /** Local `$schema` key or from global settings */
   schemaRelPath: string,
+  sourceYaml: YAML,
+  lineCounter: LineCounter,
 ) {
   errors.forEach((error) => {
     /* Capitalize error message */
@@ -66,16 +67,19 @@ function pushErrors(
     let position: Position | null;
 
     if (isNode(node)) {
-      // NOTE: maybe `location` isn't needed to get the correct positions
-      const place = location(vFile);
+      const start = lineCounter.linePos(node.range[0]);
+      const end = lineCounter.linePos(node.range[1]);
 
-      const openingFenceLength = 4; /* Take the `---` into account */
-      const startChar = node.range[0] + openingFenceLength;
-      const endChar = node.range[1] + openingFenceLength;
-
-      const start = place.toPoint(startChar);
-      const end = place.toPoint(endChar);
-      position = { start, end };
+      position = {
+        start: {
+          line: start.line + sourceYaml.position.start.line,
+          column: start.col + sourceYaml.position.start.column,
+        },
+        end: {
+          line: end.line + sourceYaml.position.end.line,
+          column: end.col + sourceYaml.position.end.column,
+        },
+      };
     }
 
     const message = vFile.message(reason, position);
@@ -106,6 +110,7 @@ function validateFrontmatter(
 ) {
   const hasGlobalSettings = typeof settings?.schemas === 'object';
   const hasPropSchema = typeof settings?.embed === 'object';
+  const lineCounter = new LineCounter();
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
@@ -115,7 +120,7 @@ function validateFrontmatter(
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
      previously extracted by `remark-frontmatter`. */
   try {
-    yamlDoc = yaml.parseDocument(sourceYaml.value);
+    yamlDoc = yaml.parseDocument(sourceYaml.value, { lineCounter });
     yamlJS = yamlDoc.toJS();
 
     /* Local `$schema` association takes precedence over global / prop. */
@@ -179,7 +184,7 @@ function validateFrontmatter(
     } catch (_) {
       const msg = `YAML Schema parse error: ${schemaRelPath}`;
       // TODO: make a meaningful error with `linePos` etc.
-      vFile.message(msg);
+      vFile.message(msg, sourceYaml);
     }
   }
 
@@ -192,7 +197,14 @@ function validateFrontmatter(
 
       /* Push JSON Schema validation failures messages */
       if (validate?.errors?.length) {
-        pushErrors(validate.errors, yamlDoc, vFile, schemaRelPath);
+        pushErrors(
+          validate.errors,
+          yamlDoc,
+          vFile,
+          schemaRelPath,
+          sourceYaml,
+          lineCounter,
+        );
       }
     } catch (_) {
       const msg = `JSON Schema malformed: ${schemaRelPath}`;

@@ -35,7 +35,6 @@ specifiers:
   typescript: 4.7.4
   unified: 10.1.2
   unified-lint-rule: ^2.1.1
-  vfile-location: ^4.0.1
   vfile-message: ^3.1.2
   yaml: ^2.1.1
 
@@ -44,7 +43,6 @@ dependencies:
   ajv-formats: 2.1.1
   glob-to-regexp: 0.4.1
   unified-lint-rule: 2.1.1
-  vfile-location: 4.0.1
   vfile-message: 3.1.2
   yaml: 2.1.1
 
@@ -4789,13 +4787,6 @@ packages:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
     dev: true
-
-  /vfile-location/4.0.1:
-    resolution: {integrity: sha512-JDxPlTbZrZCQXogGheBHjbRWjESSPEak770XwWPfw5mTc1v1nWGLB/apzZxsx8a0SJVfF8HK8ql8RD308vXRUw==}
-    dependencies:
-      '@types/unist': 2.0.6
-      vfile: 5.3.4
-    dev: false
 
   /vfile-message/3.1.2:
     resolution: {integrity: sha512-QjSNP6Yxzyycd4SVOtmKKyTsSvClqBPJcd00Z0zuPj3hOIjg0rUPG6DbFGPvUKRgYyaIWLPKpuEclcuvb3H8qA==}
