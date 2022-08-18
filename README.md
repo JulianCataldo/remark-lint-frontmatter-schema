@@ -22,15 +22,15 @@ Supports:
 
 # Demo
 
-[![Demo screenshot of frontmatter schema linter 1](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot.png)
+[![Demo screenshot of frontmatter schema linter 1](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot.png)
 
 ---
 
-[![Demo screenshot of frontmatter schema linter 2](./docs/screenshot-2.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot-2.png)
+[![Demo screenshot of frontmatter schema linter 2](./docs/screenshot-2.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot-2.png)
 
 ---
 
-[![Demo screenshot of frontmatter schema linter 3](./docs/screenshot-3.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot-3.png)
+[![Demo screenshot of frontmatter schema linter 3](./docs/screenshot-3.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot-3.png)
 
 ## 👉  **Play with pre-configured [./demo](./demo/)**
 
@@ -59,6 +59,7 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
     - [CLI / IDE (VS Code) - linting](#cli--ide-vs-code---linting)
     - [MD / MDX pipeline](#md--mdx-pipeline)
       - [🆕  Custom pipeline - runtime](#custom-pipeline---runtime)
+        - [Implementation living example](#implementation-living-example)
         - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
       - [Framework](#framework)
         - [Astro](#astro)
@@ -256,6 +257,14 @@ Yields:
 ⚠ 1 warning
 ```
 
+##### Implementation living example
+
+Checkout [**content-maestro**](https://github.com/JulianCataldo/content-maestro) repository.
+It's a text based, structured content framework, for edition and consumption.  
+Content-Maestro relies on this library for providing file or API based linting errors logs.
+
+You can see **remark-lint-frontmatter-schema** in action, on **[this line, in content-maestro source](https://github.com/JulianCataldo/content-maestro/blob/1cf94344055cd9591609f8f47d262390e8a08480/src/md-to-html.ts#L59)**.
+
 ##### Important foot-notes for custom pipeline
 
 This is **different from static linting**, with VS Code extension or CLI.  
@@ -271,6 +280,8 @@ uses cases enough to separate them in their setups, but I might converge them pa
 > **Warning**  
 > WIP. **NOT tested yet**!
 
+See [global patterns `schemas` associations](#globally-with-patterns) for settings reference.
+
 ##### Astro
 
 In `astro.config.mjs`
@@ -282,7 +293,7 @@ export default defineConfig({
   remarkPlugins: [
     // …
     'remark-frontmatter',
-    '@julian_cataldo/remark-lint-frontmatter-schema',
+    ['@julian_cataldo/remark-lint-frontmatter-schema', { schemas }],
     // …
   ];
   // …
@@ -304,7 +315,7 @@ In `gatsby-config.js`
         plugins: [
           // …
           'remark-frontmatter',
-          '@julian_cataldo/remark-lint-frontmatter-schema',
+          ['@julian_cataldo/remark-lint-frontmatter-schema', { schemas }],
           // …
         ],
       },
