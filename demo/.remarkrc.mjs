@@ -5,10 +5,10 @@ import rlFmSchema from '@julian_cataldo/remark-lint-frontmatter-schema';
 const remarkConfig = {
   plugins: [
     remarkFrontmatter,
-    /*  v———— Use it without settings, with local '$schema' associations only */
+    /* v————— Use it without settings, with local '$schema' associations only */
     // rlFmSchema
 
-    /*  v———— Or with global schemas associations */
+    /* v————— Or with global schemas associations */
     [
       rlFmSchema,
       {
