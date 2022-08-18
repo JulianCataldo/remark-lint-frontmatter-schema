@@ -12,9 +12,7 @@ module.exports = {
     es2022: true,
     browser: true,
   },
-  extends: ['eslint:recommended'],
-
-  plugins: ['eslint-plugin-tsdoc'],
+  // extends: ['eslint:recommended'],
 
   rules: {
     'no-restricted-syntax': 0,
@@ -28,7 +26,7 @@ module.exports = {
   overrides: [
     {
       files: ['*.js', '*.mjs', '*.cjs'],
-      extends: ['airbnb-base', 'prettier'],
+      extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
       rules: {
         'no-restricted-syntax': 0,
         'import/extensions': 'off',
@@ -46,6 +44,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'prettier',
       ],
+      plugins: ['eslint-plugin-tsdoc'],
       rules: {
         '@typescript-eslint/no-unused-vars': [
           'error',
@@ -54,7 +53,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'max-lines': [
           'error',
-          { max: 100, skipComments: true, skipBlankLines: true },
+          { max: 160, skipComments: true, skipBlankLines: true },
         ],
         'import/extensions': [
           'error',
