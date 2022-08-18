@@ -22,14 +22,31 @@ Supports:
 
 # Demo
 
-[![Demo screenshot of frontmatter schema linter](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot.png)
-
-👉  **See [./demo](./demo/)**
+[![Demo screenshot of frontmatter schema linter 1](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot.png)
 
 ---
 
+[![Demo screenshot of frontmatter schema linter 2](./docs/screenshot-2.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot-2.png)
+
+---
+
+[![Demo screenshot of frontmatter schema linter 3](./docs/screenshot-3.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/4985660878364df7c46d61d7efc79d96e2069ab4/docs/screenshot-3.png)
+
+## 👉  **Play with pre-configured [./demo](./demo/)**
+
+Quick clone with:
+
+```sh
+pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
+```
+
+---
+
+**Jump to**:
+
 - [`remark-lint-frontmatter-schema`](#remark-lint-frontmatter-schema)
 - [Demo](#demo)
+  - [👉  **Play with pre-configured ./demo**](#play-with-pre-configured-demo)
 - [Quick start](#quick-start)
   - [Installation](#installation)
     - [VS Code (optional)](#vs-code-optional)
@@ -171,7 +188,7 @@ It's always relative to your `./.remarkrc.mjs` file, in your workspace root.
 
 Linting whole workspace files (as `./**/*.md`) with `remark-cli`:
 
-```sh
+```shell
 pnpm remark .
 ```
 
