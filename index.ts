@@ -5,18 +5,20 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-/* ·········································································· */
-import yaml, { Document, isNode } from 'yaml';
-import Ajv, { ErrorObject } from 'ajv';
-import addFormats from 'ajv-formats';
 import globToRegExp from 'glob-to-regexp';
+/* ·········································································· */
+import yaml, { isNode } from 'yaml';
+import type { Document } from 'yaml';
+import Ajv from 'ajv';
+import type { ErrorObject } from 'ajv';
+import addFormats from 'ajv-formats';
+import type { JSONSchema7 } from 'json-schema';
 /* ·········································································· */
 import { Position } from 'vfile-message';
 import { location } from 'vfile-location';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
-import type { JSONSchema7 } from 'json-schema';
 /* —————————————————————————————————————————————————————————————————————————— */
 export interface Settings {
   /**
@@ -28,7 +30,7 @@ export interface Settings {
     [key: string]: string[];
   };
   /**
-   * Direct schema embedding (for using inside an unified transform pipeline).
+   * Direct schema embedding (for using inside an `unified` transform pipeline).
    *
    * Format: JSON Schema - draft-2019-09
    */
