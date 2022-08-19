@@ -51,14 +51,15 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
   - [Installation](#installation)
     - [VS Code (optional)](#vs-code-optional)
   - [Configuration](#configuration)
-    - [Workspace](#workspace)
-    - [Schemas associations](#schemas-associations)
+    - [CLI / IDE (VS Code) — **Static** linting](#cli--ide-vs-code--static-linting)
+      - [Workspace](#workspace)
       - [Schema example](#schema-example)
-    - [Inside frontmatter](#inside-frontmatter)
-    - [🆕  Globally, with patterns](#globally-with-patterns)
-    - [CLI / IDE (VS Code) - linting](#cli--ide-vs-code---linting)
-    - [MD / MDX pipeline](#md--mdx-pipeline)
-      - [🆕  Custom pipeline - runtime](#custom-pipeline---runtime)
+      - [Schemas associations](#schemas-associations)
+        - [Inside frontmatter](#inside-frontmatter)
+        - [🆕  Globally, with patterns](#globally-with-patterns)
+      - [CLI usage](#cli-usage)
+    - [MD / MDX pipeline — **Runtime** validation](#md--mdx-pipeline--runtime-validation)
+      - [🆕  Custom pipeline](#custom-pipeline)
         - [Implementation living example](#implementation-living-example)
         - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
       - [Framework](#framework)
@@ -89,13 +90,15 @@ code --install-extension unifiedjs.vscode-remark
 
 ## Configuration
 
+### CLI / IDE (VS Code) — **Static** linting
+
 👉  **See [./demo](./demo/)** folder to get a working, pre-configured, bare project workspace.  
 You also get example markdown files and associated schema to play with.  
 Supports `remark-cli` and/or `unifiedjs.vscode-remark` extension.
 
 📌  Check out the **[demo/README.md](./demo) for bootstrapping** it.
 
-### Workspace
+#### Workspace
 
 Create root config file for `remark` to source from:  
 `touch ./.remarkrc.mjs`
@@ -112,14 +115,9 @@ const remarkConfig = {
 export default remarkConfig;
 ```
 
-### Schemas associations
-
-Inspired by [VS Code JSON Schema](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
-and [`redhat.vscode-yaml`](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) conventions.
-
 #### Schema example
 
-`creative-work.schema.yaml`
+`./content/creative-work.schema.yaml`
 
 ```yaml
 type: object
@@ -129,7 +127,12 @@ properties:
 # …
 ```
 
-### Inside frontmatter
+#### Schemas associations
+
+Inspired by [VS Code JSON Schema](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
+and [`redhat.vscode-yaml`](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) conventions.
+
+##### Inside frontmatter
 
 See **[./demo/content](./demo/content)** files for examples.
 
@@ -151,7 +154,7 @@ category: Book
 …
 ```
 
-### 🆕  Globally, with patterns
+##### 🆕  Globally, with patterns
 
 > **Note**:  
 > Locally defined **`'$schema'` takes precedence** over global settings below.
@@ -185,7 +188,7 @@ const remarkConfig = {
 `'./foo'`, `'/foo'`, `'foo'`, all will work.  
 It's always relative to your `./.remarkrc.mjs` file, in your workspace root.
 
-### CLI / IDE (VS Code) - linting
+#### CLI usage
 
 Linting whole workspace files (as `./**/*.md`) with `remark-cli`:
 
@@ -204,11 +207,11 @@ content/correct-creative-work.md
 ⚠ 6 warnings
 ```
 
-### MD / MDX pipeline
+### MD / MDX pipeline — **Runtime** validation
 
 Use it as usual like any remark plugin inside your framework or your custom `unified` pipeline.
 
-#### 🆕  Custom pipeline - runtime
+#### 🆕  Custom pipeline
 
 When processing markdown as single files inside your JS/TS app.
 
