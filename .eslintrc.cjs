@@ -53,7 +53,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'max-lines': [
           'error',
-          { max: 160, skipComments: true, skipBlankLines: true },
+          { max: 180, skipComments: true, skipBlankLines: true },
         ],
         'import/extensions': [
           'error',
