@@ -68,16 +68,14 @@ function pushErrors(
     let position: Position | null;
 
     if (isNode(node)) {
-      // NOTE: maybe `location` isn't needed to get the correct positions
+      // NOTE: `v-file-location` might not be needed to get positions (PR #8)
       const place = location(vFile);
-
       const openingFenceLength = 4; /* Take the `---` into account */
-      const startChar = node.range[0] + openingFenceLength;
-      const endChar = node.range[1] + openingFenceLength;
 
-      const start = place.toPoint(startChar);
-      const end = place.toPoint(endChar);
-      position = { start, end };
+      position = {
+        start: place.toPoint(node.range[0] + openingFenceLength),
+        end: place.toPoint(node.range[1] + openingFenceLength),
+      };
     }
 
     const message = vFile.message(reason, position);
