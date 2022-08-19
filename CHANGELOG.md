@@ -1,3 +1,15 @@
+# [3.5.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.4.1...v3.5.0) (2022-08-19)
+
+
+### Bug Fixes
+
+* rehaul docs titles hierarchy ([03ba93c](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/03ba93c5e245444acfe199ebd5221a736e355141))
+
+
+### Features
+
+* live implementation + frameworks in docs ([8cdb18e](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/8cdb18efb7c65650a67efd7e0cd2be5de4e030f3))
+
 ## [3.4.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.4.0...v3.4.1) (2022-08-18)
 
 
