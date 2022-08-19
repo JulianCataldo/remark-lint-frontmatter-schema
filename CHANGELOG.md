@@ -1,3 +1,10 @@
+## [3.5.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.5.0...v3.5.1) (2022-08-19)
+
+
+### Bug Fixes
+
+* more readable message note construction ([a9328fe](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/a9328fe7c8e320bee0b4b47d7435108d51a10045))
+
 # [3.5.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.4.1...v3.5.0) (2022-08-19)
 
 
