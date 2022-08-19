@@ -81,18 +81,20 @@ function pushErrors(
     const message = vFile.message(reason, position);
 
     /* Assemble pretty per-error insights for end-user */
-    message.note =
-      `Keyword: ${error.keyword}\n` +
-      `${
-        error.params?.allowedValues
-          ? `Allowed values: ${error.params.allowedValues.join(', ')}`
-          : ''
-      }${
-        error.params?.missingProperty
-          ? `Missing property: ${error.params.missingProperty}`
-          : ''
-      }${error.params?.type ? `Type: ${error.params.type}` : ''}\n` +
-      `Schema: ${schemaRelPath}${error.schemaPath}`;
+    let note = `Keyword: ${error.keyword}`;
+    if (error.params?.allowedValues) {
+      note += `\nAllowed values: ${error.params.allowedValues.join(', ')}`;
+    }
+    if (error.params?.missingProperty) {
+      note += `\nMissing property: ${error.params.missingProperty}`;
+    }
+    if (error.params?.type) {
+      note += `\nType: ${error.params.type}`;
+    }
+    /* `schemaRelPath` path prefix will show up only when using
+        file association, not when using pipeline embedded schema */
+    note += `\nSchema path: ${schemaRelPath}${error.schemaPath}`;
+    message.note = note;
 
     /* Auto-fix replacement suggestions for `enum` */
     message.expected = error?.params?.allowedValues;
