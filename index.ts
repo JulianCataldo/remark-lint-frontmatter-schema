@@ -172,7 +172,7 @@ function validateFrontmatter(
       const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
       schema = yaml.parse(fileData);
       /* Schema is now extracted,
-      remove local `$schema` key, so it will not interfere later */
+         remove in-file `$schema` key, so it will not interfere later */
       if (hasLocalAssoc) {
         delete yamlJS.$schema;
       }
