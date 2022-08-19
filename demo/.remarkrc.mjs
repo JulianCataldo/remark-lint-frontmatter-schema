@@ -16,7 +16,8 @@ const remarkConfig = {
           /* One schema for many files */
           './content/creative-work.schema.yaml': [
             /* Support glob patterns */
-            './content/*-creative-work.md',
+            './content/broken-creative-work.md',
+            // './content/*-creative-work.md',
             // './content/does-not-exist-anymore.md',
           ],
           // './content/ghost.schema.yaml': [

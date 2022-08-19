@@ -1,17 +1,18 @@
 ---
-'$schema': /content/creative-work.schema.yaml
+'$schema': content/creative-work.schema.yaml
 
-title: Hello there
-category: Book
-complex:
-  time: 0
-  some: text is here
+title: 2
+category: Boucs 🐐
 ---
 
-# You're welcome!
+# Markdownish title-ish
 
-…Frontmatter Schema validation…
+> …Frontmatter **Schema** _validation_…
+
+1. Head
+2. Shoulder
+3. Knees
 
 ---
 
-www.JulianCataldo.com
+[www.JulianCataldo.com](./link.foo)
