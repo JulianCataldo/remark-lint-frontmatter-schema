@@ -3,10 +3,13 @@
 <!-- [![Build Status](https://img.shields.io/github/workflow/status/JulianCataldo/remark-lint-frontmatter-schema/release/master.svg)](https://github.com/@julian_cataldo/remark-lint-frontmatter-schema/actions/workflows/release.yml?query=branch%3Amain) -->
 
 [![NPM](https://img.shields.io/npm/v/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
-[![prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
 [![ISC License](https://img.shields.io/npm/l/@julian_cataldo/remark-lint-frontmatter-schema)](./LICENSE)
-[![Downloads](https://img.shields.io/npm/dw/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
+[![Downloads](https://img.shields.io/npm/dw/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)  
+[![TypeScript](https://img.shields.io/badge/TypeScript-333333.svg?logo=typescript)](http://www.typescriptlang.org/)
+[![Prettier](https://img.shields.io/badge/Prettier-333333.svg?logo=prettier)](https://prettier.io)
+[![ESLint](https://img.shields.io/badge/ESLint-3A33D1?logo=eslint)](https://eslint.org)
+[![VS Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?logo=visual%20studio%20code)](https://code.visualstudio.com)
 
 Validate **Markdown** frontmatter **YAML** against an associated **JSON schema** with this **remark-lint** rule plugin.
 
@@ -34,7 +37,7 @@ Supports:
 
 ## 👉  **Play with pre-configured [./demo](./demo/)**
 
-Quick clone with:
+Quick shallow **clone** with:
 
 ```sh
 pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
@@ -72,7 +75,7 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
 
 ## Installation
 
-```shell
+```sh
 pnpm install -D \
 remark remark-cli \
 remark-frontmatter \
@@ -84,7 +87,7 @@ remark-frontmatter \
 
 ### VS Code (optional)
 
-```
+```sh
 code --install-extension unifiedjs.vscode-remark
 ```
 
@@ -192,13 +195,13 @@ It's always relative to your `./.remarkrc.mjs` file, in your workspace root.
 
 Linting whole workspace files (as `./**/*.md`) with `remark-cli`:
 
-```shell
+```sh
 pnpm remark .
 ```
 
 Yields:
 
-```shell
+```sh
 # …
 content/correct-creative-work.md
   1:1  warning  /category: Must be equal to one of the allowed values  frontmatter-schema  remark-lint
@@ -262,7 +265,7 @@ Yields:
 
 ##### Implementation living example
 
-Checkout [**content-maestro**](https://github.com/JulianCataldo/content-maestro) repository.
+Checkout [**content-maestro**](https://github.com/JulianCataldo/content-maestro) repository.  
 It's a text based, structured content framework, for edition and consumption.  
 Content-Maestro relies on this library for providing file or API based linting errors logs.
 
@@ -271,10 +274,10 @@ You can see **remark-lint-frontmatter-schema** in action, on **[this line, in co
 ##### Important foot-notes for custom pipeline
 
 This is **different from static linting**, with VS Code extension or CLI.  
-It **will not source `.remarkrc`** (still, you can source it by your means if you want).  
+It **will not source `.remarkrc`** (but you can source it by your own means, if you want).  
 In fact, it's not aware of your file structure,
-nor it will associated or import any schema / markdown files.  
-That way, it will integrate easier with your own business logic, even if that means more work.  
+nor it will associate or import any schema / markdown files.  
+That way, it will integrate easier with your own business logic.  
 I found that **static linting** (during editing) / and **runtime validation** are two different
 uses cases enough to separate them in their setups, but I might converge them partially.
 
