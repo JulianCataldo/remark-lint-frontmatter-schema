@@ -70,7 +70,7 @@ function pushErrors(
     if (isNode(node)) {
       // NOTE: `v-file-location` might not be needed to get positions (PR #8)
       const place = location(vFile);
-      const openingFenceLength = 4; /* Take the `---` into account */
+      const openingFenceLength = 4; /* Takes the `---` into account */
 
       position = {
         start: place.toPoint(node.range[0] + openingFenceLength),
@@ -80,7 +80,7 @@ function pushErrors(
 
     const message = vFile.message(reason, position);
 
-    /* Assemble pretty per-error insights for end-user. */
+    /* Assemble pretty per-error insights for end-user */
     message.note =
       `Keyword: ${error.keyword}\n` +
       `${
@@ -113,19 +113,19 @@ function validateFrontmatter(
   let schemaRelPath;
 
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
-     previously extracted by `remark-frontmatter`. */
+     previously extracted by `remark-frontmatter` */
   try {
     yamlDoc = yaml.parseDocument(sourceYaml.value);
     yamlJS = yamlDoc.toJS();
 
-    /* Local `$schema` association takes precedence over global / prop. */
+    /* Local `$schema` association takes precedence over global / prop */
     hasLocalAssoc = typeof yamlJS?.$schema === 'string';
     if (hasLocalAssoc) {
       schemaRelPath = yamlJS.$schema;
     }
   } catch (_) {
-    /* NOTE: Never hitting this error.
-       Parser seems to handle anything we throw at it. */
+    /* NOTE: Never hitting this error,
+       parser seems to handle anything we throw at it */
     const msg = `YAML frontmatter parse error`;
     vFile.message(msg);
   }
@@ -158,7 +158,7 @@ function validateFrontmatter(
   let schemaFullPath;
   if (hasLocalAssoc || fromGlobalAssoc) {
     /* Path is combined with the process / workspace root directory,
-       where the `.remarkrc.mjs` should live. */
+       where the `.remarkrc.mjs` should live */
     schemaFullPath = path.join(vFile.cwd, schemaRelPath);
     fileSchemaExists = fs.existsSync(schemaFullPath);
   }
@@ -210,8 +210,8 @@ const remarkFrontmatterSchema = lintRule(
   (ast: Root, vFile: VFile, settings: Settings) => {
     /* Handle only if the current Markdown file has a frontmatter section */
     if (ast.children.length) {
-      /* IDEA: is the `0` due to the fact that `remark-frontmatter`
-         could provide multi-parts frontmatter? Should investigate this. */
+      // IDEA: is the `0` due to the fact that `remark-frontmatter`
+      // could provide multi-parts frontmatter? Should investigate this
       if (ast.children[0].type === 'yaml') {
         validateFrontmatter(ast.children[0], vFile, settings);
       }
