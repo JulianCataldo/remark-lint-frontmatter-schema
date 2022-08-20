@@ -19,6 +19,8 @@
     "baseUrl": ".",
     "paths": {},
 
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+
+    "importsNotUsedAsValues": "error"
   }
 }

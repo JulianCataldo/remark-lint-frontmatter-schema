@@ -14,7 +14,7 @@ import type { ErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
 import type { JSONSchema7 } from 'json-schema';
 /* ·········································································· */
-import { Position } from 'vfile-message';
+import type { Position } from 'vfile-message';
 import { location } from 'vfile-location';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
