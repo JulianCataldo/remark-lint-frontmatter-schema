@@ -19,6 +19,8 @@ import { location } from 'vfile-location';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
+/* ·········································································· */
+import { homepage } from './package.json' assert { type: 'json' };
 /* —————————————————————————————————————————————————————————————————————————— */
 export interface Settings {
   /**
@@ -207,7 +209,7 @@ function validateFrontmatter(
 const remarkFrontmatterSchema = lintRule(
   {
     origin: 'remark-lint:frontmatter-schema',
-    url: 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema',
+    url: homepage,
   },
   (ast: Root, vFile: VFile, settings: Settings) => {
     /* Handle only if the current Markdown file has a frontmatter section */
