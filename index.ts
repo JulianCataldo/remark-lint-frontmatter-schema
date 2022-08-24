@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import globToRegExp from 'glob-to-regexp';
 /* ·········································································· */
-import yaml, { isNode } from 'yaml';
+import yaml, { isNode, LineCounter } from 'yaml';
 import type { Document } from 'yaml';
 import Ajv from 'ajv';
 import type { ErrorObject } from 'ajv';
@@ -15,7 +15,6 @@ import addFormats from 'ajv-formats';
 import type { JSONSchema7 } from 'json-schema';
 /* ·········································································· */
 import type { Position } from 'vfile-message';
-import { location } from 'vfile-location';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
@@ -48,8 +47,10 @@ function pushErrors(
   errors: ErrorObject[],
   yamlDoc: Document,
   vFile: VFile,
-  /** Local `$schema` key or from global settings */
+  /** File path from local `$schema` key or from global settings */
   schemaRelPath: string,
+  /** Used to map character range to line / column tuple */
+  lineCounter: LineCounter,
 ) {
   errors.forEach((error) => {
     /* Capitalize error message */
@@ -70,13 +71,19 @@ function pushErrors(
     let position: Position | null;
 
     if (isNode(node)) {
-      // NOTE: `v-file-location` might not be needed to get positions (PR #8)
-      const place = location(vFile);
-      const openingFenceLength = 4; /* Takes the `---` into account */
+      const OPENING_FENCE_LINE_COUNT = 1; /* Takes the `---` into account */
 
+      const start = lineCounter.linePos(node.range[0]);
+      const end = lineCounter.linePos(node.range[1]);
       position = {
-        start: place.toPoint(node.range[0] + openingFenceLength),
-        end: place.toPoint(node.range[1] + openingFenceLength),
+        start: {
+          line: start.line + OPENING_FENCE_LINE_COUNT,
+          column: start.col,
+        },
+        end: {
+          line: end.line + OPENING_FENCE_LINE_COUNT,
+          column: end.col,
+        },
       };
     }
 
@@ -110,6 +117,7 @@ function validateFrontmatter(
 ) {
   const hasGlobalSettings = typeof settings?.schemas === 'object';
   const hasPropSchema = typeof settings?.embed === 'object';
+  const lineCounter = new LineCounter();
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
@@ -119,7 +127,7 @@ function validateFrontmatter(
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
      previously extracted by `remark-frontmatter` */
   try {
-    yamlDoc = yaml.parseDocument(sourceYaml.value);
+    yamlDoc = yaml.parseDocument(sourceYaml.value, { lineCounter });
     yamlJS = yamlDoc.toJS();
 
     /* Local `$schema` association takes precedence over global / prop */
@@ -196,7 +204,7 @@ function validateFrontmatter(
 
       /* Push JSON Schema validation failures messages */
       if (validate?.errors?.length) {
-        pushErrors(validate.errors, yamlDoc, vFile, schemaRelPath);
+        pushErrors(validate.errors, yamlDoc, vFile, schemaRelPath, lineCounter);
       }
     } catch (_) {
       const msg = `JSON Schema malformed: ${schemaRelPath}`;

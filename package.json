@@ -16,11 +16,10 @@
     "ajv-formats": "^2.1.1",
     "glob-to-regexp": "^0.4.1",
     "unified-lint-rule": "^2.1.1",
-    "vfile-location": "^4.0.1",
-    "vfile-message": "^3.1.2",
     "yaml": "^2.1.1"
   },
   "devDependencies": {
+    "vfile-message": "^3.1.2",
     "@parcel/core": "2.7.0",
     "@parcel/packager-ts": "2.7.0",
     "@parcel/transformer-js": "2.7.0",
