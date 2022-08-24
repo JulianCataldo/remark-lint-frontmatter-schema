@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.5.1...v3.6.0) (2022-08-24)
+
+
+### Features
+
+* vfile `location` > yaml `lineCounter` [#8](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues/8) ([e5ad3ea](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/e5ad3eaa1cf8442a76e827b6d8f7509203a90356))
+
 ## [3.5.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.5.0...v3.5.1) (2022-08-19)
 
 
