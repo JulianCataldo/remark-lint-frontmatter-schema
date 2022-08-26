@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.6.0...v3.6.1) (2022-08-25)
+
+
+### Bug Fixes
+
+* reduce package size drastically ([d126030](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/d12603011c388bbe01803ba776528178339de26d))
+
 # [3.6.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.5.1...v3.6.0) (2022-08-24)
 
 
