@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@julian_cataldo/astro-configs': ^0.15.0
+  '@julian_cataldo/astro-configs': 0.16.0
   '@parcel/core': 2.7.0
   '@parcel/packager-ts': 2.7.0
   '@parcel/transformer-js': 2.7.0
@@ -50,7 +50,7 @@ dependencies:
   yaml: 2.1.1
 
 devDependencies:
-  '@julian_cataldo/astro-configs': 0.15.0
+  '@julian_cataldo/astro-configs': 0.16.0
   '@parcel/core': 2.7.0
   '@parcel/packager-ts': 2.7.0_@parcel+core@2.7.0
   '@parcel/transformer-js': 2.7.0_@parcel+core@2.7.0
@@ -189,8 +189,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@julian_cataldo/astro-configs/0.15.0:
-    resolution: {integrity: sha512-zjmZSMoGn1vnIo5r0erxq2Atg/eX5BEhExWVIyZR5NvcPZRLv1LchEhL1qTw6+/aNomT9xc+6cq1NEhwfcNs5g==}
+  /@julian_cataldo/astro-configs/0.16.0:
+    resolution: {integrity: sha512-VdkYD5z0aPxlhXsU+un3iFy+4uBErYWiH+KYCh52A19wR2K9aLix/QBQwZUjvFpQW/tSo8ZJw9WGlJ711+9UyQ==}
     dev: true
 
   /@lezer/common/0.15.12:
