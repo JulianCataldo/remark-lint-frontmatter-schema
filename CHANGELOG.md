@@ -1,3 +1,10 @@
+## [3.6.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.6.1...v3.6.2) (2022-08-26)
+
+
+### Bug Fixes
+
+* better type guards and typings ([cddf31c](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/cddf31c97c0e41f70b2f22eee25f8a3d2e84e90a))
+
 ## [3.6.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.6.0...v3.6.1) (2022-08-25)
 
 
