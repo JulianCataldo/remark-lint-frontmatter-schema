@@ -1,4 +1,6 @@
 ---
+# Schema for this file is defined in `./.remarkrc.mjs`
+
 complex:
   time: '2'
 

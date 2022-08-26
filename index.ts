@@ -3,6 +3,7 @@
  *                      See LICENSE in the project root.                       *
 /* —————————————————————————————————————————————————————————————————————————— */
 
+/* eslint-disable max-lines */
 import fs from 'node:fs';
 import path from 'node:path';
 import globToRegExp from 'glob-to-regexp';
@@ -27,15 +28,17 @@ export interface Settings {
    *
    * Example: `'schemas/thing.schema.yaml': ['content/things/*.md']`
    */
-  schemas?: {
-    [key: string]: string[];
-  };
+  schemas?: Record<string, string[]>;
   /**
    * Direct schema embedding (for using inside an `unified` transform pipeline).
    *
    * Format: JSON Schema - draft-2019-09
    */
   embed?: JSONSchema7;
+}
+interface FrontmatterObject {
+  $schema?: string;
+  [key: string]: unknown;
 }
 /* ·········································································· */
 
@@ -53,14 +56,20 @@ function pushErrors(
   lineCounter: LineCounter,
 ) {
   errors.forEach((error) => {
-    /* Capitalize error message */
-    const errMessage =
-      `${error.message.charAt(0).toUpperCase()}` +
-      `${error.message.substring(1)}`;
-    /* Sub-path -OR- Root error? */
-    const reason = error.instancePath
-      ? `${error.instancePath}: ${errMessage}`
-      : errMessage;
+    let reason = '';
+
+    if (error.message) {
+      /* Capitalize error message */
+      const errMessage =
+        `${error.message.charAt(0).toUpperCase()}` +
+        `${error.message.substring(1)}`;
+      /* Sub-path -OR- Root error? */
+      if (error.instancePath) {
+        reason = `${error.instancePath}: ${errMessage}`;
+      } else {
+        reason = errMessage;
+      }
+    }
 
     /* Explode AJV error instance path and get corresponding YAML AST node */
     const ajvPath = error.instancePath.substring(1).split('/');
@@ -68,9 +77,9 @@ function pushErrors(
 
     /* Map YAML characters range to column / line positions,
        -OR- squiggling the opening frontmatter fence for **root** path errors */
-    let position: Position | null;
+    let position: Position | undefined;
 
-    if (isNode(node)) {
+    if (isNode(node) && node.range) {
       const OPENING_FENCE_LINE_COUNT = 1; /* Takes the `---` into account */
 
       const start = lineCounter.linePos(node.range[0]);
@@ -91,22 +100,22 @@ function pushErrors(
 
     /* Assemble pretty per-error insights for end-user */
     let note = `Keyword: ${error.keyword}`;
-    if (error.params?.allowedValues) {
+    if (Array.isArray(error.params.allowedValues)) {
       note += `\nAllowed values: ${error.params.allowedValues.join(', ')}`;
+
+      /* Auto-fix replacement suggestions for `enum` */
+      message.expected = error.params.allowedValues;
     }
-    if (error.params?.missingProperty) {
+    if (typeof error.params.missingProperty === 'string') {
       note += `\nMissing property: ${error.params.missingProperty}`;
     }
-    if (error.params?.type) {
+    if (typeof error.params.type === 'string') {
       note += `\nType: ${error.params.type}`;
     }
     /* `schemaRelPath` path prefix will show up only when using
         file association, not when using pipeline embedded schema */
     note += `\nSchema path: ${schemaRelPath}${error.schemaPath}`;
     message.note = note;
-
-    /* Auto-fix replacement suggestions for `enum` */
-    message.expected = error?.params?.allowedValues;
   });
 }
 
@@ -115,24 +124,22 @@ function validateFrontmatter(
   vFile: VFile,
   settings: Settings,
 ) {
-  const hasGlobalSettings = typeof settings?.schemas === 'object';
-  const hasPropSchema = typeof settings?.embed === 'object';
+  const hasPropSchema = typeof settings.embed === 'object';
   const lineCounter = new LineCounter();
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
-  let fromGlobalAssoc = false;
-  let schemaRelPath;
+  let schemaRelPath: string | null = null;
 
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
      previously extracted by `remark-frontmatter` */
   try {
     yamlDoc = yaml.parseDocument(sourceYaml.value, { lineCounter });
-    yamlJS = yamlDoc.toJS();
+    yamlJS = yamlDoc.toJS() as FrontmatterObject;
 
     /* Local `$schema` association takes precedence over global / prop */
-    hasLocalAssoc = typeof yamlJS?.$schema === 'string';
-    if (hasLocalAssoc) {
+    if (yamlJS.$schema && typeof yamlJS.$schema === 'string') {
+      hasLocalAssoc = true;
       schemaRelPath = yamlJS.$schema;
     }
   } catch (_) {
@@ -143,71 +150,79 @@ function validateFrontmatter(
   }
 
   /* Global schemas associations, only if no local schema is set */
-  if (yamlDoc && yamlJS && hasLocalAssoc === false && hasGlobalSettings) {
-    Object.entries(settings.schemas).forEach(
-      ([globSchemaPath, globSchemaAssocs]) => {
-        if (Array.isArray(globSchemaAssocs)) {
-          globSchemaAssocs.forEach((mdFilePath) => {
+  if (typeof settings.schemas === 'object') {
+    if (yamlDoc && yamlJS && !hasLocalAssoc) {
+      Object.entries(settings.schemas).forEach(
+        ([globSchemaPath, globSchemaAssocs]) => {
+          if (Array.isArray(globSchemaAssocs)) {
             /* Check if current markdown file is associated with this schema */
-            if (typeof mdFilePath === 'string') {
-              /* Remove appended `./` or `/` */
-              const mdPathCleaned = path.join(mdFilePath);
+            globSchemaAssocs.forEach((mdFilePath) => {
+              if (typeof mdFilePath === 'string') {
+                /* Remove appended `./` or `/` */
+                const mdPathCleaned = path.join(mdFilePath);
 
-              const globber = globToRegExp(mdPathCleaned);
-              if (globber.test(vFile.path)) {
-                fromGlobalAssoc = true;
-                schemaRelPath = globSchemaPath;
+                const globber = globToRegExp(mdPathCleaned);
+                if (globber.test(vFile.path)) {
+                  schemaRelPath = globSchemaPath;
+                }
               }
-            }
-          });
-        }
-      },
-    );
+            });
+          }
+        },
+      );
+    }
   }
 
   /* From file only */
-  let fileSchemaExists;
   let schemaFullPath;
-  if (hasLocalAssoc || fromGlobalAssoc) {
+  if (schemaRelPath) {
     /* Path is combined with the process / workspace root directory,
        where the `.remarkrc.mjs` should live */
     schemaFullPath = path.join(vFile.cwd, schemaRelPath);
-    fileSchemaExists = fs.existsSync(schemaFullPath);
   }
 
   let schema;
   if (hasPropSchema) {
     schema = settings.embed;
-  } else if (fileSchemaExists) {
+  } else if (schemaFullPath) {
     try {
       // IDEA: make it async?
       const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
-      schema = yaml.parse(fileData);
+      // TODO: validate schema with JSON meta schema
+      schema = yaml.parse(fileData) as unknown as JSONSchema7;
       /* Schema is now extracted,
          remove in-file `$schema` key, so it will not interfere later */
       if (hasLocalAssoc) {
-        delete yamlJS.$schema;
+        if (yamlJS && typeof yamlJS.$schema === 'string') {
+          delete yamlJS.$schema;
+        }
       }
     } catch (_) {
-      const msg = `YAML Schema parse error: ${schemaRelPath}`;
+      const msg = `YAML Schema parse error: ${schemaRelPath ?? ''}`;
       // TODO: make a meaningful error with `linePos` etc.
       vFile.message(msg);
     }
   }
 
   /* We got an extracted schema to work with */
-  if (schema) {
+  if (schema && yamlDoc) {
     /* JSON Schema compilation + validation with AJV */
     try {
       const validate = ajv.compile(schema);
       validate(yamlJS);
 
       /* Push JSON Schema validation failures messages */
-      if (validate?.errors?.length) {
-        pushErrors(validate.errors, yamlDoc, vFile, schemaRelPath, lineCounter);
+      if (validate.errors?.length) {
+        pushErrors(
+          validate.errors,
+          yamlDoc,
+          vFile,
+          schemaRelPath ?? '',
+          lineCounter,
+        );
       }
     } catch (_) {
-      const msg = `JSON Schema malformed: ${schemaRelPath}`;
+      const msg = `JSON Schema malformed: ${schemaRelPath ?? ''}`;
       // TODO: make a meaningful error with `linePos` etc.
       vFile.message(msg);
     }
