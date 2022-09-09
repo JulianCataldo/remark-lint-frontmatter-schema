@@ -1,3 +1,17 @@
+# [3.7.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.6.2...v3.7.0) (2022-09-09)
+
+
+### Bug Fixes
+
+* docs living example updates ([881d7d3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/881d7d35ed3388c0aa17c4a5172089e7286a8160))
+
+
+### Features
+
+* add user defined ajv settings ([a01f825](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/a01f8256fa35463e8a87abb50082f81438612415))
+* export message typings + more message infos ([e132158](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/e1321584fe9dbd1efac73ac470b01cd21de3a79c))
+* js native error message name ([8baa395](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/8baa395161b08a8cb31827daa726b9b9a950628c))
+
 ## [3.6.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.6.1...v3.6.2) (2022-08-26)
 
 
