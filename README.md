@@ -71,6 +71,8 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
       - [Framework](#framework)
         - [Astro](#astro)
         - [Gatsby](#gatsby)
+  - [Interface](#interface)
+  - [Footnotes](#footnotes)
 
 ---
 
@@ -337,6 +339,84 @@ In `gatsby-config.js`
 }
 ```
 
+## Interface
+
+```ts
+export interface Settings {
+  /**
+   * Global workspace file associations mapping (for linter extension).
+   *
+   * Example: `'schemas/thing.schema.yaml': ['content/things/*.md']`
+   */
+  schemas?: Record<string, string[]>;
+  /**
+   * Direct schema embedding (for using inside an `unified` transform pipeline).
+   *
+   * Format: JSON Schema - draft-2019-09
+   *
+   * **Documentation**: https://ajv.js.org/json-schema.html#draft-07
+   */
+  embed?: JSONSchema7;
+  /**
+   * **Documentation**: https://ajv.js.org/options.html
+   */
+  ajvOptions?: AjvOptions;
+}
+
+export interface FrontmatterSchemaMessage extends VFileMessage {
+  schema: AjvErrorObject & { url: JSONSchemaReference };
+}
+```
+
+Example of a `VFileMessage` content you could collect from this lint rule:
+
+```jsonc
+[
+  // …
+  {
+    // JS native `Error`
+    "name": "Markdown YAML frontmatter error (JSON Schema)",
+    "message": "/clientType: Must be equal to one of the allowed values",
+
+    // `VFileMessage` (Linter / VS Code…)
+    "reason": "/clientType: Must be equal to one of the allowed values",
+    "line": 16,
+    "column": 13,
+    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema",
+    "source": "remark-lint",
+    "ruleId": "frontmatter-schema",
+    "position": {
+      "start": {
+        "line": 16,
+        "column": 13
+      },
+      "end": {
+        "line": 16,
+        "column": 24
+      }
+    },
+    "fatal": false,
+    "actual": "Individuaaaaaaaal",
+    "expected": ["Corporate", "Non-profit", "Individual"],
+
+    // Condensed string, human readable version of AJV error object
+    "note": "Keyword: enum\nAllowed values: Corporate, Non-profit, Individual\nSchema path: #/properties/clientType/enum",
+
+    // AJV's `ErrorObject`
+    "schema": {
+      "url": "https://ajv.js.org/json-schema.html",
+      "instancePath": "/clientType",
+      "schemaPath": "#/properties/clientType/enum",
+      "keyword": "enum",
+      "params": {
+        "allowedValues": ["Corporate", "Non-profit", "Individual"]
+      },
+      "message": "must be equal to one of the allowed values"
+    }
+  }
+]
+```
+
 <!-- OBSOLETE -->
 <!-- # Known limitations
 
@@ -351,6 +431,10 @@ My current knowledge is that YAML in Markdown, by not being part of any official
 So it's better than nothing I guess, and could be a first step for something more robust. -->
 
 ---
+
+## Footnotes
+
+**100% ESM**, including dependencies.
 
 Using:
 
