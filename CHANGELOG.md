@@ -1,3 +1,10 @@
+## [3.7.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.0...v3.7.1) (2022-09-09)
+
+
+### Bug Fixes
+
+* simplify doc headings hierarchy ([25d23c1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/25d23c14ac1667ca8f8147e5c041d4e3f30e773b))
+
 # [3.7.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.6.2...v3.7.0) (2022-09-09)
 
 
