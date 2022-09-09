@@ -21,6 +21,9 @@ import type { Root, YAML } from 'mdast';
 /* ·········································································· */
 import { globToRegExp } from './glob-to-regexp.js';
 /* —————————————————————————————————————————————————————————————————————————— */
+
+const nativeJsErrorMessage = 'Markdown YAML frontmatter error (JSON Schema)';
+
 export interface Settings {
   /**
    * Global workspace file associations mapping (for linter extension).
@@ -78,7 +81,8 @@ function pushErrors(
 
     /* Map YAML characters range to column / line positions,
        -OR- squiggling the opening frontmatter fence for **root** path errors */
-    let position: Position | undefined;
+    /* Name comes from native JS `Error` object */
+    message.name = nativeJsErrorMessage;
 
     if (isNode(node) && node.range) {
       const OPENING_FENCE_LINE_COUNT = 1; /* Takes the `---` into account */
@@ -243,7 +247,6 @@ function validateFrontmatter(
 const remarkFrontmatterSchema = lintRule(
   {
     origin: 'remark-lint:frontmatter-schema',
-    url: homepage,
   },
   (ast: Root, vFile: VFile, settings: Settings) => {
     /* Handle only if the current Markdown file has a frontmatter section */
