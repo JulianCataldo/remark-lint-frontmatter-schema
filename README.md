@@ -268,11 +268,14 @@ Yields:
 
 ##### Implementation living example
 
-Checkout [**content-maestro**](https://github.com/JulianCataldo/content-maestro) repository.  
-It's a text based, structured content framework, for edition and consumption.  
-Content-Maestro relies on this library for providing file or API based linting errors logs.
+Checkout [**Astro Content**](https://github.com/JulianCataldo/astro-content) repository.
 
-You can see **remark-lint-frontmatter-schema** in action, on **[this line, in content-maestro source](https://github.com/JulianCataldo/content-maestro/blob/1cf94344055cd9591609f8f47d262390e8a08480/src/md-to-html.ts#L59)**.
+<!-- It's a text based, structured content assistant, integrated in Astro, for edition and consumption.   -->
+<!-- file or API based  -->
+
+Astro Content relies on this library, among others, for providing linting reports.
+
+<!-- You can see **remark-lint-frontmatter-schema** in action, on **[this line, in Astro Content source](outdated)**. -->
 
 ##### Important foot-notes for custom pipeline
 
@@ -280,7 +283,7 @@ This is **different from static linting**, with VS Code extension or CLI.
 It **will not source `.remarkrc`** (but you can source it by your own means, if you want).  
 In fact, it's not aware of your file structure,
 nor it will associate or import any schema / markdown files.  
-That way, it will integrate easier with your own business logic.  
+That way, it will integrate easier with your own business logic and existing pipelines.  
 I found that **static linting** (during editing) / and **runtime validation** are two different
 uses cases enough to separate them in their setups, but I might converge them partially.
 
