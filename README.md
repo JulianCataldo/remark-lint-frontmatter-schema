@@ -53,10 +53,10 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
 - [`remark-lint-frontmatter-schema`](#remark-lint-frontmatter-schema)
 - [Demo](#demo)
   - [👉  **Play with pre-configured ./demo**](#play-with-pre-configured-demo)
-- [Quick start](#quick-start)
-  - [Installation](#installation)
+- [Installation](#installation)
+    - [Base](#base)
     - [VS Code (optional)](#vs-code-optional)
-  - [Configuration](#configuration)
+- [Configuration](#configuration)
     - [CLI / IDE (VS Code) — **Static** linting](#cli--ide-vs-code--static-linting)
       - [Workspace](#workspace)
       - [Schema example](#schema-example)
@@ -71,14 +71,14 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
       - [Framework](#framework)
         - [Astro](#astro)
         - [Gatsby](#gatsby)
-  - [Interface](#interface)
-  - [Footnotes](#footnotes)
+- [Interfaces](#interfaces)
+- [Footnotes](#footnotes)
 
 ---
 
-# Quick start
+# Installation
 
-## Installation
+### Base
 
 ```sh
 pnpm install -D \
@@ -96,7 +96,7 @@ remark-frontmatter \
 code --install-extension unifiedjs.vscode-remark
 ```
 
-## Configuration
+# Configuration
 
 ### CLI / IDE (VS Code) — **Static** linting
 
@@ -339,7 +339,7 @@ In `gatsby-config.js`
 }
 ```
 
-## Interface
+# Interfaces
 
 ```ts
 export interface Settings {
@@ -432,7 +432,7 @@ So it's better than nothing I guess, and could be a first step for something mor
 
 ---
 
-## Footnotes
+# Footnotes
 
 **100% ESM**, including dependencies.
 
