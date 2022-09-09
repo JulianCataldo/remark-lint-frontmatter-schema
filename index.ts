@@ -14,7 +14,7 @@ import type { Options as AjvOptions, ErrorObject as AjvErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
 import type { JSONSchema7 } from 'json-schema';
 /* ·········································································· */
-import type { Position } from 'vfile-message';
+import type { VFileMessage } from 'vfile-message';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
@@ -45,14 +45,24 @@ export interface Settings {
    */
   ajvOptions?: AjvOptions;
 }
+
+// IDEA: Might be interesting to populate with corresponding error reference
+type JSONSchemaReference = 'https://ajv.js.org/json-schema.html';
+
+export interface FrontmatterSchemaMessage extends VFileMessage {
+  schema: AjvErrorObject & { url: JSONSchemaReference };
+}
+
 interface FrontmatterObject {
   $schema?: string;
+  /* This is the typical Frontmatter object, as treated by common consumers */
   [key: string]: unknown;
 }
+
 /* ·········································································· */
 
 function pushErrors(
-  errors: ErrorObject[],
+  errors: AjvErrorObject[],
   yamlDoc: Document,
   vFile: VFile,
   /** File path from local `$schema` key or from global settings */
@@ -82,27 +92,40 @@ function pushErrors(
 
     /* Map YAML characters range to column / line positions,
        -OR- squiggling the opening frontmatter fence for **root** path errors */
+    // let position: Position | undefined;
+
+    const message = vFile.message(reason);
+
+    /* FIXME: Doesn't seems to be used in custom pipeline?
+       always return `false` */
+    message.fatal = true;
+
     /* Name comes from native JS `Error` object */
     message.name = nativeJsErrorMessage;
 
-    if (isNode(node) && node.range) {
-      const OPENING_FENCE_LINE_COUNT = 1; /* Takes the `---` into account */
+    if (isNode(node)) {
+      message.actual = node.toString();
 
-      const start = lineCounter.linePos(node.range[0]);
-      const end = lineCounter.linePos(node.range[1]);
-      position = {
-        start: {
-          line: start.line + OPENING_FENCE_LINE_COUNT,
-          column: start.col,
-        },
-        end: {
-          line: end.line + OPENING_FENCE_LINE_COUNT,
-          column: end.col,
-        },
-      };
+      /* Map AJV Range to VFile Position, via YAML lib. parser */
+      if (node.range) {
+        const OPENING_FENCE_LINE_COUNT = 1; /* Takes the `---` into account */
+        const start = lineCounter.linePos(node.range[0]);
+        const end = lineCounter.linePos(node.range[1]);
+        message.position = {
+          start: {
+            line: start.line + OPENING_FENCE_LINE_COUNT,
+            column: start.col,
+          },
+          end: {
+            line: end.line + OPENING_FENCE_LINE_COUNT,
+            column: end.col,
+          },
+        };
+        // NOTE: Seems redundant, but otherwise, it is always set to 1:1 */
+        message.line = message.position.start.line;
+        message.column = message.position.start.column;
+      }
     }
-
-    const message = vFile.message(reason, position);
 
     /* Assemble pretty per-error insights for end-user */
     let note = `Keyword: ${error.keyword}`;
@@ -122,6 +145,18 @@ function pushErrors(
         file association, not when using pipeline embedded schema */
     note += `\nSchema path: ${schemaRelPath}${error.schemaPath}`;
     message.note = note;
+
+    /**
+     * Adding custom data from AJV
+     *
+     * It’s OK to store custom data directly on the VFileMessage:
+     * https://github.com/vfile/vfile-message#well-known-fields
+     *  */
+    // NOTE: Might be better to type `message` before, instead of asserting here
+    (message as FrontmatterSchemaMessage).schema = {
+      url: 'https://ajv.js.org/json-schema.html',
+      ...error,
+    };
   });
 }
 
