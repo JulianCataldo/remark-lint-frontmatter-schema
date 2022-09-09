@@ -23,7 +23,7 @@ import { globToRegExp } from './glob-to-regexp.js';
 /* —————————————————————————————————————————————————————————————————————————— */
 
 const url = 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema';
-const nativeJsErrorMessage = 'Markdown YAML frontmatter error (JSON Schema)';
+const nativeJsErrorName = 'Markdown YAML frontmatter error (JSON Schema)';
 
 export interface Settings {
   /**
@@ -100,8 +100,8 @@ function pushErrors(
        always return `false` */
     message.fatal = true;
 
-    /* Name comes from native JS `Error` object */
-    message.name = nativeJsErrorMessage;
+    /* `name` comes from native JS `Error` object */
+    message.name = nativeJsErrorName;
 
     if (isNode(node)) {
       message.actual = node.toString();
@@ -145,6 +145,8 @@ function pushErrors(
         file association, not when using pipeline embedded schema */
     note += `\nSchema path: ${schemaRelPath}${error.schemaPath}`;
     message.note = note;
+    /* `message` comes from native JS `Error` object */
+    message.message = note;
 
     /**
      * Adding custom data from AJV

@@ -376,7 +376,7 @@ Example of a `VFileMessage` content you could collect from this lint rule:
   {
     // JS native `Error`
     "name": "Markdown YAML frontmatter error (JSON Schema)",
-    "message": "/clientType: Must be equal to one of the allowed values",
+    "message": "Keyword: type\nType: string\nSchema path: #/properties/title/type",
 
     // `VFileMessage` (Linter / VS Code…)
     "reason": "/clientType: Must be equal to one of the allowed values",
