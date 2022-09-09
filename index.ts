@@ -22,6 +22,7 @@ import type { Root, YAML } from 'mdast';
 import { globToRegExp } from './glob-to-regexp.js';
 /* —————————————————————————————————————————————————————————————————————————— */
 
+const url = 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema';
 const nativeJsErrorMessage = 'Markdown YAML frontmatter error (JSON Schema)';
 
 export interface Settings {
@@ -246,6 +247,7 @@ function validateFrontmatter(
 
 const remarkFrontmatterSchema = lintRule(
   {
+    url,
     origin: 'remark-lint:frontmatter-schema',
   },
   (ast: Root, vFile: VFile, settings: Settings) => {
