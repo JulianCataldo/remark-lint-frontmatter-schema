@@ -6,7 +6,6 @@
 /* eslint-disable max-lines */
 import fs from 'node:fs';
 import path from 'node:path';
-import globToRegExp from 'glob-to-regexp';
 /* ·········································································· */
 import yaml, { isNode, LineCounter } from 'yaml';
 import type { Document } from 'yaml';
@@ -20,7 +19,7 @@ import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
 /* ·········································································· */
-import { homepage } from './package.json' assert { type: 'json' };
+import { globToRegExp } from './glob-to-regexp.js';
 /* —————————————————————————————————————————————————————————————————————————— */
 export interface Settings {
   /**
