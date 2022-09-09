@@ -10,7 +10,7 @@ import path from 'node:path';
 import yaml, { isNode, LineCounter } from 'yaml';
 import type { Document } from 'yaml';
 import Ajv from 'ajv';
-import type { ErrorObject } from 'ajv';
+import type { Options as AjvOptions, ErrorObject as AjvErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
 import type { JSONSchema7 } from 'json-schema';
 /* ·········································································· */
@@ -32,18 +32,20 @@ export interface Settings {
    * Direct schema embedding (for using inside an `unified` transform pipeline).
    *
    * Format: JSON Schema - draft-2019-09
+   *
+   * **Documentation**: https://ajv.js.org/json-schema.html#draft-07
    */
   embed?: JSONSchema7;
+  /**
+   * **Documentation**: https://ajv.js.org/options.html
+   */
+  ajvOptions?: AjvOptions;
 }
 interface FrontmatterObject {
   $schema?: string;
   [key: string]: unknown;
 }
 /* ·········································································· */
-
-/* Setup AJV (Another JSON-Schema Validator) */
-const ajv = new Ajv({ allErrors: true });
-addFormats(ajv);
 
 function pushErrors(
   errors: ErrorObject[],
@@ -205,6 +207,16 @@ function validateFrontmatter(
 
   /* We got an extracted schema to work with */
   if (schema && yamlDoc) {
+    /* Setup AJV (Another JSON-Schema Validator) */
+    const ajv = new Ajv({
+      /* Defaults */
+      allErrors: true /* So it doesn't stop at the first found error */,
+      strict: false /* Prevents warnings for valid, but relaxed schemas */,
+      /* User override */
+      ...settings.ajvOptions,
+    });
+    addFormats(ajv);
+
     /* JSON Schema compilation + validation with AJV */
     try {
       const validate = ajv.compile(schema);
