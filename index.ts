@@ -6,6 +6,7 @@
 /* eslint-disable max-lines */
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'os';
 /* ·········································································· */
 import yaml, { isNode, LineCounter } from 'yaml';
 import type { Document } from 'yaml';
@@ -202,7 +203,11 @@ function validateFrontmatter(
             globSchemaAssocs.forEach((mdFilePath) => {
               if (typeof mdFilePath === 'string') {
                 /* Remove appended `./` or `/` */
-                const mdPathCleaned = path.join(mdFilePath);
+                let mdPathCleaned = path.join(mdFilePath);
+                
+                if (os.platform() === 'win32') {
+                  mdPathCleaned = mdPathCleaned.replaceAll('\\', '\\\\');
+                }
 
                 const globber = globToRegExp(mdPathCleaned);
                 if (globber.test(vFile.path)) {
