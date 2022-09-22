@@ -1,3 +1,10 @@
+## [3.7.3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.2...v3.7.3) (2022-09-22)
+
+
+### Bug Fixes
+
+* swap custom `glob-to-regexp` w. `minimatch` ([e7022d6](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/e7022d61922f41d9a0d177e528ba1d078e0f2bb6)), closes [#12](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues/12) [#13](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues/13)
+
 ## [3.7.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.1...v3.7.2) (2022-09-09)
 
 
