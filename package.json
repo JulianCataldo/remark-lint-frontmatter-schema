@@ -14,6 +14,7 @@
   "dependencies": {
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
+    "minimatch": "^5.1.0",
     "unified-lint-rule": "^2.1.1",
     "yaml": "^2.1.1"
   },
@@ -24,9 +25,9 @@
     "@semantic-release/github": "8.0.6",
     "@semantic-release/npm": "9.0.1",
     "@types/eslint": "8.4.6",
-    "@types/glob-to-regexp": "0.4.1",
     "@types/json-schema": "7.0.11",
     "@types/mdast": "3.0.10",
+    "@types/minimatch": "^5.1.2",
     "@types/node": "18.7.16",
     "@types/prettier": "2.7.0",
     "@types/unist": "2.0.6",

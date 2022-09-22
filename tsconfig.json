@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     // Enable stricter transpilation for better output.
     "isolatedModules": true,
-    "types": ["node", "unist", "unified"],
+    "types": ["node", "unist", "unified", "minimatch"],
 
     "allowJs": true,
 
@@ -28,5 +28,5 @@
     "outDir": "./dist"
   },
 
-  "include": ["./index.ts", "./glob-to-regexp.ts"]
+  "include": ["./index.ts"]
 }

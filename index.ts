@@ -6,6 +6,7 @@
 /* eslint-disable max-lines */
 import fs from 'node:fs';
 import path from 'node:path';
+import minimatch from 'minimatch';
 /* ·········································································· */
 import yaml, { isNode, LineCounter } from 'yaml';
 import type { Document } from 'yaml';
@@ -18,8 +19,6 @@ import type { VFileMessage } from 'vfile-message';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
-/* ·········································································· */
-import { globToRegExp } from './glob-to-regexp.js';
 /* —————————————————————————————————————————————————————————————————————————— */
 
 const url = 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema';
@@ -204,8 +203,7 @@ function validateFrontmatter(
                 /* Remove appended `./` or `/` */
                 const mdPathCleaned = path.join(mdFilePath);
 
-                const globber = globToRegExp(mdPathCleaned);
-                if (globber.test(vFile.path)) {
+                if (minimatch(vFile.path, mdPathCleaned)) {
                   schemaRelPath = globSchemaPath;
                 }
               }

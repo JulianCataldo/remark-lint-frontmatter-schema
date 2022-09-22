@@ -7,9 +7,9 @@ specifiers:
   '@semantic-release/github': 8.0.6
   '@semantic-release/npm': 9.0.1
   '@types/eslint': 8.4.6
-  '@types/glob-to-regexp': 0.4.1
   '@types/json-schema': 7.0.11
   '@types/mdast': 3.0.10
+  '@types/minimatch': ^5.1.2
   '@types/node': 18.7.16
   '@types/prettier': 2.7.0
   '@types/unist': 2.0.6
@@ -25,6 +25,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   eslint-plugin-prettier: 4.2.1
   eslint-plugin-tsdoc: 0.2.16
+  minimatch: ^5.1.0
   prettier: 2.7.1
   remark: 14.0.2
   remark-cli: 11.0.0
@@ -37,7 +38,8 @@ specifiers:
 
 dependencies:
   ajv: 8.11.0
-  ajv-formats: 2.1.1
+  ajv-formats: 2.1.1_ajv@8.11.0
+  minimatch: 5.1.0
   unified-lint-rule: 2.1.1
   yaml: 2.1.1
 
@@ -48,9 +50,9 @@ devDependencies:
   '@semantic-release/github': 8.0.6_semantic-release@19.0.5
   '@semantic-release/npm': 9.0.1_semantic-release@19.0.5
   '@types/eslint': 8.4.6
-  '@types/glob-to-regexp': 0.4.1
   '@types/json-schema': 7.0.11
   '@types/mdast': 3.0.10
+  '@types/minimatch': 5.1.2
   '@types/node': 18.7.16
   '@types/prettier': 2.7.0
   '@types/unist': 2.0.6
@@ -491,10 +493,6 @@ packages:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
     dev: true
 
-  /@types/glob-to-regexp/0.4.1:
-    resolution: {integrity: sha512-S0mIukll6fbF0tvrKic/jj+jI8SHoSvGU+Cs95b/jzZEnBYCbj+7aJtQ9yeABuK3xP1okwA3jEH9qIRayijnvQ==}
-    dev: true
-
   /@types/is-empty/1.2.1:
     resolution: {integrity: sha512-a3xgqnFTuNJDm1fjsTjHocYJ40Cz3t8utYpi5GNaxzrJC2HSD08ym+whIL7fNqiqBCdM9bcqD1H/tORWAFXoZw==}
     dev: true
@@ -511,6 +509,10 @@ packages:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
     dependencies:
       '@types/unist': 2.0.6
+    dev: true
+
+  /@types/minimatch/5.1.2:
+    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
     dev: true
 
   /@types/minimist/1.2.2:
@@ -722,8 +724,10 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /ajv-formats/2.1.1:
+  /ajv-formats/2.1.1_ajv@8.11.0:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -845,7 +849,6 @@ packages:
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
-    dev: true
 
   /before-after-hook/2.2.2:
     resolution: {integrity: sha512-3pZEU3NT5BFUo/AD5ERPWOgQOCZITni6iavr5AUw5AUwQjMlI0kzu5btnyD39AF0gUEsDPwJT+oY1ORBJijPjQ==}
@@ -871,7 +874,6 @@ packages:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
     dependencies:
       balanced-match: 1.0.2
-    dev: true
 
   /braces/3.0.2:
     resolution: {integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==}
@@ -2791,7 +2793,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
-    dev: true
 
   /minimist-options/4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
