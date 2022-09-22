@@ -1,3 +1,10 @@
+## [3.7.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.1...v3.7.2) (2022-09-09)
+
+
+### Bug Fixes
+
+* add js native error message from pretty note ([e29ea28](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/e29ea280b8c2b158b3b72a429cdeb0ee0e65d0fd))
+
 ## [3.7.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.0...v3.7.1) (2022-09-09)
 
 
