@@ -141,7 +141,7 @@ function pushErrors(
     }
     /* `schemaRelPath` path prefix will show up only when using
         file association, not when using pipeline embedded schema */
-    note += `\nSchema path: ${schemaRelPath}${error.schemaPath}`;
+    note += `\nSchema path: ${schemaRelPath} · ${error.schemaPath}`;
     message.note = note;
     /* `message` comes from native JS `Error` object */
     message.message = note;
