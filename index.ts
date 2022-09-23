@@ -89,20 +89,19 @@ function pushErrors(
     const ajvPath = error.instancePath.substring(1).split('/');
     const node = yamlDoc.getIn(ajvPath, true);
 
-    /* Map YAML characters range to column / line positions,
-       -OR- squiggling the opening frontmatter fence for **root** path errors */
-    // let position: Position | undefined;
-
     const message = vFile.message(reason);
 
     /* FIXME: Doesn't seems to be used in custom pipeline?
-       always return `false` */
+       Always returning `false` */
     message.fatal = true;
 
     /* `name` comes from native JS `Error` object */
     message.name = nativeJsErrorName;
 
+    /* Map YAML characters range to column / line positions,
+       -OR- squiggling the opening frontmatter fence for **root** path errors */
     if (isNode(node)) {
+      /* Incriminated token */
       message.actual = node.toString();
 
       /* Map AJV Range to VFile Position, via YAML lib. parser */
@@ -179,7 +178,7 @@ function validateFrontmatter(
     yamlDoc = yaml.parseDocument(sourceYaml.value, { lineCounter });
     yamlJS = yamlDoc.toJS() as FrontmatterObject;
 
-    /* Local `$schema` association takes precedence over global / prop */
+    /* Local `$schema` association takes precedence over global / prop. */
     if (yamlJS.$schema && typeof yamlJS.$schema === 'string') {
       hasLocalAssoc = true;
       schemaRelPath = yamlJS.$schema;
@@ -229,7 +228,7 @@ function validateFrontmatter(
     try {
       // IDEA: make it async?
       const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
-      // TODO: validate schema with JSON meta schema
+      // TODO: Validate schema with JSON meta schema
       schema = yaml.parse(fileData) as unknown as JSONSchema7;
       /* Schema is now extracted,
          remove in-file `$schema` key, so it will not interfere later */
@@ -240,7 +239,7 @@ function validateFrontmatter(
       }
     } catch (_) {
       const msg = `YAML Schema parse error: ${schemaRelPath ?? ''}`;
-      // TODO: make a meaningful error with `linePos` etc.
+      // TODO: Make a meaningful error with `linePos` etc.
       vFile.message(msg);
     }
   }
@@ -274,7 +273,7 @@ function validateFrontmatter(
       }
     } catch (_) {
       const msg = `JSON Schema malformed: ${schemaRelPath ?? ''}`;
-      // TODO: make a meaningful error with `linePos` etc.
+      // TODO: Make a meaningful error with `linePos` etc.
       vFile.message(msg);
     }
   }
@@ -288,7 +287,7 @@ const remarkFrontmatterSchema = lintRule(
   (ast: Root, vFile: VFile, settings: Settings) => {
     /* Handle only if the current Markdown file has a frontmatter section */
     if (ast.children.length) {
-      // IDEA: is the `0` due to the fact that `remark-frontmatter`
+      // IDEA: Is the `0` due to the fact that `remark-frontmatter`
       // could provide multi-parts frontmatter? Should investigate this
       if (ast.children[0].type === 'yaml') {
         validateFrontmatter(ast.children[0], vFile, settings);
