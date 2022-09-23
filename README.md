@@ -433,11 +433,16 @@ So it's better than nothing I guess, and could be a first step for something mor
 
 ---
 
+# Todos
+
+- [ ] "`@julian_cataldo/remark-lint-frontmatter-schema`" is way too **verbose** for a package name.  
+       Must **migrate** it to "`remark-lint-frontmatter-schema`".
+
 # Footnotes
 
 **100% ESM**, including dependencies.
 
-Using:
+Environments:
 
 - **CLI Tool**
   > Remark lint | https://github.com/remarkjs/remark-lint
