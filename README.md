@@ -461,4 +461,12 @@ See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ---
 
+Related projects:
+
+- [retext-case-police](https://github.com/JulianCataldo/retext-case-police): Check popular names casing. Example: ⚠️ `github` → ✅ `GitHub`.
+- [remark-embed](https://github.com/JulianCataldo/remark-embed): A `remark` plugin for embedding remote / local Markdown or code snippets.
+- [astro-content](https://github.com/JulianCataldo/astro-content): A text based, structured content manager, for edition and consumption.
+
+---
+
 🔗  [JulianCataldo.com](https://www.juliancataldo.com)
