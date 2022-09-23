@@ -73,6 +73,7 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
         - [Astro](#astro)
         - [Gatsby](#gatsby)
 - [Interfaces](#interfaces)
+- [Todos](#todos)
 - [Footnotes](#footnotes)
 
 ---
@@ -102,7 +103,7 @@ code --install-extension unifiedjs.vscode-remark
 ### CLI / IDE (VS Code) — **Static** linting
 
 👉  **See [./demo](./demo/)** folder to get a working, pre-configured, bare project workspace.  
-You also get example markdown files and associated schema to play with.  
+You also get example Markdown files and associated schema to play with.  
 Supports `remark-cli` and/or `unifiedjs.vscode-remark` extension.
 
 📌  Check out the **[demo/README.md](./demo) for bootstrapping** it.
@@ -145,7 +146,7 @@ and [`redhat.vscode-yaml`](https://marketplace.visualstudio.com/items?itemName=r
 
 See **[./demo/content](./demo/content)** files for examples.
 
-Schema association can be done directly **inside** the **frontmatter** of the **markdown** file,
+Schema association can be done directly **inside** the **frontmatter** of the **Markdown** file,
 relative to project root, thanks to the `'$schema'` key:
 
 ```markdown
@@ -159,7 +160,7 @@ category: Book
 
 # You're welcome!
 
-🌝  My **markdown** content…  🌚
+🌝  My **Markdown** content…  🌚
 …
 ```
 
@@ -222,7 +223,7 @@ Use it as usual like any remark plugin inside your framework or your custom `uni
 
 #### 🆕  Custom pipeline
 
-When processing markdown as single files inside your JS/TS app.
+When processing Markdown as single files inside your JS/TS app.
 
 Schema should be provided programmatically like this:
 
@@ -285,7 +286,7 @@ Astro Content relies on this library, among others, for providing linting report
 This is **different from static linting**, with VS Code extension or CLI.  
 It **will not source `.remarkrc`** (but you can source it by your own means, if you want).  
 In fact, it's not aware of your file structure,
-nor it will associate or import any schema / markdown files.  
+nor it will associate or import any schema / Markdown files.  
 That way, it will integrate easier with your own business logic and existing pipelines.  
 I found that **static linting** (during editing) / and **runtime validation** are two different
 uses cases enough to separate them in their setups, but I might converge them partially.
