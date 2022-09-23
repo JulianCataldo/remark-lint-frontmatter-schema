@@ -1,3 +1,11 @@
+## [3.7.4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.3...v3.7.4) (2022-09-23)
+
+
+### Bug Fixes
+
+* add more helpful dummy content ([b330095](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/b330095ce6ad20b8cf56f459363e6226ef79a62c)), closes [#15](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues/15)
+* separate schema path and its hash ([f9063f3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/f9063f327b3a935ffd7e6ff0b24e2ee6d6f609d3)), closes [#14](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues/14)
+
 ## [3.7.3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.2...v3.7.3) (2022-09-22)
 
 
