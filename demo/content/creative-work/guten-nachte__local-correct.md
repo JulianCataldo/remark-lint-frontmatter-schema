@@ -1,8 +1,11 @@
 ---
 '$schema': content/creative-work.schema.yaml
 
-title: 2
-category: Boucs 🐐
+title: Guten Nachte
+category: Musical piece
+
+complex:
+  time: 8
 ---
 
 # Markdownish title-ish
@@ -10,9 +13,9 @@ category: Boucs 🐐
 > …Frontmatter **Schema** _validation_…
 
 1. Head
-2. Shoulder
+2. Shoulders
 3. Knees
 
 ---
 
-[www.JulianCataldo.com](./link.foo)
+[WideWebWorld](./link.foo)

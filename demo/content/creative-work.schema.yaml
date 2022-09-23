@@ -9,6 +9,7 @@ properties:
       - Movie
       - Painting
       - Photo
+      - Musical piece
   complex:
     type: object
     required:

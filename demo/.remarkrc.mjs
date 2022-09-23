@@ -15,11 +15,16 @@ const remarkConfig = {
         schemas: {
           /* One schema for many files */
           './content/creative-work.schema.yaml': [
-            /* Support glob patterns */
-            './content/broken-creative-work.md',
-            // './content/*-creative-work.md',
-            // './content/does-not-exist-anymore.md',
+            './content/creative-work/the-shipwreck__global-broken.md',
+
+            /* Support glob patterns ———v */
+            // './content/creative-work/*.md',
+            // …
+            // `./` prefix is optional
+            // 'content/creative-work/foobiz.md',
+            // './content/elsewhere/does-not-exist-anymore.md',
           ],
+
           // './content/ghost.schema.yaml': [
           //   './content/casper.md',
           //   './content/ether.md',
