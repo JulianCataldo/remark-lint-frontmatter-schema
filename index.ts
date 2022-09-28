@@ -8,8 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import minimatch from 'minimatch';
 /* ·········································································· */
-import yaml, { isNode, LineCounter } from 'yaml';
-import type { Document } from 'yaml';
+import yaml, { type Document, isNode, LineCounter } from 'yaml';
 import Ajv from 'ajv';
 import type { Options as AjvOptions, ErrorObject as AjvErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
