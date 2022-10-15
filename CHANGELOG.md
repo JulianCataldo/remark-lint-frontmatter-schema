@@ -1,3 +1,10 @@
+## [3.7.5](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.4...v3.7.5) (2022-10-15)
+
+
+### Bug Fixes
+
+* update package name ([c14c50a](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/c14c50a47ee2a4c4765a3b41f361f8afcf1a307b))
+
 ## [3.7.4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.3...v3.7.4) (2022-09-23)
 
 
