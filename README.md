@@ -1,11 +1,11 @@
 # `remark-lint-frontmatter-schema`
 
-<!-- [![Build Status](https://img.shields.io/github/workflow/status/JulianCataldo/remark-lint-frontmatter-schema/release/master.svg)](https://github.com/@julian_cataldo/remark-lint-frontmatter-schema/actions/workflows/release.yml?query=branch%3Amain) -->
+<!-- [![Build Status](https://img.shields.io/github/workflow/status/JulianCataldo/remark-lint-frontmatter-schema/release/master.svg)](https://github.com/remark-lint-frontmatter-schema/actions/workflows/release.yml?query=branch%3Amain) -->
 
-[![NPM](https://img.shields.io/npm/v/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)
-[![ISC License](https://img.shields.io/npm/l/@julian_cataldo/remark-lint-frontmatter-schema)](./LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
-[![Downloads](https://img.shields.io/npm/dw/@julian_cataldo/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/@julian_cataldo/remark-lint-frontmatter-schema)  
+[![NPM](https://img.shields.io/npm/v/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/remark-lint-frontmatter-schema)
+![Downloads](https://img.shields.io/npm/dt/@julian_cataldo/remark-lint-frontmatter-schema.svg)
+[![ISC License](https://img.shields.io/npm/l/remark-lint-frontmatter-schema)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)  
 [![VS Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?logo=visual%20studio%20code)](https://code.visualstudio.com)
 [![unified](https://img.shields.io/badge/uni-fied-0366d6?logo=markdown)](https://unifiedjs.com)  
 [![TypeScript](https://img.shields.io/badge/TypeScript-333333.svg?logo=typescript)](http://www.typescriptlang.org/)
@@ -22,12 +22,21 @@ Supports:
 - **Types validation**, pattern, enumerations,… and all you can get with JSON Schema
 - **Code location** problems indicator (for IDE to underline)
 - **Auto-fixes** with suggestions
-- **C**ommand **L**ine **I**nterface reporting
+- **C**ommand **L**ine **I**nterface reports
 - **VS Code** integration (see below)
 - **Global patterns** or **in-file** schemas associations
 - In JS framework **MD / MDX pipelines**
 
 # Demo
+
+<div align="center">
+
+[![](https://res.cloudinary.com/dzfylx93l/image/upload/c_scale,w_1280/demo-rlfmschema_meai5w.png)  
+**🕹  Preview it online!**](https://astro-content.dev/__content)
+
+<sup><sub>(w. Astro Content — Editor)</sub></sup>
+
+</div>
 
 [![Demo screenshot of frontmatter schema linter 1](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot.png)
 
@@ -86,7 +95,7 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
 pnpm install -D \
 remark remark-cli \
 remark-frontmatter \
-@julian_cataldo/remark-lint-frontmatter-schema
+remark-lint-frontmatter-schema
 ```
 
 > **Remove** `-D` flag for runtime **`unified`** MD / MDX **pipeline** (custom, Astro, Gatsby, etc.), for production.  
@@ -117,10 +126,10 @@ Paste this base config:
 
 ```mjs
 import remarkFrontmatter from 'remark-frontmatter';
-import rlFmSchema from '@julian_cataldo/remark-lint-frontmatter-schema';
+import remarkLintFrontmatterSchema from 'remark-lint-frontmatter-schema';
 
 const remarkConfig = {
-  plugins: [remarkFrontmatter, rlFmSchema],
+  plugins: [remarkFrontmatter, remarkLintFrontmatterSchema],
 };
 export default remarkConfig;
 ```
@@ -174,7 +183,7 @@ const remarkConfig = {
   plugins: [
     remarkFrontmatter,
     [
-      rlFmSchema,
+      remarkLintFrontmatterSchema,
       {
         schemas: {
           /* One schema for many files */
@@ -230,7 +239,7 @@ Schema should be provided programmatically like this:
 ```ts
 // …
 import remarkFrontmatter from 'remark-frontmatter';
-import rlFmSchema from '@julian_cataldo/remark-lint-frontmatter-schema';
+import remarkLintFrontmatterSchema from 'remark-lint-frontmatter-schema';
 import type { JSONSchema7 } from 'json-schema';
 import { reporter } from 'vfile-reporter';
 
@@ -244,7 +253,7 @@ const output = await unified()
   // …
   .use(remarkFrontmatter)
 
-  .use(rlFmSchema, {
+  .use(remarkLintFrontmatterSchema, {
     /* Bring your own schema */
     embed: mySchema,
   })
@@ -294,7 +303,11 @@ uses cases enough to separate them in their setups, but I might converge them pa
 #### Framework
 
 > **Warning**  
-> WIP. **NOT tested yet**!
+> WIP. **NOT tested yet**! It is not a common use case for `remark-lint`.  
+> Linting data inside frameworks are generally ignored.  
+> AFAIK, `messages` data isn't forwarded to CLI output.  
+> Feel free to open a PR if you have some uses cases in this area that need special care.  
+> Maybe Astro or Astro Content could leverage these linter warnings in the future.
 
 See [global patterns `schemas` associations](#globally-with-patterns) for settings reference.
 
@@ -309,7 +322,7 @@ export default defineConfig({
   remarkPlugins: [
     // …
     'remark-frontmatter',
-    ['@julian_cataldo/remark-lint-frontmatter-schema', { schemas }],
+    ['remark-lint-frontmatter-schema', { schemas }],
     // …
   ];
   // …
@@ -331,7 +344,7 @@ In `gatsby-config.js`
         plugins: [
           // …
           'remark-frontmatter',
-          ['@julian_cataldo/remark-lint-frontmatter-schema', { schemas }],
+          ['remark-lint-frontmatter-schema', { schemas }],
           // …
         ],
       },
@@ -436,7 +449,7 @@ So it's better than nothing I guess, and could be a first step for something mor
 
 # Todos
 
-- [ ] "`@julian_cataldo/remark-lint-frontmatter-schema`" is way too **verbose** for a package name.  
+- [ ] "`remark-lint-frontmatter-schema`" is way too **verbose** for a package name.  
        Must **migrate** it to "`remark-lint-frontmatter-schema`".
 
 # Footnotes
