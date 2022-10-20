@@ -82,7 +82,6 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
         - [Astro](#astro)
         - [Gatsby](#gatsby)
 - [Interfaces](#interfaces)
-- [Todos](#todos)
 - [Footnotes](#footnotes)
 
 ---
@@ -447,10 +446,7 @@ So it's better than nothing I guess, and could be a first step for something mor
 
 ---
 
-# Todos
-
-- [ ] "`remark-lint-frontmatter-schema`" is way too **verbose** for a package name.  
-       Must **migrate** it to "`remark-lint-frontmatter-schema`".
+<!-- # Todos -->
 
 # Footnotes
 
