@@ -27,9 +27,10 @@ export interface Settings {
   /**
    * Global workspace file associations mapping (for linter extension).
    *
-   * Example: `'schemas/thing.schema.yaml': ['content/things/*.md']`
+   * **Example**: `'schemas/thing.schema.yaml': ['content/things/*.md']`
    */
   schemas?: Record<string, string[]>;
+
   /**
    * Direct schema embedding (for using inside an `unified` transform pipeline).
    *
@@ -38,6 +39,7 @@ export interface Settings {
    * **Documentation**: https://ajv.js.org/json-schema.html#draft-07
    */
   embed?: JSONSchema7;
+
   /**
    * **Documentation**: https://ajv.js.org/options.html
    */
