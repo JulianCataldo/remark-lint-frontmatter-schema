@@ -1,3 +1,10 @@
+## [3.7.6](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.5...v3.7.6) (2022-10-20)
+
+
+### Bug Fixes
+
+* remove todo, rename package ([ae1c0b5](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/ae1c0b5d7d6247900540a4e66d4378c6b066dd4c))
+
 ## [3.7.5](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.4...v3.7.5) (2022-10-15)
 
 
