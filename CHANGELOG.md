@@ -1,3 +1,10 @@
+## [3.7.9](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.8...v3.7.9) (2022-10-27)
+
+
+### Bug Fixes
+
+* new cli harvest image + remove pointing hand ([42c5658](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/42c56581598f919b0060f315196c639b8d18b8b9))
+
 ## [3.7.8](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.7...v3.7.8) (2022-10-27)
 
 
