@@ -1,3 +1,10 @@
+## [3.7.7](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.6...v3.7.7) (2022-10-20)
+
+
+### Bug Fixes
+
+* properties spacing + bold ([e168cab](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/e168cabd2d2cbf7619f07da43efd506d54386dae))
+
 ## [3.7.6](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.5...v3.7.6) (2022-10-20)
 
 
