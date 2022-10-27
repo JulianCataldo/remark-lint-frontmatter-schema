@@ -1,11 +1,11 @@
-# `remark-lint-frontmatter-schema` 📑☜
+# `remark-lint-frontmatter-schema` 📑
 
 <!-- [![Build Status](https://img.shields.io/github/workflow/status/JulianCataldo/remark-lint-frontmatter-schema/release/master.svg)](https://github.com/remark-lint-frontmatter-schema/actions/workflows/release.yml?query=branch%3Amain) -->
 
 [![VS Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?logo=visual%20studio%20code)](https://code.visualstudio.com)
 [![unified](https://img.shields.io/badge/uni-fied-0366d6?logo=markdown)](https://unifiedjs.com)  
 [![NPM](https://img.shields.io/npm/v/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/remark-lint-frontmatter-schema)
-![Downloads](https://img.shields.io/npm/dm/remark-lint-frontmatter-schema)
+![Downloads](https://img.shields.io/npm/dt/remark-lint-frontmatter-schema)
 [![ISC License](https://img.shields.io/npm/l/remark-lint-frontmatter-schema)](./LICENSE)
 [![GitHub](https://img.shields.io/badge/Repository-222222?logo=github)](https://github.com/JulianCataldo/remark-lint-frontmatter-schema)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](https://makeapullrequest.com)  
@@ -43,7 +43,7 @@ Supports:
 
 **Jump to**:
 
-- [`remark-lint-frontmatter-schema` 📑☜](#remark-lint-frontmatter-schema-)
+- [`remark-lint-frontmatter-schema` 📑](#remark-lint-frontmatter-schema-)
 - [Demo](#demo)
   - [👉  **Play with pre-configured ./demo**](#play-with-pre-configured-demo)
 - [Installation](#installation)
@@ -192,15 +192,20 @@ const remarkConfig = {
         schemas: {
           /* One schema for many files */
           './content/creative-work.schema.yaml': [
-            /* Support glob patterns */
-            './content/*-creative-work.md',
-            /* Or direct file association */
-            './content/the-one.md',
+            /* Per-file association */
+            './content/creative-work/the-shipwreck__global-broken.md',
+
+            /* Support glob patterns ———v */
+            // './content/creative-work/*.md',
+            // …
+            // `./` prefix is optional
+            // 'content/creative-work/foobiz.md',
           ],
-          './content/ghost.schema.yaml': [
-            './content/casper.md',
-            './content/ether.md',
-          ],
+
+          // './content/ghost.schema.yaml': [
+          //   './content/casper.md',
+          //   './content/ether.md',
+          // ],
         },
       },
     ],
@@ -221,14 +226,7 @@ pnpm remark .
 
 Yields:
 
-```sh
-# …
-content/correct-creative-work.md
-  1:1  warning  /category: Must be equal to one of the allowed values  frontmatter-schema  remark-lint
-  1:1  warning  /complex/some: Must be string                          frontmatter-schema  remark-lint
-
-⚠ 6 warnings
-```
+![](https://res.cloudinary.com/dzfylx93l/image/upload/v1666912219/Xnapper-2022-10-28-01.09.11_yh4tnr.png)
 
 ### MD / MDX pipeline — **Runtime** validation
 
@@ -419,7 +417,6 @@ Example of a `VFileMessage` content you could collect from this lint rule:
     "fatal": false,
     "actual": "Individuaaaaaaaal",
     "expected": ["Corporate", "Non-profit", "Individual"],
-
     // Condensed string, human readable version of AJV error object
     "note": "Keyword: enum\nAllowed values: Corporate, Non-profit, Individual\nSchema path: #/properties/clientType/enum",
 
@@ -477,7 +474,7 @@ See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ---
 
-Other projects:
+**Other projects 👀**…
 
 - [retext-case-police](https://github.com/JulianCataldo/retext-case-police): Check popular names casing. Example: ⚠️ `github` → ✅ `GitHub`.
 - [remark-embed](https://github.com/JulianCataldo/remark-embed): A `remark` plugin for embedding remote / local Markdown or code snippets.
