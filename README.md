@@ -1,13 +1,14 @@
-# `remark-lint-frontmatter-schema`
+# `remark-lint-frontmatter-schema` 📑☜
 
 <!-- [![Build Status](https://img.shields.io/github/workflow/status/JulianCataldo/remark-lint-frontmatter-schema/release/master.svg)](https://github.com/remark-lint-frontmatter-schema/actions/workflows/release.yml?query=branch%3Amain) -->
 
-[![NPM](https://img.shields.io/npm/v/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/remark-lint-frontmatter-schema)
-![Downloads](https://img.shields.io/npm/dt/@julian_cataldo/remark-lint-frontmatter-schema.svg)
-[![ISC License](https://img.shields.io/npm/l/remark-lint-frontmatter-schema)](./LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)  
 [![VS Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?logo=visual%20studio%20code)](https://code.visualstudio.com)
 [![unified](https://img.shields.io/badge/uni-fied-0366d6?logo=markdown)](https://unifiedjs.com)  
+[![NPM](https://img.shields.io/npm/v/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/remark-lint-frontmatter-schema)
+![Downloads](https://img.shields.io/npm/dm/remark-lint-frontmatter-schema.svg)
+[![ISC License](https://img.shields.io/npm/l/remark-lint-frontmatter-schema)](./LICENSE)
+[![GitHub](https://img.shields.io/badge/Repository-222222?logo=github)](https://github.com/JulianCataldo/remark-lint-frontmatter-schema)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)  
 [![TypeScript](https://img.shields.io/badge/TypeScript-333333.svg?logo=typescript)](http://www.typescriptlang.org/)
 [![Prettier](https://img.shields.io/badge/Prettier-333333.svg?logo=prettier)](https://prettier.io)
 [![EditorConfig](https://img.shields.io/badge/EditorConfig-333333.svg?logo=editorconfig)](https://editorconfig.org)
@@ -38,29 +39,11 @@ Supports:
 
 </div>
 
-[![Demo screenshot of frontmatter schema linter 1](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot.png)
-
----
-
-[![Demo screenshot of frontmatter schema linter 2](./docs/screenshot-2.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot-2.png)
-
----
-
-[![Demo screenshot of frontmatter schema linter 3](./docs/screenshot-3.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot-3.png)
-
-## 👉  **Play with pre-configured [./demo](./demo/)**
-
-Quick shallow **clone** with:
-
-```sh
-pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
-```
-
 ---
 
 **Jump to**:
 
-- [`remark-lint-frontmatter-schema`](#remark-lint-frontmatter-schema)
+- [`remark-lint-frontmatter-schema` 📑☜](#remark-lint-frontmatter-schema-)
 - [Demo](#demo)
   - [👉  **Play with pre-configured ./demo**](#play-with-pre-configured-demo)
 - [Installation](#installation)
@@ -83,6 +66,28 @@ pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
         - [Gatsby](#gatsby)
 - [Interfaces](#interfaces)
 - [Footnotes](#footnotes)
+
+---
+
+[![Demo screenshot of frontmatter schema linter 1](./docs/screenshot.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot.png)
+
+---
+
+[![Demo screenshot of frontmatter schema linter 2](./docs/screenshot-2.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot-2.png)
+
+---
+
+[![Demo screenshot of frontmatter schema linter 3](./docs/screenshot-3.png)](https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/docs/screenshot-3.png)
+
+---
+
+## 👉  **Play with pre-configured [./demo](./demo/)**
+
+Quick shallow **clone** with:
+
+```sh
+pnpx degit JulianCataldo/remark-lint-frontmatter-schema/demo ./demo
+```
 
 ---
 
@@ -479,5 +484,8 @@ Related projects:
 - [astro-content](https://github.com/JulianCataldo/astro-content): A text based, structured content manager, for edition and consumption.
 
 ---
+
+Find this project useful?  
+[![GitHub](https://img.shields.io/badge/Star_me_on_GitHub-222222?logo=github)](https://github.com/JulianCataldo/remark-lint-frontmatter-schema)
 
 🔗  [JulianCataldo.com](https://www.juliancataldo.com)
