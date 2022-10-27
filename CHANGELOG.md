@@ -1,3 +1,10 @@
+## [3.7.8](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.7...v3.7.8) (2022-10-27)
+
+
+### Bug Fixes
+
+* update badge, links,… + pjson ordering ([8ebaca9](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/8ebaca9b11cb3ec97e13e2ee84adaff5cb43df7e))
+
 ## [3.7.7](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.6...v3.7.7) (2022-10-20)
 
 
