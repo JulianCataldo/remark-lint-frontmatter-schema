@@ -5,13 +5,13 @@
 [![VS Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?logo=visual%20studio%20code)](https://code.visualstudio.com)
 [![unified](https://img.shields.io/badge/uni-fied-0366d6?logo=markdown)](https://unifiedjs.com)  
 [![NPM](https://img.shields.io/npm/v/remark-lint-frontmatter-schema)](https://www.npmjs.com/package/remark-lint-frontmatter-schema)
-![Downloads](https://img.shields.io/npm/dm/remark-lint-frontmatter-schema.svg)
+![Downloads](https://img.shields.io/npm/dm/remark-lint-frontmatter-schema)
 [![ISC License](https://img.shields.io/npm/l/remark-lint-frontmatter-schema)](./LICENSE)
 [![GitHub](https://img.shields.io/badge/Repository-222222?logo=github)](https://github.com/JulianCataldo/remark-lint-frontmatter-schema)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)  
-[![TypeScript](https://img.shields.io/badge/TypeScript-333333.svg?logo=typescript)](http://www.typescriptlang.org/)
-[![Prettier](https://img.shields.io/badge/Prettier-333333.svg?logo=prettier)](https://prettier.io)
-[![EditorConfig](https://img.shields.io/badge/EditorConfig-333333.svg?logo=editorconfig)](https://editorconfig.org)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](https://makeapullrequest.com)  
+[![TypeScript](https://img.shields.io/badge/TypeScript-333333?logo=typescript)](http://www.typescriptlang.org/)
+[![Prettier](https://img.shields.io/badge/Prettier-333333?logo=prettier)](https://prettier.io)
+[![EditorConfig](https://img.shields.io/badge/EditorConfig-333333?logo=editorconfig)](https://editorconfig.org)
 [![ESLint](https://img.shields.io/badge/ESLint-3A33D1?logo=eslint)](https://eslint.org)
 
 <!-- [![Renovate](https://img.shields.io/badge/Renovate-enabled-17a2b8?logo=renovatebot)](https://app.renovatebot.com/dashboard) -->
@@ -55,10 +55,10 @@ Supports:
       - [Schema example](#schema-example)
       - [Schemas associations](#schemas-associations)
         - [Inside frontmatter](#inside-frontmatter)
-        - [🆕  Globally, with patterns](#globally-with-patterns)
+        - [Globally, with patterns](#globally-with-patterns)
       - [CLI usage](#cli-usage)
     - [MD / MDX pipeline — **Runtime** validation](#md--mdx-pipeline--runtime-validation)
-      - [🆕  Custom pipeline](#custom-pipeline)
+      - [Custom pipeline](#custom-pipeline)
         - [Implementation living example](#implementation-living-example)
         - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
       - [Framework](#framework)
@@ -177,7 +177,7 @@ category: Book
 …
 ```
 
-##### 🆕  Globally, with patterns
+##### Globally, with patterns
 
 > **Note**:  
 > Locally defined **`'$schema'` takes precedence** over global settings below.
@@ -234,7 +234,7 @@ content/correct-creative-work.md
 
 Use it as usual like any remark plugin inside your framework or your custom `unified` pipeline.
 
-#### 🆕  Custom pipeline
+#### Custom pipeline
 
 When processing Markdown as single files inside your JS/TS app.
 
@@ -477,15 +477,17 @@ See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ---
 
-Related projects:
+Other projects:
 
 - [retext-case-police](https://github.com/JulianCataldo/retext-case-police): Check popular names casing. Example: ⚠️ `github` → ✅ `GitHub`.
 - [remark-embed](https://github.com/JulianCataldo/remark-embed): A `remark` plugin for embedding remote / local Markdown or code snippets.
 - [astro-content](https://github.com/JulianCataldo/astro-content): A text based, structured content manager, for edition and consumption.
+- [Web garden](https://github.com/JulianCataldo/web-garden): Building blocks for making progressive and future-proof websites.
+
+**Find this project useful?**…
+
+[![GitHub](https://img.shields.io/badge/Star_me_on_GitHub-222222?logo=github&style=social)](https://github.com/JulianCataldo/remark-lint-frontmatter-schema)
 
 ---
-
-Find this project useful?  
-[![GitHub](https://img.shields.io/badge/Star_me_on_GitHub-222222?logo=github)](https://github.com/JulianCataldo/remark-lint-frontmatter-schema)
 
 🔗  [JulianCataldo.com](https://www.juliancataldo.com)

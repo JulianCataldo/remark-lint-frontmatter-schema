@@ -2,17 +2,45 @@
   "name": "remark-lint-frontmatter-schema",
   "version": "3.7.7",
   "description": "Validate Markdown frontmatter YAML against an associated JSON schema — remark-lint rule plugin",
+  "keywords": [
+    "lint",
+    "yaml",
+    "remark",
+    "validation",
+    "linting",
+    "json-schema",
+    "linter",
+    "unified",
+    "frontmatter",
+    "remarkjs",
+    "rule",
+    "ajv",
+    "markdown",
+    "vscode",
+    "tooling"
+  ],
+  "homepage": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema",
+  "bugs": {
+    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues",
+    "email": "contact@juliancataldo.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema"
+  },
+  "license": "ISC",
+  "author": "Julian Cataldo",
   "type": "module",
-  "source": "./index.ts",
   "main": "./dist/index.js",
+  "source": "./index.ts",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/*",
     "index.ts"
   ],
   "scripts": {
-    "dev": "pnpm tsc -w",
     "build": "pnpm tsc",
+    "dev": "pnpm tsc -w",
     "release": "semantic-release"
   },
   "dependencies": {
@@ -53,34 +81,6 @@
     "unified": "10.1.2",
     "vfile-message": "^3.1.2"
   },
-  "homepage": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema"
-  },
-  "bugs": {
-    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema/issues",
-    "email": "contact@juliancataldo.com"
-  },
-  "author": "Julian Cataldo",
-  "license": "ISC",
-  "keywords": [
-    "lint",
-    "yaml",
-    "remark",
-    "validation",
-    "linting",
-    "json-schema",
-    "linter",
-    "unified",
-    "frontmatter",
-    "remarkjs",
-    "rule",
-    "ajv",
-    "markdown",
-    "vscode",
-    "tooling"
-  ],
   "publishConfig": {
     "access": "public"
   }
