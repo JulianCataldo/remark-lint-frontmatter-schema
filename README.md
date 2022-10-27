@@ -47,23 +47,23 @@ Supports:
 - [Demo](#demo)
   - [👉  **Play with pre-configured ./demo**](#play-with-pre-configured-demo)
 - [Installation](#installation)
-    - [Base](#base)
-    - [VS Code (optional)](#vs-code-optional)
+  - [Base](#base)
+  - [VS Code (optional)](#vs-code-optional)
 - [Configuration](#configuration)
-    - [CLI / IDE (VS Code) — **Static** linting](#cli--ide-vs-code--static-linting)
-      - [Workspace](#workspace)
-      - [Schema example](#schema-example)
-      - [Schemas associations](#schemas-associations)
-        - [Inside frontmatter](#inside-frontmatter)
-        - [Globally, with patterns](#globally-with-patterns)
-      - [CLI usage](#cli-usage)
-    - [MD / MDX pipeline — **Runtime** validation](#md--mdx-pipeline--runtime-validation)
-      - [Custom pipeline](#custom-pipeline)
-        - [Implementation living example](#implementation-living-example)
-        - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
-      - [Framework](#framework)
-        - [Astro](#astro)
-        - [Gatsby](#gatsby)
+  - [CLI / IDE (VS Code) — **Static** linting](#cli--ide-vs-code--static-linting)
+    - [Workspace](#workspace)
+    - [Schema example](#schema-example)
+    - [Schemas associations](#schemas-associations)
+      - [Inside frontmatter](#inside-frontmatter)
+      - [Globally, with patterns](#globally-with-patterns)
+    - [CLI usage](#cli-usage)
+  - [MD / MDX pipeline — **Runtime** validation](#md--mdx-pipeline--runtime-validation)
+    - [Custom pipeline](#custom-pipeline)
+      - [Implementation living example](#implementation-living-example)
+      - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
+    - [Framework](#framework)
+      - [Astro](#astro)
+      - [Gatsby](#gatsby)
 - [Interfaces](#interfaces)
 - [Footnotes](#footnotes)
 
@@ -481,9 +481,15 @@ See [CHANGELOG.md](./CHANGELOG.md) for release history.
 - [astro-content](https://github.com/JulianCataldo/astro-content): A text based, structured content manager, for edition and consumption.
 - [Web garden](https://github.com/JulianCataldo/web-garden): Building blocks for making progressive and future-proof websites.
 
-**Find this project useful?**…
+---
+
+<div align="center">
+
+**Find this project useful?**
 
 [![GitHub](https://img.shields.io/badge/Star_me_on_GitHub-222222?logo=github&style=social)](https://github.com/JulianCataldo/remark-lint-frontmatter-schema)
+
+</div>
 
 ---
 

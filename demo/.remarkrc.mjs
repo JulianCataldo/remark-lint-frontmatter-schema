@@ -1,5 +1,5 @@
 import remarkFrontmatter from 'remark-frontmatter';
-import rlFmSchema from '@julian_cataldo/remark-lint-frontmatter-schema';
+import remarkLintFrontmatterSchema from 'remark-lint-frontmatter-schema';
 /* —————————————————————————————————————————————————————————————————————————— */
 
 const remarkConfig = {
@@ -10,7 +10,7 @@ const remarkConfig = {
 
     /* v————— Or with global schemas associations */
     [
-      rlFmSchema,
+      remarkLintFrontmatterSchema,
       {
         schemas: {
           /* One schema for many files */
