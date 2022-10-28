@@ -19,6 +19,7 @@ properties:
         type: number
       some:
         type: string
+
 required:
   - title
   - category

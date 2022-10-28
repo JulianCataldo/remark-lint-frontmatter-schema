@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "http://json-schema.org/draft-07/schema#": ["content/**/*.schema.yaml"]
+  }
+}
