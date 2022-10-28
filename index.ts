@@ -184,11 +184,13 @@ function validateFrontmatter(
       hasLocalAssoc = true;
       schemaRelPath = yamlJS.$schema;
     }
-  } catch (_) {
+  } catch (error) {
     /* NOTE: Never hitting this error,
-       parser seems to handle anything we throw at it */
-    const msg = `YAML frontmatter parse error`;
-    vFile.message(msg);
+         parser seems to handle anything we throw at it */
+    if (error instanceof Error) {
+      const banner = `YAML frontmatter parsing: ${schemaRelPath ?? ''}`;
+      vFile.message(`${banner} — ${error.name}: ${error.message}`);
+    }
   }
 
   /* Global schemas associations, only if no local schema is set */
@@ -227,7 +229,7 @@ function validateFrontmatter(
     schema = settings.embed;
   } else if (schemaFullPath) {
     try {
-      // IDEA: make it async?
+      // IDEA: Make it async if it's possible at all?
       const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
       // TODO: Validate schema with JSON meta schema
       schema = yaml.parse(fileData) as unknown as JSONSchema7;
@@ -238,10 +240,11 @@ function validateFrontmatter(
           delete yamlJS.$schema;
         }
       }
-    } catch (_) {
-      const msg = `YAML Schema parse error: ${schemaRelPath ?? ''}`;
-      // TODO: Make a meaningful error with `linePos` etc.
-      vFile.message(msg);
+    } catch (error) {
+      if (error instanceof Error) {
+        const banner = `YAML schema file load/parse: ${schemaRelPath ?? ''}`;
+        vFile.message(`${banner} — ${error.name}: ${error.message}`);
+      }
     }
   }
 
@@ -272,10 +275,11 @@ function validateFrontmatter(
           lineCounter,
         );
       }
-    } catch (_) {
-      const msg = `JSON Schema malformed: ${schemaRelPath ?? ''}`;
-      // TODO: Make a meaningful error with `linePos` etc.
-      vFile.message(msg);
+    } catch (error) {
+      if (error instanceof Error) {
+        const banner = `JSON schema malformed: ${schemaRelPath ?? ''}`;
+        vFile.message(`${banner} — ${error.name}: ${error.message}`);
+      }
     }
   }
 }
