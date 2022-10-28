@@ -9,7 +9,7 @@ module.exports = {
    *
    * */
   extends: [
-    './node_modules/@julian_cataldo/astro-configs/eslint-js.cjs',
-    './node_modules/@julian_cataldo/astro-configs/eslint-ts.cjs',
+    './node_modules/webdev-configs/eslint-js.cjs',
+    './node_modules/webdev-configs/eslint-ts.cjs',
   ],
 };
