@@ -1,3 +1,11 @@
+# [3.8.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.9...v3.8.0) (2022-10-28)
+
+
+### Features
+
+* core meta schema validation docs + example ([1976cc2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/1976cc29f486448fbd72db45f0b9156214e0d430))
+* embed native errors reports in vfile msg ([5a39364](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/5a393647d61f7e2730f07649891c2b0347729ced))
+
 ## [3.7.9](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.8...v3.7.9) (2022-10-27)
 
 
