@@ -4,7 +4,7 @@
 /* —————————————————————————————————————————————————————————————————————————— */
 
 /* eslint-disable max-lines */
-import fs from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import minimatch from 'minimatch';
 /* ·········································································· */
@@ -161,7 +161,7 @@ function pushErrors(
   });
 }
 
-function validateFrontmatter(
+async function validateFrontmatter(
   sourceYaml: YAML,
   vFile: VFile,
   settings: Settings,
@@ -229,8 +229,7 @@ function validateFrontmatter(
     schema = settings.embed;
   } else if (schemaFullPath) {
     try {
-      // IDEA: Make it async if it's possible at all?
-      const fileData = fs.readFileSync(schemaFullPath, 'utf-8');
+      const fileData = await readFile(schemaFullPath, 'utf-8');
       // TODO: Validate schema with JSON meta schema
       schema = yaml.parse(fileData) as unknown as JSONSchema7;
       /* Schema is now extracted,
@@ -289,13 +288,13 @@ const remarkFrontmatterSchema = lintRule(
     url,
     origin: 'remark-lint:frontmatter-schema',
   },
-  (ast: Root, vFile: VFile, settings: Settings) => {
+  async (ast: Root, vFile: VFile, settings: Settings) => {
     /* Handle only if the current Markdown file has a frontmatter section */
     if (ast.children.length) {
       // IDEA: Is the `0` due to the fact that `remark-frontmatter`
       // could provide multi-parts frontmatter? Should investigate this
       if (ast.children[0].type === 'yaml') {
-        validateFrontmatter(ast.children[0], vFile, settings);
+        await validateFrontmatter(ast.children[0], vFile, settings);
       }
     }
   },
