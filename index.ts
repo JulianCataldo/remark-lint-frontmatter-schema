@@ -262,9 +262,9 @@ async function validateFrontmatter(
           readFile(fileURLToPath(uri), 'utf8')
             .then((data) => {
               try {
-                const res = yaml.parse(data) as unknown;
-                if (res && typeof res === 'object') {
-                  resolve(res);
+                const parsedSchema = yaml.parse(data) as unknown;
+                if (parsedSchema && typeof parsedSchema === 'object') {
+                  resolve(parsedSchema);
                 }
               } catch (_) {
                 reject(new Error(`Could not parse ${uri}`));

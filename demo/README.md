@@ -39,6 +39,14 @@ pnpm remark .
 
 Play with schema and markdown frontmatter and see what happens in VS Code problem list!
 
+## (Alt.) Custom pipeline
+
+Run `./pipeline.ts`:
+
+```sh
+pnpm pipeline
+```
+
 ---
 
 🔗  [JulianCataldo.com](https://www.juliancataldo.com)
