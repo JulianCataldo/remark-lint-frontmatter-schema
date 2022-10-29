@@ -195,26 +195,25 @@ async function validateFrontmatter(
   }
 
   /* Global schemas associations, only if no local schema is set */
-  if (typeof settings.schemas === 'object') {
-    if (yamlDoc && yamlJS && !hasLocalAssoc) {
-      Object.entries(settings.schemas).forEach(
-        ([globSchemaPath, globSchemaAssocs]) => {
-          if (Array.isArray(globSchemaAssocs)) {
-            /* Check if current markdown file is associated with this schema */
-            globSchemaAssocs.forEach((mdFilePath) => {
-              if (typeof mdFilePath === 'string') {
-                /* Remove appended `./` or `/` */
-                const mdPathCleaned = path.join(mdFilePath);
+  if (yamlDoc && yamlJS && !hasLocalAssoc) {
+    Object.entries(settings.schemas || {}).forEach(
+      ([globSchemaPath, globSchemaAssocs]) => {
+        /* Check if current markdown file is associated with this schema */
+        globSchemaAssocs?.forEach((mdFilePath) => {
+          if (typeof mdFilePath === 'string') {
+            /* Remove appended `./` or `/` */
+            const mdPathCleaned = path.join(mdFilePath);
+            /* With `remark`, `vFile.path` is already relative to project root,
+               while `eslint-plugin-mdx` gives an absolute path */
+            const vFilePathRel = path.relative(process.cwd(), vFile.path);
 
-                if (minimatch(vFile.path, mdPathCleaned)) {
-                  schemaRelPath = globSchemaPath;
-                }
-              }
-            });
+            if (minimatch(vFilePathRel, mdPathCleaned)) {
+              schemaRelPath = globSchemaPath;
+            }
           }
-        },
-      );
-    }
+        });
+      },
+    );
   }
 
   /* From file only */
