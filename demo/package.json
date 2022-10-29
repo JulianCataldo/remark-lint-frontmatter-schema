@@ -5,15 +5,20 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "pipeline": "tsx pipeline.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "remark-lint-frontmatter-schema": "latest",
     "remark": "14.0.2",
     "remark-cli": "11.0.0",
-    "remark-frontmatter": "4.0.1"
+    "remark-frontmatter": "4.0.1",
+    "remark-lint-frontmatter-schema": "latest",
+    "tsx": "^3.11.0"
+  },
+  "dependencies": {
+    "vfile-reporter": "^7.0.4"
   }
 }

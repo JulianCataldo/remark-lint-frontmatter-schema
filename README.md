@@ -310,7 +310,10 @@ Use it as usual like any remark plugin inside your framework or your custom `uni
 
 #### Custom pipeline
 
-When processing Markdown as single files inside your JS/TS app.
+When processing Markdown as single files inside your JS/TS app.  
+An minimal example is provided in [`./demo/pipeline.ts`](./demo/pipeline.ts), you can launch it with `pnpm pipeline` from `./demo`.
+
+---
 
 Schema should be provided programmatically like this:
 
