@@ -6,6 +6,7 @@
 /* eslint-disable max-lines */
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import minimatch from 'minimatch';
 /* ·········································································· */
 import yaml, { type Document, isNode, LineCounter } from 'yaml';
@@ -254,14 +255,40 @@ async function validateFrontmatter(
       /* Defaults */
       allErrors: true /* So it doesn't stop at the first found error */,
       strict: false /* Prevents warnings for valid, but relaxed schemas */,
-      /* User override */
+
+      loadSchema(uri) {
+        /* Load external referenced schema relatively from workspace root */
+        return new Promise((resolve, reject) => {
+          readFile(fileURLToPath(uri), 'utf8')
+            .then((data) => {
+              try {
+                const res = yaml.parse(data) as unknown;
+                if (res && typeof res === 'object') {
+                  resolve(res);
+                }
+              } catch (_) {
+                reject(new Error(`Could not parse ${uri}`));
+              }
+            })
+            .catch((_) => {
+              reject(new Error(`Could not locate ${uri}`));
+            });
+        });
+      },
+
+      /* User settings / overrides */
       ...settings.ajvOptions,
     });
     addFormats(ajv);
 
+    /* Set current schema absolute URI, so AJV can resolve relative `$ref` */
+    if (!('$id' in schema) && schemaFullPath) {
+      schema.$id = pathToFileURL(schemaFullPath).toString();
+    }
+
     /* JSON Schema compilation + validation with AJV */
     try {
-      const validate = ajv.compile(schema);
+      const validate = await ajv.compileAsync(schema);
       validate(yamlJS);
 
       /* Push JSON Schema validation failures messages */

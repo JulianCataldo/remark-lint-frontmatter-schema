@@ -10,6 +10,8 @@ complex:
 
 ##          v—————— Must be `Book` | `Movie` | …
 category: Car
+
+description: ['not', 'an', 'array']
 ---
 
 # You're welcome!

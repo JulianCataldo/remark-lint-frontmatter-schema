@@ -1,0 +1,23 @@
+title: Page
+
+properties:
+  title:
+    title: Title
+    description: Used for SEO and tab title
+    type: string
+    maxLength: 80
+
+  description:
+    title: Description
+    description: Used for SEO
+    type: string
+    maxLength: 300
+
+  image:
+    description: |
+      Absolute or relative URL to image file.
+      Used for hero header and page thumbnail.
+    type: string
+
+required:
+  - title

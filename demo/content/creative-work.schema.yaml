@@ -1,26 +1,28 @@
-type: object
-properties:
-  title:
-    type: string
-  category:
-    type: string
-    enum:
-      - Book
-      - Movie
-      - Painting
-      - Photo
-      - Musical piece
-  complex:
-    type: object
-    required:
-      - time
-    properties:
-      time:
-        type: number
-      some:
-        type: string
+allOf:
+  # Relative path
+  - $ref: ./page.schema.yaml
 
-required:
-  - title
-  - category
-  - complex
+  # "Creative work" extension
+  - properties:
+      category:
+        type: string
+        enum:
+          - Book
+          - Movie
+          - Painting
+          - Photo
+          - Musical piece
+      complex:
+        type: object
+        required:
+          - time
+        properties:
+          time:
+            type: number
+          some:
+            type: string
+
+    required:
+      - title
+      - category
+      - complex

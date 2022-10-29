@@ -53,6 +53,7 @@ Supports:
     - [CLI / IDE (VS Code) — **Static** linting](#cli--ide-vs-code--static-linting)
       - [Workspace](#workspace)
       - [Schema example](#schema-example)
+        - [🆕  Add references to external definitions (advanced)](#add-references-to-external-definitions-advanced)
       - [Schemas associations](#schemas-associations)
         - [Inside frontmatter](#inside-frontmatter)
         - [Globally, with patterns](#globally-with-patterns)
@@ -149,6 +150,61 @@ properties:
   title:
     type: string
 # …
+```
+
+##### 🆕  Add references to external definitions (advanced)
+
+Referencing schema definitions
+allows re-using bit and piece instead of duplicate them,
+accross your content schemas.
+
+You can reference an external schema relatively, using `$ref`.
+For example we can -_kind of_- merge an host object with a reference properties:
+
+The host, `content/articles/main.md.schema.yaml`
+
+```yaml
+allOf:
+  - $ref: ../page.schema.yaml
+
+  - properties:
+      foo:
+        type: string
+
+    required:
+      - foo
+```
+
+The reference, `content/page.schema.yaml`
+
+```yaml
+properties:
+  title:
+    type: string
+    maxLength: 80
+    # ...
+  # ...
+
+required:
+  - title
+```
+
+The result will be (virtually) the same as this:
+
+```yaml
+properties:
+  title:
+    type: string
+    maxLength: 80
+    # ...
+  # ...
+
+  foo:
+    type: string
+
+required:
+  - title
+  - foo
 ```
 
 #### Schemas associations
