@@ -315,7 +315,7 @@ const remarkFrontmatterSchema = lintRule(
     url,
     origin: 'remark-lint:frontmatter-schema',
   },
-  async (ast: Root, vFile: VFile, settings: Settings) => {
+  async (ast: Root, vFile: VFile, settings: Settings = {}) => {
     /* Handle only if the current Markdown file has a frontmatter section */
     if (ast.children.length) {
       // IDEA: Is the `0` due to the fact that `remark-frontmatter`
