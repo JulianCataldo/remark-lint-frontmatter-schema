@@ -1,3 +1,10 @@
+# [3.10.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.9.0...v3.10.0) (2022-10-29)
+
+
+### Features
+
+* embedded `$ref` for demo pipeline ([59434d7](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/59434d78470e4e0d5fc0756ddf988f40acd862e5))
+
 # [3.9.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.8.0...v3.9.0) (2022-10-29)
 
 
