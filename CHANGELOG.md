@@ -1,3 +1,11 @@
+# [3.9.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.8.0...v3.9.0) (2022-10-29)
+
+
+### Features
+
+* convert lint rule to async, for file loading ([4675b25](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/4675b256fcd84a703deeebf3b412d2023c0cac6e))
+* load external schema definition references ([b1b9805](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/b1b98051d03c17b6cc2bc3a29ebb8206172a52c0))
+
 # [3.8.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.7.9...v3.8.0) (2022-10-28)
 
 
