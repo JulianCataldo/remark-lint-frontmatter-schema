@@ -257,7 +257,7 @@ async function validateFrontmatter(
       strict: false /* Prevents warnings for valid, but relaxed schemas */,
 
       loadSchema(uri) {
-        /* Load external referenced schema relatively from workspace root */
+        /* Load external referenced schema relatively from schema path */
         return new Promise((resolve, reject) => {
           readFile(fileURLToPath(uri), 'utf8')
             .then((data) => {
