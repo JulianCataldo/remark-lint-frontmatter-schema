@@ -58,6 +58,7 @@ const output = await remark()
       loadSchema(uri) {
         /* Load external referenced schema relatively from schema path */
         return new Promise((resolve, reject) => {
+          /* We use local file here, but you could use anything (fetch…) */
           readFile(fileURLToPath(uri), 'utf8')
             .then((data) => {
               try {
@@ -75,6 +76,12 @@ const output = await remark()
         });
       },
     },
+
+    /* —Or— just (local only) */
+    // embed: {
+    //   $id: pathToFileURL(mySchemaPath).toString(),
+    //   ...mySchema,
+    // },
   })
   .process(mdContent);
 
