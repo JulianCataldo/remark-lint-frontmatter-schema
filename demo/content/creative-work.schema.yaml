@@ -1,8 +1,9 @@
 allOf:
-  # Relative path
+  # (Optional) You can load an external definition file from relative path
+  # Docs: https://github.com/JulianCataldo/remark-lint-frontmatter-schema#add-references-to-external-definitions-advanced
   - $ref: ./page.schema.yaml
 
-  # "Creative work" extension
+  # "Creative work" props. will be merged with page schema props.
   - properties:
       category:
         type: string
@@ -26,3 +27,9 @@ allOf:
       - title
       - category
       - complex
+# #
+# # Or simply put your local properties directly:
+# properties:
+#   category:
+#     type: string
+# # ...
