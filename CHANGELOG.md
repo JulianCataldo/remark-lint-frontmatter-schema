@@ -1,3 +1,10 @@
+## [3.10.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.10.1...v3.10.2) (2022-10-29)
+
+
+### Bug Fixes
+
+* global schema assoc. w. `eslint-plugin-mdx` ([6849182](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/6849182449db52e7cd1ea76b671466e3c690cd9c))
+
 ## [3.10.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.10.0...v3.10.1) (2022-10-29)
 
 
