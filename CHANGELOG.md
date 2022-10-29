@@ -1,3 +1,10 @@
+## [3.10.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.10.0...v3.10.1) (2022-10-29)
+
+
+### Bug Fixes
+
+* allow empty settings for runtime plugin ([7534ea4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/7534ea4287abfa772779944839311acc7dcdd354))
+
 # [3.10.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.9.0...v3.10.0) (2022-10-29)
 
 
