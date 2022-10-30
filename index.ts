@@ -79,11 +79,15 @@ function pushErrors(
       const errMessage =
         `${error.message.charAt(0).toUpperCase()}` +
         `${error.message.substring(1)}`;
-      /* Sub-path -OR- Root error? */
-      const expected = Array.isArray(error.params.allowedValues)
-        ? `: \`${error.params.allowedValues.join('`, `')}\``
-        : '';
+
+      let expected = '';
+      if (Array.isArray(error.params.allowedValues)) {
+        expected = `: \`${error.params.allowedValues.join('`, `')}\``;
+      } else if (typeof error.params.allowedValue === 'string') {
+        expected = `: \`${error.params.allowedValue}\``;
+      }
       const sPath = schemaRelPath ? ` • ${schemaRelPath}` : '';
+
       reason = `${errMessage}${expected}${sPath} • ${error.schemaPath}`;
     }
 
@@ -134,6 +138,11 @@ function pushErrors(
 
       /* Auto-fix replacement suggestions for `enum` */
       message.expected = error.params.allowedValues;
+    } else if (typeof error.params.allowedValue === 'string') {
+      note += `\nAllowed value: ${error.params.allowedValue}`;
+
+      /* Auto-fix replacement suggestion for `const` */
+      message.expected = [error.params.allowedValue];
     }
     if (typeof error.params.missingProperty === 'string') {
       note += `\nMissing property: ${error.params.missingProperty}`;
