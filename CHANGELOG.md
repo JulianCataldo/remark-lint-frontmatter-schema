@@ -1,3 +1,10 @@
+# [3.11.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.10.2...v3.11.0) (2022-10-30)
+
+
+### Features
+
+* better error output for eslint / remark ([aff95db](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/aff95db261f45eb4dd8f1a947640ec0a312c8772))
+
 ## [3.10.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.10.1...v3.10.2) (2022-10-29)
 
 
