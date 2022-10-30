@@ -224,7 +224,11 @@ relative to project root, thanks to the `'$schema'` key:
 
 ```markdown
 ---
+# From workspace root (`/foo/…` or `foo/…` is the same)
 '$schema': /content/creative-work.schema.yaml
+
+# —Or— relatively, from current file  (`./foo/…` or `../foo/…`)
+# '$schema': ../creative-work.schema.yaml
 
 title: Hello there
 category: Book

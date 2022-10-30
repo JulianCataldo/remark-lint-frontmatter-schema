@@ -192,7 +192,13 @@ async function validateFrontmatter(
     /* Local `$schema` association takes precedence over global / prop. */
     if (yamlJS.$schema && typeof yamlJS.$schema === 'string') {
       hasLocalAssoc = true;
-      schemaRelPath = yamlJS.$schema;
+      if (yamlJS.$schema.startsWith('../') || yamlJS.$schema.startsWith('./')) {
+        /* From current processed file directory  (starts with `./foo` or `../foo`) */
+        schemaRelPath = path.join(path.dirname(vFile.path), yamlJS.$schema);
+      } else {
+        /* From workspace root (starts with `foo` or `/foo`) */
+        schemaRelPath = yamlJS.$schema;
+      }
     }
   } catch (error) {
     /* NOTE: Never hitting this error,
