@@ -1,3 +1,10 @@
+# [3.12.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.11.0...v3.12.0) (2022-10-30)
+
+
+### Features
+
+* support for `const` auto-fix / suggestion ([a133c54](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/a133c54eeb322c03e68582d80036fa39194d161e))
+
 # [3.11.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.10.2...v3.11.0) (2022-10-30)
 
 
