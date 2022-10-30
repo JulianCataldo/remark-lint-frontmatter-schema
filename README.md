@@ -58,7 +58,10 @@ Supports:
         - [Inside frontmatter](#inside-frontmatter)
         - [Globally, with patterns](#globally-with-patterns)
       - [CLI usage](#cli-usage)
-      - [Bonus — Validate your schema with _JSON meta schema_](#bonus--validate-your-schema-with-json-meta-schema)
+      - [Bonus](#bonus)
+        - [Validate your schema with _JSON meta schema_](#validate-your-schema-with-json-meta-schema)
+        - [ESLint MDX plugin setup](#eslint-mdx-plugin-setup)
+          - [Known issues](#known-issues)
     - [MD / MDX pipeline — **Runtime** validation](#md--mdx-pipeline--runtime-validation)
       - [Custom pipeline](#custom-pipeline)
         - [Implementation living example](#implementation-living-example)
@@ -285,7 +288,9 @@ Yields:
 
 ![](https://res.cloudinary.com/dzfylx93l/image/upload/v1666912219/Xnapper-2022-10-28-01.09.11_yh4tnr.png)
 
-#### Bonus — Validate your schema with _JSON meta schema_
+#### Bonus
+
+##### Validate your schema with _JSON meta schema_
 
 First, install the [YAML for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) extension:
 
@@ -303,6 +308,88 @@ Then, add this to your `.vscode/settings.json`:
   /* ... */
 }
 ```
+
+##### ESLint MDX plugin setup
+
+Will work with the ESLint VS Code extension and the CLI command.
+
+Install the [ESLint MDX plugin](https://github.com/mdx-js/eslint-mdx),
+the [MDX VS Code extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) and the [ESLint VS Code extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
+
+Add this dependencies to your project:
+
+```sh
+pnpm i -D eslint eslint-plugin-mdx \
+eslint-plugin-prettier eslint-config-prettier
+```
+
+Add a `.eslintrc.cjs`:
+
+```js
+/** @type {import("@types/eslint").Linter.Config} */
+
+module.exports = {
+  overrides: [
+    {
+      files: ['*.md', '*.mdx'],
+      extends: ['plugin:mdx/recommended'],
+    },
+  ],
+};
+```
+
+Add a `.remarkrc.json`:
+
+```json
+{
+  "plugins": [
+    "remark-frontmatter",
+    [
+      "remark-lint-frontmatter-schema",
+      {
+        "schemas": {
+          "content/articles/main.mdx.schema.yaml": [
+            "content/articles/**/main.mdx"
+          ],
+
+          "content/md-articles/main.md.schema.yaml": [
+            "content/md-articles/**/main.md"
+          ]
+        }
+      }
+    ],
+
+    "remark-preset-lint-consistent",
+    "remark-preset-lint-markdown-style-guide",
+    "remark-preset-lint-recommended"
+  ]
+}
+```
+
+---
+
+Result:
+
+[![](https://res.cloudinary.com/dzfylx93l/image/upload/c_scale,w_1280/eslint-plugin-mdx-1.png)  
+](https://res.cloudinary.com/dzfylx93l/image/upload/eslint-plugin-mdx-1.png)
+
+---
+
+Lint with CLI:
+
+```sh
+pnpm eslint --ext .mdx .
+```
+
+> Efforts has been made to have the best output for both remark and ESLint,
+> for IDE extensions and CLIs.
+
+###### Known issues
+
+- Expected `enum` values suggestions are working with the remark extension, not with the ESLint one.
+- Similarly, ESLint output will give less details (see screenshot above), and a bit different layout for CLI output, too.
+- remark extension seems to load faster, and is more reactive to schema changes.
+- As of `eslint-plugin-mdx@2`, `.remarkrc.mjs` (ES Module) is not loaded, JSON and YAML configs are fine.
 
 ### MD / MDX pipeline — **Runtime** validation
 
@@ -513,19 +600,6 @@ Example of a `VFileMessage` content you could collect from this lint rule:
   }
 ]
 ```
-
-<!-- OBSOLETE -->
-<!-- # Known limitations
-
-Actually, you will not have **code range detection** for schemas errors.
-Finding a way of doing this would easily allow hot-fix replacement for `enum` suggestions, for example.
-The great folks who made [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)
-have tackled this, and much more.
-In fact, this remark plugin is **very far** from `yaml-language-server` capabilities, which are astonishing.
-Still, this `remark` plugin is, I think, the only way to validate YAML
-frontmatter inside Markdown.
-My current knowledge is that YAML in Markdown, by not being part of any official specs, is hindering development in this direction.
-So it's better than nothing I guess, and could be a first step for something more robust. -->
 
 ---
 
