@@ -80,11 +80,11 @@ function pushErrors(
         `${error.message.charAt(0).toUpperCase()}` +
         `${error.message.substring(1)}`;
       /* Sub-path -OR- Root error? */
-      if (error.instancePath) {
-        reason = `${error.instancePath}: ${errMessage}`;
-      } else {
-        reason = errMessage;
-      }
+      const expected = Array.isArray(error.params.allowedValues)
+        ? `: \`${error.params.allowedValues.join('`, `')}\``
+        : '';
+      const sPath = schemaRelPath ? ` • ${schemaRelPath}` : '';
+      reason = `${errMessage}${expected}${sPath} • ${error.schemaPath}`;
     }
 
     /* Explode AJV error instance path and get corresponding YAML AST node */
@@ -146,7 +146,7 @@ function pushErrors(
     note += `\nSchema path: ${schemaRelPath} · ${error.schemaPath}`;
     message.note = note;
     /* `message` comes from native JS `Error` object */
-    message.message = note;
+    message.message = reason;
 
     /**
      * Adding custom data from AJV
@@ -196,10 +196,10 @@ async function validateFrontmatter(
 
   /* Global schemas associations, only if no local schema is set */
   if (yamlDoc && yamlJS && !hasLocalAssoc) {
-    Object.entries(settings.schemas || {}).forEach(
+    Object.entries(settings.schemas ?? {}).forEach(
       ([globSchemaPath, globSchemaAssocs]) => {
         /* Check if current markdown file is associated with this schema */
-        globSchemaAssocs?.forEach((mdFilePath) => {
+        globSchemaAssocs.forEach((mdFilePath) => {
           if (typeof mdFilePath === 'string') {
             /* Remove appended `./` or `/` */
             const mdPathCleaned = path.join(mdFilePath);
