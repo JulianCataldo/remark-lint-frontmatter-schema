@@ -340,7 +340,7 @@ module.exports = {
 
 Add a `.remarkrc.json`:
 
-```json
+```jsonc
 {
   "plugins": [
     "remark-frontmatter",
@@ -357,11 +357,12 @@ Add a `.remarkrc.json`:
           ]
         }
       }
-    ],
+    ]
 
-    "remark-preset-lint-consistent",
-    "remark-preset-lint-markdown-style-guide",
-    "remark-preset-lint-recommended"
+    // ...
+    // "remark-preset-lint-consistent",
+    // "remark-preset-lint-markdown-style-guide",
+    // "remark-preset-lint-recommended"
   ]
 }
 ```
