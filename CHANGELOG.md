@@ -1,3 +1,10 @@
+# [3.13.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.12.0...v3.13.0) (2022-10-30)
+
+
+### Features
+
+* support relative path for local `$schema` ([20f53bf](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/20f53bff49512e27a0b04a304cead2cecd0859b8))
+
 # [3.12.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.11.0...v3.12.0) (2022-10-30)
 
 
