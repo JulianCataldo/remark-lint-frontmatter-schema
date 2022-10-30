@@ -164,21 +164,29 @@ accross your content schemas.
 You can reference an external schema relatively, using `$ref`.
 For example we can -_kind of_- merge an host object with a reference properties:
 
-The host, `content/articles/main.md.schema.yaml`
+The host schema, `content/articles/index.schema.yaml`
 
 ```yaml
 allOf:
   - $ref: ../page.schema.yaml
 
   - properties:
+      layout:
+        const: src/layouts/Article.astro
+      category:
+        type: string
+        enum:
+          - Book
+          - Movie
       foo:
         type: string
 
     required:
-      - foo
+      - layout
+      - category
 ```
 
-The reference, `content/page.schema.yaml`
+A referenced schema, `content/page.schema.yaml`
 
 ```yaml
 properties:
@@ -192,7 +200,7 @@ required:
   - title
 ```
 
-The result will be (virtually) the same as this:
+The result will be _(virtually)_ the same as this:
 
 ```yaml
 properties:
@@ -201,13 +209,21 @@ properties:
     maxLength: 80
     # ...
   # ...
-
+  layout:
+    const: src/layouts/Article.astro
+  category:
+    type: string
+    enum:
+      - Book
+      - Movie
   foo:
     type: string
+  # ...
 
 required:
   - title
-  - foo
+  - layout
+  - category
 ```
 
 #### Schemas associations
@@ -224,11 +240,13 @@ relative to project root, thanks to the `'$schema'` key:
 
 ```markdown
 ---
-# From workspace root (`/foo/…` or `foo/…` is the same)
-'$schema': /content/creative-work.schema.yaml
+# From workspace root (`foo/…`, `/foo/…` or `./foo/…` is the same)
+'$schema': content/creative-work.schema.yaml
 
-# —Or— relatively, from current file  (`./foo/…` or `../foo/…`)
+# —Or— relatively, from this current file directory (`./foo/…` or `../foo/…`)
 # '$schema': ../creative-work.schema.yaml
+
+layout: src/layouts/Article.astro
 
 title: Hello there
 category: Book
