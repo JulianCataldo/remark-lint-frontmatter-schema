@@ -4,7 +4,6 @@
 /* —————————————————————————————————————————————————————————————————————————— */
 
 /* eslint-disable max-lines */
-import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { findUp } from 'find-up';
 import minimatch from 'minimatch';
@@ -13,12 +12,13 @@ import yaml, { type Document, isNode, LineCounter } from 'yaml';
 import Ajv from 'ajv';
 import type { Options as AjvOptions, ErrorObject as AjvErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
+import $RefParser from '@apidevtools/json-schema-ref-parser';
 import type { JSONSchema7 } from 'json-schema';
 /* ·········································································· */
-import type { VFileMessage } from 'vfile-message';
 import { lintRule } from 'unified-lint-rule';
 import type { VFile } from 'unified-lint-rule/lib';
 import type { Root, YAML } from 'mdast';
+import type { VFileMessage } from 'vfile-message';
 /* —————————————————————————————————————————————————————————————————————————— */
 
 const url = 'https://github.com/JulianCataldo/remark-lint-frontmatter-schema';
@@ -131,7 +131,7 @@ function pushErrors(
     message.name = nativeJsErrorName;
 
     /* Map YAML characters range to column / line positions,
-       -OR- squiggling the opening frontmatter fence for **root** path errors */
+      -OR- squiggling the opening frontmatter fence for **root** path errors */
     if (isNode(node)) {
       /* Incriminated token */
       message.actual = node.toString();
@@ -177,18 +177,15 @@ function pushErrors(
       note += `\nType: ${error.params.type}`;
     }
     /* `schemaRelPath` path prefix will show up only when using
-        file association, not when using pipeline embedded schema */
+      file association, not when using pipeline embedded schema */
     note += `\nSchema path: ${schemaRelPath} · ${error.schemaPath}`;
     message.note = note;
     /* `message` comes from native JS `Error` object */
     message.message = reason;
 
-    /**
-     * Adding custom data from AJV
-     *
-     * It’s OK to store custom data directly on the VFileMessage:
-     * https://github.com/vfile/vfile-message#well-known-fields
-     *  */
+    /* Adding custom data from AJV */
+    /* It’s OK to store custom data directly on the VFileMessage:
+      https://github.com/vfile/vfile-message#well-known-fields */
     // NOTE: Might be better to type `message` before, instead of asserting here
     (message as FrontmatterSchemaMessage).schema = {
       url: 'https://ajv.js.org/json-schema.html',
@@ -196,6 +193,8 @@ function pushErrors(
     };
   });
 }
+
+/* ·········································································· */
 
 async function validateFrontmatter(
   sourceYaml: YAML,
@@ -207,10 +206,11 @@ async function validateFrontmatter(
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
+  let schemaPathFromCwd: string | null = null;
   const remarkCwd = await getRemarkCwd(vFile.path);
 
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
-     previously extracted by `remark-frontmatter` */
+    previously extracted by `remark-frontmatter` */
   try {
     yamlDoc = yaml.parseDocument(sourceYaml.value, { lineCounter });
     yamlJS = yamlDoc.toJS() as FrontmatterObject;
@@ -219,18 +219,24 @@ async function validateFrontmatter(
     if (yamlJS.$schema && typeof yamlJS.$schema === 'string') {
       hasLocalAssoc = true;
       if (yamlJS.$schema.startsWith('../') || yamlJS.$schema.startsWith('./')) {
+        /* Fallback if it's an embedded schema (no `path`) */
+        const vFilePath = vFile.path || '';
+
         /* From current processed file directory  (starts with `./foo` or `../foo`) */
-        schemaRelPath = path.join(path.dirname(vFile.path), yamlJS.$schema);
+        const dirFromCwd = path.isAbsolute(vFilePath)
+          ? path.relative(remarkCwd, path.dirname(vFilePath))
+          : path.dirname(vFilePath);
+        schemaPathFromCwd = path.join(dirFromCwd, yamlJS.$schema);
       } else {
-        /* From workspace root (starts with `foo` or `/foo`) */
-        schemaRelPath = yamlJS.$schema;
+        /* From remark root (starts with `foo` or `/foo`, or absolute) */
+        schemaPathFromCwd = path.join(remarkCwd, yamlJS.$schema);
       }
     }
   } catch (error) {
     /* NOTE: Never hitting this error,
-         parser seems to handle anything we throw at it */
+      parser seems to handle anything we throw at it */
     if (error instanceof Error) {
-      const banner = `YAML frontmatter parsing: ${schemaRelPath ?? ''}`;
+      const banner = `YAML frontmatter parsing: ${schemaPathFromCwd ?? ''}`;
       vFile.message(`${banner} — ${error.name}: ${error.message}`);
     }
   }
@@ -244,12 +250,13 @@ async function validateFrontmatter(
           if (typeof mdFilePath === 'string') {
             /* Remove appended `./` or `/` */
             const mdPathCleaned = path.join(mdFilePath);
+
             /* With `remark`, `vFile.path` is already relative to project root,
-               while `eslint-plugin-mdx` gives an absolute path */
-            const vFilePathRel = path.relative(process.cwd(), vFile.path);
+              while `eslint-plugin-mdx` gives an absolute path */
+            const vFilePathRel = path.relative(remarkCwd, vFile.path);
 
             if (minimatch(vFilePathRel, mdPathCleaned)) {
-              schemaRelPath = globSchemaPath;
+              schemaPathFromCwd = globSchemaPath;
             }
           }
         });
@@ -257,34 +264,36 @@ async function validateFrontmatter(
     );
   }
 
-  /* From file only */
-  let schemaFullPath;
-  if (schemaRelPath) {
-    /* Path is combined with the process / workspace root directory,
-       where the `.remarkrc.mjs` should live */
-    schemaFullPath = path.join(vFile.cwd, schemaRelPath);
-  }
-
-  let schema;
+  let schema: JSONSchema7 | undefined;
   if (hasPropSchema) {
     schema = settings.embed;
-  } else if (schemaFullPath) {
-    try {
-      const fileData = await readFile(schemaFullPath, 'utf-8');
-      // TODO: Validate schema with JSON meta schema
-      schema = yaml.parse(fileData) as unknown as JSONSchema7;
-      /* Schema is now extracted,
-         remove in-file `$schema` key, so it will not interfere later */
-      if (hasLocalAssoc) {
-        if (yamlJS && typeof yamlJS.$schema === 'string') {
-          delete yamlJS.$schema;
+  } else if (schemaPathFromCwd) {
+    /* Load schema + references */
+    schema = await $RefParser
+      // FIXME: Why `bundle` and `dereference` does the same?
+      // `bundle` is supposed to put `$ref`s in `$defs`, instead embedding them
+      // It would be better to keeps the `$ref`s for better error output,
+      // so we know from which path the schema `$ref` originate.
+      .dereference(schemaPathFromCwd)
+      .catch((error) => {
+        if (error instanceof Error) {
+          const banner = `YAML schema file load/parse: ${
+            schemaPathFromCwd ?? ''
+          }`;
+          vFile.message(`${banner} — ${error.name}: ${error.message}`);
         }
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        const banner = `YAML schema file load/parse: ${schemaRelPath ?? ''}`;
-        vFile.message(`${banner} — ${error.name}: ${error.message}`);
-      }
+        return undefined;
+      })
+      /* Asserting then using a JSONSchema4 for AJV (JSONSchema7) is OK */
+      .then((refSchema) =>
+        refSchema ? (refSchema as JSONSchema7) : undefined,
+      );
+
+    /* Schema is now extracted,
+      remove in-file `$schema` key, so it will not interfere later */
+
+    if (hasLocalAssoc && yamlJS && typeof yamlJS.$schema === 'string') {
+      delete yamlJS.$schema;
     }
   }
 
@@ -296,39 +305,14 @@ async function validateFrontmatter(
       allErrors: true /* So it doesn't stop at the first found error */,
       strict: false /* Prevents warnings for valid, but relaxed schemas */,
 
-      loadSchema(uri) {
-        /* Load external referenced schema relatively from schema path */
-        return new Promise((resolve, reject) => {
-          readFile(fileURLToPath(uri), 'utf8')
-            .then((data) => {
-              try {
-                const parsedSchema = yaml.parse(data) as unknown;
-                if (parsedSchema && typeof parsedSchema === 'object') {
-                  resolve(parsedSchema);
-                }
-              } catch (_) {
-                reject(new Error(`Could not parse ${uri}`));
-              }
-            })
-            .catch((_) => {
-              reject(new Error(`Could not locate ${uri}`));
-            });
-        });
-      },
-
       /* User settings / overrides */
       ...settings.ajvOptions,
     });
     addFormats(ajv);
 
-    /* Set current schema absolute URI, so AJV can resolve relative `$ref` */
-    if (!('$id' in schema) && schemaFullPath) {
-      schema.$id = pathToFileURL(schemaFullPath).toString();
-    }
-
     /* JSON Schema compilation + validation with AJV */
     try {
-      const validate = await ajv.compileAsync(schema);
+      const validate = ajv.compile(schema);
       validate(yamlJS);
 
       /* Push JSON Schema validation failures messages */
@@ -337,18 +321,20 @@ async function validateFrontmatter(
           validate.errors,
           yamlDoc,
           vFile,
-          schemaRelPath ?? '',
+          schemaPathFromCwd ?? '',
           lineCounter,
         );
       }
     } catch (error) {
       if (error instanceof Error) {
-        const banner = `JSON schema malformed: ${schemaRelPath ?? ''}`;
+        const banner = `JSON schema malformed: ${schemaPathFromCwd ?? ''}`;
         vFile.message(`${banner} — ${error.name}: ${error.message}`);
       }
     }
   }
 }
+
+/* ·········································································· */
 
 const remarkFrontmatterSchema = lintRule(
   {
@@ -356,10 +342,8 @@ const remarkFrontmatterSchema = lintRule(
     origin: 'remark-lint:frontmatter-schema',
   },
   async (ast: Root, vFile: VFile, settings: Settings = {}) => {
-    /* Handle only if the current Markdown file has a frontmatter section */
     if (ast.children.length) {
-      // IDEA: Is the `0` due to the fact that `remark-frontmatter`
-      // could provide multi-parts frontmatter? Should investigate this
+      /* Handle only if the current Markdown file has a frontmatter section */
       if (ast.children[0].type === 'yaml') {
         await validateFrontmatter(ast.children[0], vFile, settings);
       }
