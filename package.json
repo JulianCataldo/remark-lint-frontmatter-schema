@@ -44,8 +44,10 @@
     "release": "semantic-release"
   },
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^9.0.9",
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
+    "find-up": "^6.3.0",
     "minimatch": "^5.1.0",
     "unified-lint-rule": "^2.1.1",
     "yaml": "^2.1.3"
