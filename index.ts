@@ -206,8 +206,7 @@ async function validateFrontmatter(
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
-  let schemaPathFromCwd: string | null = null;
-  const remarkCwd = await getRemarkCwd(vFile.path);
+  let schemaPathFromCwd: string | undefined;
 
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
     previously extracted by `remark-frontmatter` */
@@ -218,19 +217,14 @@ async function validateFrontmatter(
     /* Local `$schema` association takes precedence over global / prop. */
     if (yamlJS.$schema && typeof yamlJS.$schema === 'string') {
       hasLocalAssoc = true;
-      if (yamlJS.$schema.startsWith('../') || yamlJS.$schema.startsWith('./')) {
-        /* Fallback if it's an embedded schema (no `path`) */
-        const vFilePath = vFile.path || '';
+      /* Fallback if it's an embedded schema (no `path`) */
+      const vFilePath = vFile.path || '';
 
-        /* From current processed file directory  (starts with `./foo` or `../foo`) */
-        const dirFromCwd = path.isAbsolute(vFilePath)
-          ? path.relative(remarkCwd, path.dirname(vFilePath))
-          : path.dirname(vFilePath);
-        schemaPathFromCwd = path.join(dirFromCwd, yamlJS.$schema);
-      } else {
-        /* From remark root (starts with `foo` or `/foo`, or absolute) */
-        schemaPathFromCwd = path.join(remarkCwd, yamlJS.$schema);
-      }
+      /* From current processed file directory  (e.g. `./foo…` or `../foo…`) */
+      const dirFromCwd = path.isAbsolute(vFilePath)
+        ? path.relative(process.cwd(), path.dirname(vFilePath))
+        : path.dirname(vFilePath);
+      schemaPathFromCwd = path.join(dirFromCwd, yamlJS.$schema);
     }
   } catch (error) {
     /* NOTE: Never hitting this error,
@@ -243,6 +237,8 @@ async function validateFrontmatter(
 
   /* Global schemas associations, only if no local schema is set */
   if (yamlDoc && yamlJS && !hasLocalAssoc) {
+    const remarkCwd = await getRemarkCwd(vFile.path);
+
     Object.entries(settings.schemas ?? {}).forEach(
       ([globSchemaPath, globSchemaAssocs]) => {
         /* Check if current markdown file is associated with this schema */
@@ -256,7 +252,7 @@ async function validateFrontmatter(
             const vFilePathRel = path.relative(remarkCwd, vFile.path);
 
             if (minimatch(vFilePathRel, mdPathCleaned)) {
-              schemaPathFromCwd = globSchemaPath;
+              schemaPathFromCwd = path.join(remarkCwd, globSchemaPath);
             }
           }
         });
