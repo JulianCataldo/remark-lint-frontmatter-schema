@@ -6,7 +6,7 @@
 /* eslint-disable max-lines */
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { findUp } from 'find-up';
 import minimatch from 'minimatch';
 /* ·········································································· */
 import yaml, { type Document, isNode, LineCounter } from 'yaml';
@@ -58,6 +58,32 @@ interface FrontmatterObject {
   $schema?: string;
   /* This is the typical Frontmatter object, as treated by common consumers */
   [key: string]: unknown;
+}
+
+/* ·········································································· */
+
+/* The vFile cwd isn't the same as the one from IDE extension.
+Extension will cascade upward from the current processed file and
+take the remarkrc file as its cwd. It's multi-level workspace
+friendly. We have to mimick this behavior here, as it doesn't seems
+to offer an API to hook up on this. */
+async function getRemarkCwd(startDir: string) {
+  const remarkConfigNames = [
+    '.remarkrc',
+    '.remarkrc.json',
+    '.remarkrc.yaml',
+    '.remarkrc.yml',
+    '.remarkrc.mjs',
+    '.remarkrc.js',
+    '.remarkrc.cjs',
+  ];
+  const remarkConfPath = await findUp(remarkConfigNames, {
+    cwd: path.dirname(startDir),
+  });
+  if (remarkConfPath) {
+    return path.dirname(remarkConfPath);
+  }
+  return process.cwd();
 }
 
 /* ·········································································· */
@@ -181,7 +207,7 @@ async function validateFrontmatter(
   let yamlDoc;
   let yamlJS;
   let hasLocalAssoc = false;
-  let schemaRelPath: string | null = null;
+  const remarkCwd = await getRemarkCwd(vFile.path);
 
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
      previously extracted by `remark-frontmatter` */
