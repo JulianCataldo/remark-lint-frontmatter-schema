@@ -1,7 +1,7 @@
 ---
-'$schema': content/creative-work.schema.yaml
+'$schema': ../creative-work.schema.yaml
 
-title: Behind the Gare St. Lazare, Paris, 1932
+# title: Behind the Gare St. Lazare, Paris, 1932
 category: Video game
 ---
 

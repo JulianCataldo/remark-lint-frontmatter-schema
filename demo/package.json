@@ -12,13 +12,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "remark": "14.0.2",
-    "remark-cli": "11.0.0",
-    "remark-frontmatter": "4.0.1",
-    "remark-lint-frontmatter-schema": "latest",
-    "tsx": "^3.11.0"
+    "tsx": "^3.11.0",
+    "remark-cli": "11.0.0"
   },
   "dependencies": {
+    "remark": "14.0.2",
+    "remark-frontmatter": "4.0.1",
+    "remark-lint-frontmatter-schema": "link:..",
     "vfile-reporter": "^7.0.4"
   }
 }

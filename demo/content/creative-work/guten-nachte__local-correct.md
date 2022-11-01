@@ -1,5 +1,5 @@
 ---
-'$schema': content/creative-work.schema.yaml
+'$schema': ../creative-work.schema.yaml
 
 title: Guten Nachte
 category: Musical piece

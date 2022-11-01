@@ -24,7 +24,6 @@ allOf:
             type: string
 
     required:
-      - title
       - category
       - complex
 # #

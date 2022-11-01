@@ -5,22 +5,15 @@ import remarkFrontmatter from 'remark-frontmatter';
 import remarkLintFrontmatterSchema from 'remark-lint-frontmatter-schema';
 import type { JSONSchema7 } from 'json-schema';
 import { reporter } from 'vfile-reporter';
-/* ·········································································· */
-import yaml from 'yaml';
-import { readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
 /* —————————————————————————————————————————————————————————————————————————— */
 
 const mySchema: JSONSchema7 = {
-  /* Set current schema absolute `file:///` URI,
-     so AJV can resolve relative `$ref`. */
-
-  /* (Optional) For easier referencing, put the embedded schema name */
-  /*               \————————————v                                    */
-  $id: new URL('content/<optional>', import.meta.url).toString(),
-
   allOf: [
-    { $ref: './page.schema.yaml' },
+    {
+      /* Works with local / remote, YAML / JSON */
+      $ref: './content/page.schema.yaml',
+      // $ref: 'https://raw.githubusercontent.com/JulianCataldo/remark-lint-frontmatter-schema/master/demo/content/page.schema.yaml',
+    },
     {
       properties: {
         baz: {
@@ -34,6 +27,7 @@ const mySchema: JSONSchema7 = {
 /* ·········································································· */
 
 const mdContent = `---
+$schema: './content/creative-work.schema.yaml'
 title: 1234
 baz: ['wrong']
 ---
@@ -51,35 +45,13 @@ const output = await remark()
 
   .use(remarkLintFrontmatterSchema, {
     /* Bring your own schema */
-    embed: mySchema,
-
-    /* Override default options so we can resolve `$ref`, etc. */
-    ajvOptions: {
-      loadSchema(uri) {
-        /* Load external referenced schema relatively from schema path */
-        return new Promise((resolve, reject) => {
-          /* We use local file here, but you could use anything (fetch…) */
-          readFile(fileURLToPath(uri), 'utf8')
-            .then((data) => {
-              try {
-                const parsedSchema = yaml.parse(data) as unknown;
-                if (parsedSchema && typeof parsedSchema === 'object') {
-                  resolve(parsedSchema);
-                }
-              } catch (_) {
-                reject(new Error(`Could not parse ${uri}`));
-              }
-            })
-            .catch((_) => {
-              reject(new Error(`Could not locate ${uri}`));
-            });
-        });
-      },
-    },
-
+    // embed: mySchema,
+    //
+    /* Override default AJV options */
+    // ajvOptions: {
+    // },
     /* —Or— just (local only) */
     // embed: {
-    //   $id: pathToFileURL(mySchemaPath).toString(),
     //   ...mySchema,
     // },
   })
