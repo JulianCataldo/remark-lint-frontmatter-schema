@@ -266,11 +266,10 @@ async function validateFrontmatter(
   } else if (schemaPathFromCwd) {
     /* Load schema + references */
     schema = await $RefParser
-      // FIXME: Why `bundle` and `dereference` does the same?
-      // `bundle` is supposed to put `$ref`s in `$defs`, instead embedding them
-      // It would be better to keeps the `$ref`s for better error output,
-      // so we know from which path the schema `$ref` originate.
-      .dereference(schemaPathFromCwd)
+      // NOTE: Ext. `$refs` are embedded, not local defs.
+      // Could be useful to embed ext. refs. in definitions,
+      // so we could keep the ref. name for debugging?
+      .bundle(schemaPathFromCwd)
       .catch((error) => {
         if (error instanceof Error) {
           const banner = `YAML schema file load/parse: ${
