@@ -1,3 +1,10 @@
+# [3.15.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.14.0...v3.15.0) (2022-11-03)
+
+
+### Features
+
+* bump major version ([336f10e](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/336f10e4c37819e6cd1a6ff9e490d72e26e578c1))
+
 # [3.14.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.13.0...v3.14.0) (2022-11-03)
 
 
