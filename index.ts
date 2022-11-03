@@ -5,6 +5,7 @@
 
 /* eslint-disable max-lines */
 import path from 'node:path';
+import { existsSync } from 'node:fs';
 import { findUp } from 'find-up';
 import minimatch from 'minimatch';
 /* ·········································································· */
@@ -55,7 +56,7 @@ export interface FrontmatterSchemaMessage extends VFileMessage {
 }
 
 interface FrontmatterObject {
-  $schema?: string;
+  $schema: string | undefined;
   /* This is the typical Frontmatter object, as treated by common consumers */
   [key: string]: unknown;
 }
@@ -65,8 +66,8 @@ interface FrontmatterObject {
 /* The vFile cwd isn't the same as the one from IDE extension.
 Extension will cascade upward from the current processed file and
 take the remarkrc file as its cwd. It's multi-level workspace
-friendly. We have to mimick this behavior here, as it doesn't seems
-to offer an API to hook up on this. */
+friendly. We have to mimick this behavior here, as remark lint rules doesn't 
+seems to offer an API to hook up on this? */
 async function getRemarkCwd(startDir: string) {
   const remarkConfigNames = [
     '.remarkrc',
@@ -123,8 +124,8 @@ function pushErrors(
 
     const message = vFile.message(reason);
 
-    /* FIXME: Doesn't seems to be used in custom pipeline?
-       Always returning `false` */
+    // FIXME: Doesn't seems to be used in custom pipeline?
+    // Always returning `false`
     message.fatal = true;
 
     /* `name` comes from native JS `Error` object */
@@ -207,15 +208,16 @@ async function validateFrontmatter(
   let yamlJS;
   let hasLocalAssoc = false;
   let schemaPathFromCwd: string | undefined;
+  const remarkCwd = await getRemarkCwd(vFile.path);
 
   /* Parse the YAML literal and get the YAML Abstract Syntax Tree,
     previously extracted by `remark-frontmatter` */
   try {
     yamlDoc = yaml.parseDocument(sourceYaml.value, { lineCounter });
-    yamlJS = yamlDoc.toJS() as FrontmatterObject;
+    yamlJS = yamlDoc.toJS() as FrontmatterObject | null;
 
     /* Local `$schema` association takes precedence over global / prop. */
-    if (yamlJS.$schema && typeof yamlJS.$schema === 'string') {
+    if (yamlJS?.$schema && typeof yamlJS.$schema === 'string') {
       hasLocalAssoc = true;
       /* Fallback if it's an embedded schema (no `path`) */
       const vFilePath = vFile.path || '';
@@ -224,28 +226,33 @@ async function validateFrontmatter(
       const dirFromCwd = path.isAbsolute(vFilePath)
         ? path.relative(process.cwd(), path.dirname(vFilePath))
         : path.dirname(vFilePath);
-      schemaPathFromCwd = path.join(dirFromCwd, yamlJS.$schema);
+
+      const standardPath = path.join(dirFromCwd, yamlJS.$schema);
+      if (existsSync(standardPath)) {
+        schemaPathFromCwd = standardPath;
+      } else {
+        /* Non standard behavior, like TS / Vite, not JSON Schema resolution.
+          Resolving `/my/path` or `my/path` from current remark project root */
+        schemaPathFromCwd = path.join(remarkCwd, yamlJS.$schema);
+      }
     }
   } catch (error) {
-    /* NOTE: Never hitting this error,
-      parser seems to handle anything we throw at it */
     if (error instanceof Error) {
       const banner = `YAML frontmatter parsing: ${schemaPathFromCwd ?? ''}`;
       vFile.message(`${banner} — ${error.name}: ${error.message}`);
     }
   }
 
+  /* ········································································ */
+
   /* Global schemas associations, only if no local schema is set */
   if (yamlDoc && yamlJS && !hasLocalAssoc) {
-    const remarkCwd = await getRemarkCwd(vFile.path);
-
     Object.entries(settings.schemas ?? {}).forEach(
       ([globSchemaPath, globSchemaAssocs]) => {
         /* Check if current markdown file is associated with this schema */
         globSchemaAssocs.forEach((mdFilePath) => {
           if (typeof mdFilePath === 'string') {
-            /* Remove appended `./` or `/` */
-            const mdPathCleaned = path.join(mdFilePath);
+            const mdPathCleaned = path.normalize(mdFilePath);
 
             /* With `remark`, `vFile.path` is already relative to project root,
               while `eslint-plugin-mdx` gives an absolute path */
@@ -259,6 +266,8 @@ async function validateFrontmatter(
       },
     );
   }
+
+  /* ········································································ */
 
   let schema: JSONSchema7 | undefined;
   if (hasPropSchema) {
@@ -291,6 +300,8 @@ async function validateFrontmatter(
       delete yamlJS.$schema;
     }
   }
+
+  /* ········································································ */
 
   /* We got an extracted schema to work with */
   if (schema && yamlDoc) {
@@ -338,7 +349,7 @@ const remarkFrontmatterSchema = lintRule(
   },
   async (ast: Root, vFile: VFile, settings: Settings = {}) => {
     if (ast.children.length) {
-      /* Handle only if the current Markdown file has a frontmatter section */
+      /* Handle only if the processed Markdown file has a frontmatter section */
       if (ast.children[0].type === 'yaml') {
         await validateFrontmatter(ast.children[0], vFile, settings);
       }
