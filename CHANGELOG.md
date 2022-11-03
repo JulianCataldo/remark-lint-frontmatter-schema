@@ -1,3 +1,17 @@
+# [3.14.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.13.0...v3.14.0) (2022-11-03)
+
+
+### Bug Fixes
+
+* align demo with new feats ([3cbc16a](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/3cbc16a20c3ceae772548f322d949ce978550b8e))
+* use bundle instead of dereference ([6a8824a](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/6a8824a521015ec083408694e2101b914140efb8))
+
+
+### Features
+
+* resolve current remark working directory ([1887ef1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/1887ef1e857b2deaf64fd542ffca1f328d298628))
+* use only json-schema-ref-parser, drop ajv's ([99b66bd](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/99b66bd7fb36d8e17daf001976ab41eb6b133ecd))
+
 # [3.13.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.12.0...v3.13.0) (2022-10-30)
 
 
