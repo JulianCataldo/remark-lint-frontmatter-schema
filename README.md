@@ -143,6 +143,8 @@ const remarkConfig = {
 export default remarkConfig;
 ```
 
+You can use YAML / JSON / …, too (uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig)).
+
 #### Schema example
 
 `./content/creative-work.schema.yaml`
@@ -360,33 +362,20 @@ module.exports = {
 };
 ```
 
-Add a `.remarkrc.json`:
+Add a `.remarkrc.yaml` (or JSON, etc.), e.g.:
 
-```jsonc
-{
-  "plugins": [
-    "remark-frontmatter",
-    [
-      "remark-lint-frontmatter-schema",
-      {
-        "schemas": {
-          "content/articles/main.mdx.schema.yaml": [
-            "content/articles/**/main.mdx"
-          ],
+```yaml
+plugins:
+  - remark-frontmatter
 
-          "content/md-articles/main.md.schema.yaml": [
-            "content/md-articles/**/main.md"
-          ]
-        }
-      }
-    ]
+  - - remark-lint-frontmatter-schema
+    - schemas:
+        src/schemas/blog-post.schema.yaml:
+          - content/blog-posts/*.{md,mdx}
 
-    // ...
-    // "remark-preset-lint-consistent",
-    // "remark-preset-lint-markdown-style-guide",
-    // "remark-preset-lint-recommended"
-  ]
-}
+  # - remark-preset-lint-consistent
+  # - remark-preset-lint-markdown-style-guide
+  # - remark-preset-lint-recommended
 ```
 
 ---
