@@ -19,7 +19,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Setup PNPM 7
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.2.4
         with:
           version: 7.1.7
 
