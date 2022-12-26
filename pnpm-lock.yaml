@@ -10,7 +10,7 @@ specifiers:
   '@types/json-schema': 7.0.11
   '@types/mdast': 3.0.10
   '@types/minimatch': ^5.1.2
-  '@types/node': 18.11.9
+  '@types/node': 18.11.18
   '@types/prettier': 2.7.1
   '@types/unist': 2.0.6
   '@typescript-eslint/eslint-plugin': 5.42.0
@@ -56,7 +56,7 @@ devDependencies:
   '@types/json-schema': 7.0.11
   '@types/mdast': 3.0.10
   '@types/minimatch': 5.1.2
-  '@types/node': 18.11.9
+  '@types/node': 18.11.18
   '@types/prettier': 2.7.1
   '@types/unist': 2.0.6
   '@typescript-eslint/eslint-plugin': 5.42.0_6xw5wg2354iw4zujk2f3vyfrzu
@@ -482,7 +482,7 @@ packages:
   /@types/concat-stream/2.0.0:
     resolution: {integrity: sha512-t3YCerNM7NTVjLuICZo5gYAXYoDvpuuTceCcFQWcDQz26kxUR5uIWolxbIR5jRNIXpMqhOpW/b8imCR1LEmuJw==}
     dependencies:
-      '@types/node': 18.11.9
+      '@types/node': 18.11.18
     dev: true
 
   /@types/debug/4.1.7:
@@ -531,8 +531,8 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: true
 
-  /@types/node/18.11.9:
-    resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
+  /@types/node/18.11.18:
+    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -4065,7 +4065,7 @@ packages:
       '@types/concat-stream': 2.0.0
       '@types/debug': 4.1.7
       '@types/is-empty': 1.2.1
-      '@types/node': 18.11.9
+      '@types/node': 18.11.18
       '@types/unist': 2.0.6
       concat-stream: 2.0.0
       debug: 4.3.4
