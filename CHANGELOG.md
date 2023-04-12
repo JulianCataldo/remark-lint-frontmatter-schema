@@ -1,3 +1,10 @@
+## [3.15.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.15.0...v3.15.1) (2022-11-19)
+
+
+### Bug Fixes
+
+* better configuration example (yaml) ([c4629bb](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/c4629bb926d6f8be92bf7a580188874440dd783f))
+
 # [3.15.0](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.14.0...v3.15.0) (2022-11-03)
 
 
