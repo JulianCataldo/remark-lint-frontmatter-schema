@@ -1,5 +1,15 @@
 {
-  "yaml.schemas": {
-    "http://json-schema.org/draft-07/schema#": ["content/**/*.schema.yaml"]
-  }
+	"yaml.schemas": {
+		"http://json-schema.org/draft-07/schema#": ["content/**/*.schema.yaml"]
+	},
+	"workbench.colorCustomizations": {
+		"editorRuler.foreground": "#98c2bc1c",
+		"editorInlayHint.foreground": "#B99",
+		"editorInlayHint.background": "#222",
+		"[GitHub Dark]": {
+			"sideBar.background": "#1b1b1b",
+			"editor.background": "#1b1b1b",
+			"panel.background": "#181818"
+		}
+	}
 }

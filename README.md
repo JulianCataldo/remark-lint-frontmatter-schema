@@ -43,34 +43,28 @@ Supports:
 
 **Jump to**:
 
-- [`remark-lint-frontmatter-schema` 📑](#remark-lint-frontmatter-schema-)
-- [Demo](#demo)
-  - [👉  **Play with pre-configured ./demo**](#play-with-pre-configured-demo)
-- [Installation](#installation)
-    - [Base](#base)
-    - [VS Code (optional)](#vs-code-optional)
-- [Configuration](#configuration)
-    - [CLI / IDE (VS Code) — **Static** linting](#cli--ide-vs-code--static-linting)
-      - [Workspace](#workspace)
-      - [Schema example](#schema-example)
-        - [🆕  Add references to external definitions (advanced)](#add-references-to-external-definitions-advanced)
-      - [Schemas associations](#schemas-associations)
-        - [Inside frontmatter](#inside-frontmatter)
-        - [Globally, with patterns](#globally-with-patterns)
-      - [CLI usage](#cli-usage)
-      - [Bonus](#bonus)
-        - [Validate your schema with _JSON meta schema_](#validate-your-schema-with-json-meta-schema)
-        - [ESLint MDX plugin setup](#eslint-mdx-plugin-setup)
-          - [Known issues](#known-issues)
-    - [MD / MDX pipeline — **Runtime** validation](#md--mdx-pipeline--runtime-validation)
-      - [Custom pipeline](#custom-pipeline)
-        - [Implementation living example](#implementation-living-example)
-        - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
-      - [Framework](#framework)
-        - [Astro](#astro)
-        - [Gatsby](#gatsby)
-- [Interfaces](#interfaces)
-- [Footnotes](#footnotes)
+- [👉  **Play with pre-configured ./demo**](#play-with-pre-configured-demo)
+  - [Base](#base)
+  - [VS Code (optional)](#vs-code-optional)
+  - [CLI / IDE (VS Code) — **Static** linting](#cli--ide-vs-code--static-linting)
+    - [Workspace](#workspace)
+    - [Schema example](#schema-example)
+      - [🆕  Add references to external definitions (advanced)](#add-references-to-external-definitions-advanced)
+    - [Schemas associations](#schemas-associations)
+      - [Inside frontmatter](#inside-frontmatter)
+      - [Globally, with patterns](#globally-with-patterns)
+    - [CLI usage](#cli-usage)
+    - [Bonus](#bonus)
+      - [Validate your schema with _JSON meta schema_](#validate-your-schema-with-json-meta-schema)
+      - [ESLint MDX plugin setup](#eslint-mdx-plugin-setup)
+        - [Known issues](#known-issues)
+  - [MD / MDX pipeline — **Runtime** validation](#md--mdx-pipeline--runtime-validation)
+    - [Custom pipeline](#custom-pipeline)
+      - [Implementation living example](#implementation-living-example)
+      - [Important foot-notes for custom pipeline](#important-foot-notes-for-custom-pipeline)
+    - [Framework](#framework)
+      - [Astro](#astro)
+      - [Gatsby](#gatsby)
 
 ---
 
@@ -128,17 +122,17 @@ Supports `remark-cli` and/or `unifiedjs.vscode-remark` extension.
 
 #### Workspace
 
-Create root config file for `remark` to source from:  
+Create the root config. file for `remark` to source from:  
 `touch ./.remarkrc.mjs`
 
-Paste this base config:
+Paste this base configuration:
 
 ```mjs
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkLintFrontmatterSchema from 'remark-lint-frontmatter-schema';
 
 const remarkConfig = {
-  plugins: [remarkFrontmatter, remarkLintFrontmatterSchema],
+	plugins: [remarkFrontmatter, remarkLintFrontmatterSchema],
 };
 export default remarkConfig;
 ```
@@ -268,32 +262,32 @@ category: Book
 
 ```js
 const remarkConfig = {
-  plugins: [
-    remarkFrontmatter,
-    [
-      remarkLintFrontmatterSchema,
-      {
-        schemas: {
-          /* One schema for many files */
-          './content/creative-work.schema.yaml': [
-            /* Per-file association */
-            './content/creative-work/the-shipwreck__global-broken.md',
+	plugins: [
+		remarkFrontmatter,
+		[
+			remarkLintFrontmatterSchema,
+			{
+				schemas: {
+					/* One schema for many files */
+					'./content/creative-work.schema.yaml': [
+						/* Per-file association */
+						'./content/creative-work/the-shipwreck__global-broken.md',
 
-            /* Support glob patterns ———v */
-            // './content/creative-work/*.md',
-            // …
-            // `./` prefix is optional
-            // 'content/creative-work/foobiz.md',
-          ],
+						/* Support glob patterns ———v */
+						// './content/creative-work/*.md',
+						// …
+						// `./` prefix is optional
+						// 'content/creative-work/foobiz.md',
+					],
 
-          // './content/ghost.schema.yaml': [
-          //   './content/casper.md',
-          //   './content/ether.md',
-          // ],
-        },
-      },
-    ],
-  ],
+					// './content/ghost.schema.yaml': [
+					//   './content/casper.md',
+					//   './content/ether.md',
+					// ],
+				},
+			},
+		],
+	],
 };
 ```
 
@@ -326,10 +320,10 @@ Then, add this to your `.vscode/settings.json`:
 
 ```jsonc
 {
-  "yaml.schemas": {
-    "http://json-schema.org/draft-07/schema#": ["content/**/*.schema.yaml"]
-  }
-  /* ... */
+	"yaml.schemas": {
+		"http://json-schema.org/draft-07/schema#": ["content/**/*.schema.yaml"]
+	}
+	/* ... */
 }
 ```
 
@@ -353,12 +347,12 @@ Add a `.eslintrc.cjs`:
 /** @type {import("@types/eslint").Linter.Config} */
 
 module.exports = {
-  overrides: [
-    {
-      files: ['*.md', '*.mdx'],
-      extends: ['plugin:mdx/recommended'],
-    },
-  ],
+	overrides: [
+		{
+			files: ['*.md', '*.mdx'],
+			extends: ['plugin:mdx/recommended'],
+		},
+	],
 };
 ```
 
@@ -424,25 +418,25 @@ import type { JSONSchema7 } from 'json-schema';
 import { reporter } from 'vfile-reporter';
 
 const mySchema: JSONSchema7 = {
-  /* … */
+	/* … */
 };
 
 const output = await unified()
-  // Your pipeline (basic example)
-  .use(remarkParse)
-  // …
-  .use(remarkFrontmatter)
+	// Your pipeline (basic example)
+	.use(remarkParse)
+	// …
+	.use(remarkFrontmatter)
 
-  .use(remarkLintFrontmatterSchema, {
-    /* Bring your own schema */
-    embed: mySchema,
-  })
+	.use(remarkLintFrontmatterSchema, {
+		/* Bring your own schema */
+		embed: mySchema,
+	})
 
-  // …
-  .use(remarkRehype)
-  .use(rehypeStringify)
-  .use(rehypeFormat)
-  .process(theRawMarkdownLiteral);
+	// …
+	.use(remarkRehype)
+	.use(rehypeStringify)
+	.use(rehypeFormat)
+	.process(theRawMarkdownLiteral);
 
 /* `path` is for debugging purpose here, as MD literal comes from your app. */
 output.path = './the-current-processed-md-file.md';
@@ -515,22 +509,22 @@ In `gatsby-config.js`
 
 ```ts
 {
-  // …
-  plugins: [
-    // …
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          // …
-          'remark-frontmatter',
-          ['remark-lint-frontmatter-schema', { schemas }],
-          // …
-        ],
-      },
-    },
-    // …
-  ];
+	// …
+	plugins: [
+		// …
+		{
+			resolve: 'gatsby-transformer-remark',
+			options: {
+				plugins: [
+					// …
+					'remark-frontmatter',
+					['remark-lint-frontmatter-schema', { schemas }],
+					// …
+				],
+			},
+		},
+		// …
+	];
 }
 ```
 
@@ -538,30 +532,30 @@ In `gatsby-config.js`
 
 ```ts
 export interface Settings {
-  /**
-   * Global workspace file associations mapping (for linter extension).
-   *
-   * **Example**: `'schemas/thing.schema.yaml': ['content/things/*.md']`
-   */
-  schemas?: Record<string, string[]>;
+	/**
+	 * Global workspace file associations mapping (for linter extension).
+	 *
+	 * **Example**: `'schemas/thing.schema.yaml': ['content/things/*.md']`
+	 */
+	schemas?: Record<string, string[]>;
 
-  /**
-   * Direct schema embedding (for using inside an `unified` transform pipeline).
-   *
-   * Format: JSON Schema - draft-2019-09
-   *
-   * **Documentation**: https://ajv.js.org/json-schema.html#draft-07
-   */
-  embed?: JSONSchema7;
+	/**
+	 * Direct schema embedding (for using inside an `unified` transform pipeline).
+	 *
+	 * Format: JSON Schema - draft-2019-09
+	 *
+	 * **Documentation**: https://ajv.js.org/json-schema.html#draft-07
+	 */
+	embed?: JSONSchema7;
 
-  /**
-   * **Documentation**: https://ajv.js.org/options.html
-   */
-  ajvOptions?: AjvOptions;
+	/**
+	 * **Documentation**: https://ajv.js.org/options.html
+	 */
+	ajvOptions?: AjvOptions;
 }
 
 export interface FrontmatterSchemaMessage extends VFileMessage {
-  schema: AjvErrorObject & { url: JSONSchemaReference };
+	schema: AjvErrorObject & { url: JSONSchemaReference };
 }
 ```
 
@@ -569,47 +563,47 @@ Example of a `VFileMessage` content you could collect from this lint rule:
 
 ```jsonc
 [
-  // …
-  {
-    // JS native `Error`
-    "name": "Markdown YAML frontmatter error (JSON Schema)",
-    "message": "Keyword: type\nType: string\nSchema path: #/properties/title/type",
+	// …
+	{
+		// JS native `Error`
+		"name": "Markdown YAML frontmatter error (JSON Schema)",
+		"message": "Keyword: type\nType: string\nSchema path: #/properties/title/type",
 
-    // `VFileMessage` (Linter / VS Code…)
-    "reason": "/clientType: Must be equal to one of the allowed values",
-    "line": 16,
-    "column": 13,
-    "url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema",
-    "source": "remark-lint",
-    "ruleId": "frontmatter-schema",
-    "position": {
-      "start": {
-        "line": 16,
-        "column": 13
-      },
-      "end": {
-        "line": 16,
-        "column": 24
-      }
-    },
-    "fatal": false,
-    "actual": "Individuaaaaaaaal",
-    "expected": ["Corporate", "Non-profit", "Individual"],
-    // Condensed string, human readable version of AJV error object
-    "note": "Keyword: enum\nAllowed values: Corporate, Non-profit, Individual\nSchema path: #/properties/clientType/enum",
+		// `VFileMessage` (Linter / VS Code…)
+		"reason": "/clientType: Must be equal to one of the allowed values",
+		"line": 16,
+		"column": 13,
+		"url": "https://github.com/JulianCataldo/remark-lint-frontmatter-schema",
+		"source": "remark-lint",
+		"ruleId": "frontmatter-schema",
+		"position": {
+			"start": {
+				"line": 16,
+				"column": 13
+			},
+			"end": {
+				"line": 16,
+				"column": 24
+			}
+		},
+		"fatal": false,
+		"actual": "Individuaaaaaaaal",
+		"expected": ["Corporate", "Non-profit", "Individual"],
+		// Condensed string, human readable version of AJV error object
+		"note": "Keyword: enum\nAllowed values: Corporate, Non-profit, Individual\nSchema path: #/properties/clientType/enum",
 
-    // AJV's `ErrorObject`
-    "schema": {
-      "url": "https://ajv.js.org/json-schema.html",
-      "instancePath": "/clientType",
-      "schemaPath": "#/properties/clientType/enum",
-      "keyword": "enum",
-      "params": {
-        "allowedValues": ["Corporate", "Non-profit", "Individual"]
-      },
-      "message": "must be equal to one of the allowed values"
-    }
-  }
+		// AJV's `ErrorObject`
+		"schema": {
+			"url": "https://ajv.js.org/json-schema.html",
+			"instancePath": "/clientType",
+			"schemaPath": "#/properties/clientType/enum",
+			"keyword": "enum",
+			"params": {
+				"allowedValues": ["Corporate", "Non-profit", "Individual"]
+			},
+			"message": "must be equal to one of the allowed values"
+		}
+	}
 ]
 ```
 

@@ -1,32 +1,30 @@
 {
-  "compilerOptions": {
-    // Enable top-level await, and other modern ESM features.
-    "target": "ESNext",
-    "module": "ESNext",
-    // Enable node-style module resolution, for things like npm package imports.
-    "moduleResolution": "node",
-    // Enable JSON imports.
-    "resolveJsonModule": true,
-    // Enable stricter transpilation for better output.
-    "isolatedModules": true,
-    "types": ["node", "unist", "unified", "minimatch"],
+	"compilerOptions": {
+		// Enable top-level await, and other modern ESM features.
+		"target": "ESNext",
+		"module": "ESNext",
+		// Enable node-style module resolution, for things like npm package imports.
+		"moduleResolution": "node",
+		// Enable JSON imports.
+		"resolveJsonModule": true,
+		// Enable stricter transpilation for better output.
+		"isolatedModules": true,
+		"types": ["node", "unist", "unified", "minimatch"],
 
-    "allowJs": true,
+		"allowJs": true,
 
-    "noImplicitAny": true,
+		"noImplicitAny": true,
 
-    "baseUrl": ".",
-    "paths": {},
+		"baseUrl": ".",
+		"paths": {},
 
-    "allowSyntheticDefaultImports": true,
+		"allowSyntheticDefaultImports": true,
 
-    "importsNotUsedAsValues": "error",
+		"strictNullChecks": true,
 
-    "strictNullChecks": true,
+		"declaration": true,
+		"outDir": "./dist"
+	},
 
-    "declaration": true,
-    "outDir": "./dist"
-  },
-
-  "include": ["./index.ts"]
+	"include": ["./index.ts"]
 }
