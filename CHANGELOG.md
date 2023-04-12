@@ -1,3 +1,10 @@
+## [3.15.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.15.1...v3.15.2) (2023-04-12)
+
+
+### Bug Fixes
+
+* trigger release ([11db24b](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/11db24b9fb8851e28417e42e912a43617279cddb))
+
 ## [3.15.1](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.15.0...v3.15.1) (2022-11-19)
 
 
