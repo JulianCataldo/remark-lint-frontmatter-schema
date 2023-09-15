@@ -351,8 +351,9 @@ const remarkFrontmatterSchema = lintRule(
 	async (ast: Root, vFile: VFile, settings: Settings = {}) => {
 		if (ast.children.length) {
 			/* Handle only if the processed Markdown file has a frontmatter section */
-			if (ast.children[0].type === 'yaml') {
-				await validateFrontmatter(ast.children[0], vFile, settings);
+			const frontmatter = ast.children.find((child): child is YAML => child.type === 'yaml');
+			if (frontmatter) {
+				await validateFrontmatter(frontmatter, vFile, settings);
 			}
 		}
 	},
