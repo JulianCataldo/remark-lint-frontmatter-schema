@@ -1,3 +1,10 @@
+## [3.15.3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.15.2...v3.15.3) (2023-09-15)
+
+
+### Bug Fixes
+
+* treat first yaml section as frontmatter, even if it is not the first child ([c09c902](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/c09c9021fc274033824be9728ffdcd3023dd3619))
+
 ## [3.15.2](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.15.1...v3.15.2) (2023-04-12)
 
 
