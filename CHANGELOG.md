@@ -1,3 +1,10 @@
+## [3.15.4](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.15.3...v3.15.4) (2023-10-15)
+
+
+### Bug Fixes
+
+* upgrade deps, fix demo ([9dd9dbb](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/commit/9dd9dbb896fbe7a2c63c7651a8cc3899e0b3ec65))
+
 ## [3.15.3](https://github.com/JulianCataldo/remark-lint-frontmatter-schema/compare/v3.15.2...v3.15.3) (2023-09-15)
 
 
