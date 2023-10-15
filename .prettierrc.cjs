@@ -1,4 +1,4 @@
-/** @type {import("@types/prettier").Options} */
+/** @type {import("prettier").Options} */
 
 module.exports = {
 	/**
@@ -8,4 +8,13 @@ module.exports = {
 	 *
 	 * */
 	...require('webdev-configs/prettier-base.cjs'),
+
+	overrides: [
+		{
+			files: ['*.json', '*.yaml'],
+			options: {
+				useTabs: false,
+			},
+		},
+	],
 };

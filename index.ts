@@ -8,7 +8,7 @@ import path from 'node:path';
 import { existsSync } from 'node:fs';
 import { findUp } from 'find-up';
 // NOTE: minimatch@9 is breaking import.
-import minimatch from 'minimatch';
+import { minimatch } from 'minimatch';
 /* ·········································································· */
 import yaml, { type Document, isNode, LineCounter } from 'yaml';
 import Ajv from 'ajv';
@@ -351,8 +351,8 @@ const remarkFrontmatterSchema = lintRule(
 	async (ast: Root, vFile: VFile, settings: Settings = {}) => {
 		if (ast.children.length) {
 			/* Handle only if the processed Markdown file has a frontmatter section */
-			const frontmatter = ast.children.find((child): child is YAML => child.type === 'yaml');
-			if (frontmatter) {
+			const frontmatter = ast.children.find((child) => child.type === 'yaml');
+			if (frontmatter?.type === 'yaml') {
 				await validateFrontmatter(frontmatter, vFile, settings);
 			}
 		}

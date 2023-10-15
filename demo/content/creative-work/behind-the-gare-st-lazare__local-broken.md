@@ -1,4 +1,5 @@
 ---
+# E.g, with a full relative path
 '$schema': ../creative-work.schema.yaml
 
 # title: Behind the Gare St. Lazare, Paris, 1932

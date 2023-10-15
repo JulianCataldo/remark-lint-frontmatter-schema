@@ -1,5 +1,6 @@
 ---
-'$schema': ../creative-work.schema.yaml
+# E.g, with a path relative to remark config root folder
+'$schema': ./content/creative-work.schema.yaml
 
 title: Guten Nachte
 category: Musical piece
