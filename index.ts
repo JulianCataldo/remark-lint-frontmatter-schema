@@ -259,7 +259,7 @@ async function validateFrontmatter(
               while `eslint-plugin-mdx` gives an absolute path */
 						const vFilePathRel = path.relative(remarkCwd, vFile.path);
 
-						if (minimatch(vFilePathRel, mdPathCleaned)) {
+						if (minimatch(vFilePathRel, mdPathCleaned, {windowsPathsNoEscape: true})) {
 							schemaPathFromCwd = path.join(remarkCwd, globSchemaPath);
 						}
 					}
